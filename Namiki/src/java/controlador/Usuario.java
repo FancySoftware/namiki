@@ -79,8 +79,7 @@ public class Usuario {
         String query = "select idUsuario from usuario where idUsuario = ? and password = ?";
         int resultado = 0;
         Class.forName("com.mysql.jdbc.Driver");
-        con = DriverManager.getConnection("jdbc:mysql://localhost/Namiki?\" +\n" +
-"                                   \"user=&password=");
+        con = DriverManager.getConnection("jdbc:mysql://localhost/Namiki?\" +\n" + "\"user=&password=");
         pstm = con.prepareStatement(query);
         pstm.setInt(1, idUsuario);
         rs = pstm.executeQuery();
