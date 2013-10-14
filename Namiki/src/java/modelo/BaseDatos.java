@@ -17,7 +17,7 @@ public class BaseDatos {
  public void conectar(){
      
  }
- public void query(){
+ public void query(String request){
      
  }
  public void salir(){
