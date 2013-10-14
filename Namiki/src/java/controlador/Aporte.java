@@ -3,7 +3,7 @@
  * and open the template in the editor.
  */
 package controlador;
-import java.sql.*;
+import java.sql.Date;
 import java.util.*;
 /**
  *
@@ -17,9 +17,13 @@ public class Aporte {
     private String contacto;
     private String costo;
     private int elegido;
-    private String fecha;
+    private Date fecha;
     private String solucion;
     
+public Aporte(int idAporte, int idProblema, int idUsuario, String contacto, 
+        String costo, int elegido, String fecha, String solucion) {
+    
+}
     public int getidAporte() {
         return idAporte;
     }
@@ -38,7 +42,7 @@ public class Aporte {
     public int getElegido() {
         return elegido;
     }
-    public String getFecha() {
+    public Date getFecha() {
         return fecha;
     }
     public String getSolucion() {
@@ -63,73 +67,33 @@ public class Aporte {
     public void setElegido(int elegido) {
         this.elegido = elegido;
     }
-    public void setFecha(String fecha) {
+    public void setFecha(Date fecha) {
         this.fecha = fecha;
     }
     public void setSolucion(String solucion) {
         this.solucion = solucion;
     }
     
-  public boolean registrarAporte() throws SQLException,ClassNotFoundException {
-        boolean retorno = false;
-        Connection con = null;
-        PreparedStatement pstm = null;
-        int resultado = 0;
-        Class.forName("com.mysql.jdbc.Driver");
-        con = DriverManager.getConnection("jdbc:mysql://localhost/Namiki?\" +\n" + "\"user=&password=");
-        pstm = con.prepareStatement("insert Into Aporte values(?,?,?,?,?,?,?)");
-        pstm.setInt(1, idProblema);
-        pstm.setInt(2, idUsuario);
-        pstm.setString(3, contacto);
-        pstm.setString(4, costo);
-        pstm.setInt(5, elegido);
-        pstm.setString(6, fecha);
-        pstm.setString(7, solucion);
-        resultado = pstm.executeUpdate();
-        if (resultado == 1)
-            retorno = true;
-        if (con != null)
-            con.close();
-        return retorno;
+  public void registrarAporte(int idAporte, int idProblema, int idUsuario, String contacto, 
+        String costo, int elegido, Date fecha, String solucion) {
+      
+        AporteBD aporte = new AporteBD(idAporte, idProblema, idUsuario, contacto, costo, elegido, fecha, solucion);
+        aporte.guardar(idAporte, idProblema, idUsuario, contacto, costo, elegido, fecha, solucion);
   }
 
-  public boolean editarAporte(int idUsuario, int idProblema) throws SQLException,ClassNotFoundException {
-        boolean retorno = false;
-        Connection con = null;
-        PreparedStatement pstm = null;
-        int resultado = 0;
-        Class.forName("com.mysql.jdbc.Driver");
-        con = DriverManager.getConnection("jdbc:mysql://localhost/Namiki?\" +\n" + "\"user=&password=");
-        pstm = con.prepareStatement("update aporte set idPrblema = ?, contacto = ?, costo = ?, elegido = ?, fecha = ?, solucion = ? where idUsuario = ? and idProblema = ?");
-        pstm.setString(1, contacto);
-        pstm.setString(2, costo);
-        pstm.setInt(3, elegido);
-        pstm.setString(4, solucion);
-        pstm.setInt(5, idUsuario);
-        pstm.setInt(6, idProblema);
-        resultado = pstm.executeUpdate();
-        if (resultado == 1)
-            retorno = true;
-        if (con != null)
-            con.close();
-        return retorno;
+  public void editarAporte(int idAporte, int idProblema, int idUsuario, String contacto, 
+        String costo, int elegido, Date fecha, String solucion) {
+        
+      AporteBD aporte = new AporteBD(idAporte, idProblema, idUsuario, contacto, costo, elegido, fecha, solucion);
+      aporte.getDatos(idAporte);
+      aporte.editar(idAporte, idProblema, idUsuario, contacto, costo, elegido, fecha, solucion);
   }
 
-  public boolean borrarAporte(int idUsuario, int idProblema) throws SQLException,ClassNotFoundException {
-        boolean retorno = false;
-        Connection con = null;
-        PreparedStatement pstm = null;
-        int resultado = 0;
-        Class.forName("com.mysql.jdbc.Driver");
-        con = DriverManager.getConnection("jdbc:mysql://localhost/Namiki?\" +\n" + "\"user=&password=");
-        pstm = con.prepareStatement("delete from Aporte where idUsuario = ? and idProblema = ?");
-        pstm.setInt(1, idUsuario);
-        pstm.setInt(2, idProblema);
-        resultado = pstm.executeUpdate();
-        if (resultado == 1)
-            retorno = true;
-        if (con != null)
-            con.close();
-        return retorno;
+  public void borrarAporte(int idAporte, int idProblema, int idUsuario, String contacto, 
+        String costo, int elegido, Date fecha, String solucion) {
+        
+      AporteBD aporte = new AporteBD(idAporte, idProblema, idUsuario, contacto, costo, elegido, fecha, solucion);
+      aporte.get(idAporte);
+      aporte.eliminar();
   }
 }
