@@ -5,6 +5,7 @@
 package controlador;
 import java.sql.Date;
 import java.util.*;
+import modelo.AporteBD;
 /**
  *
  * @author Jules
@@ -74,26 +75,26 @@ public Aporte(int idAporte, int idProblema, int idUsuario, String contacto,
         this.solucion = solucion;
     }
     
-  public void registrarAporte(int idAporte, int idProblema, int idUsuario, String contacto, 
-        String costo, int elegido, Date fecha, String solucion) {
+  public void registrarAporte(int idAporte, int idUsuario, int idProblema, String solucion, 
+        String costo, Date fecha, String contacto, int elegido) {
       
-        AporteBD aporte = new AporteBD(idAporte, idProblema, idUsuario, contacto, costo, elegido, fecha, solucion);
-        aporte.guardar(idAporte, idProblema, idUsuario, contacto, costo, elegido, fecha, solucion);
+        AporteBD aporte = new AporteBD(idAporte, idUsuario, idProblema, solucion, costo, fecha, contacto, elegido);
+        aporte.guardar(idAporte, idUsuario, idProblema, solucion, costo, fecha, contacto, elegido);
   }
 
   public void editarAporte(int idAporte, int idProblema, int idUsuario, String contacto, 
         String costo, int elegido, Date fecha, String solucion) {
         
-      AporteBD aporte = new AporteBD(idAporte, idProblema, idUsuario, contacto, costo, elegido, fecha, solucion);
+      AporteBD aporte = new AporteBD(idAporte, idUsuario, idProblema, solucion, costo, fecha, contacto, elegido);
       aporte.getDatos(idAporte);
-      aporte.editar(idAporte, idProblema, idUsuario, contacto, costo, elegido, fecha, solucion);
+      aporte.editar(idAporte, idUsuario, idProblema, solucion, costo, fecha, contacto, elegido);
   }
 
   public void borrarAporte(int idAporte, int idProblema, int idUsuario, String contacto, 
         String costo, int elegido, Date fecha, String solucion) {
         
-      AporteBD aporte = new AporteBD(idAporte, idProblema, idUsuario, contacto, costo, elegido, fecha, solucion);
-      aporte.get(idAporte);
-      aporte.eliminar();
+      AporteBD aporte = new AporteBD(idAporte, idUsuario, idProblema, solucion, costo, fecha, contacto, elegido);
+      aporte.getDatos(idAporte);
+      aporte.eliminar(idAporte);
   }
 }
