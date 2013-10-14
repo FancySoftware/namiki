@@ -15,7 +15,19 @@ public class NotificacionBD {
   public int leido;
   public String mensaje;
   public BaseDatos base;
-
+  
+  
+  public NotificacionBD(){
+    this.base = new BaseDatos();
+}
+  
+  public NotificacionBD(int idNotificacion,int idUsuario,int leido,String mensaje){
+      this.idNotificacion = idNotificacion;
+      this.idUsuario = idUsuario;
+      this.leido = leido;
+      this.mensaje = mensaje;
+      this.base = new BaseDatos();
+  }
   public void guardar(int idNotificacion,int idUsuario,int leido,String mensaje) {
       try{
          base.conectar();
