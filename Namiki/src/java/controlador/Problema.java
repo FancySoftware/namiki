@@ -4,8 +4,9 @@
  */
 package controlador;
 
-import java.sql.*;
+import java.sql.Date;
 import java.util.*;
+import modelo.ProblemaBD;
 /**
  *
  * @author Jules 
@@ -56,79 +57,39 @@ public class Problema {
     public void setidUsuario(int idUsuario) {
         this.idUsuario = idUsuario;
     }
-    public void setDescripcion(String Descripcion) {
+    public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
     }
-    public void setFecha(String Fecha) {
+    public void setFecha(String fecha) {
         this.fecha = fecha;
     }
-    public void setTitulo(String Titulo) {
+    public void setTitulo(String titulo) {
         this.titulo = titulo;
     }
-    public void setTopico(String Topico) {
+    public void setTopico(String topico) {
         this.topico = topico;
     }
     
-    public boolean registrarProblema() throws SQLException,ClassNotFoundException {
-        boolean retorno = false;
-        Connection con = null;
-        PreparedStatement pstm = null;
-        int resultado = 0;
-        Class.forName("com.mysql.jdbc.Driver");
-        con = DriverManager.getConnection("jdbc:mysql://localhost/Namiki?\" +\n" + "\"user=&password=");
-        pstm = con.prepareStatement("insert Into Problema values(?,?,?,?,?,?)");
-        pstm.setInt(1, idCategoria);
-        pstm.setInt(2, idUsuario);
-        pstm.setString(3, descripcion);
-        pstm.setString(4, fecha);
-        pstm.setString(5, titulo);
-        pstm.setString(6, topico);
-        resultado = pstm.executeUpdate();
-        if (resultado == 1)
-            retorno = true;
-        if (con != null)
-            con.close();
-        return retorno;
-    }
-    
-    public boolean editarProblema(int idUsuario, int idProblema) throws SQLException,ClassNotFoundException {
-        boolean retorno = false;
-        Connection con = null;
-        PreparedStatement pstm = null;
-        int resultado = 0;
-        Class.forName("com.mysql.jdbc.Driver");
-        con = DriverManager.getConnection("jdbc:mysql://localhost/Namiki?\" +\n" + "\"user=&password=");
-        pstm = con.prepareStatement("update problema set idCategoria = ?, descripcion = ?, titulo = ?, topico = ? where idUsuario = ? and idProblema = ?");
-        pstm.setInt(1, idCategoria);
-        pstm.setString(2, descripcion);
-        pstm.setString(3, titulo);
-        pstm.setString(4, topico);
-        pstm.setInt(5, idUsuario);
-        pstm.setInt(6, idProblema);
-        resultado = pstm.executeUpdate();
-        if (resultado == 1)
-            retorno = true;
-        if (con != null)
-            con.close();
-        return retorno;
-    }
-    
-    public boolean borrarProblema(int idUsuario, int idProblema) throws SQLException,ClassNotFoundException {
-        boolean retorno = false;
-        Connection con = null;
-        PreparedStatement pstm = null;
-        int resultado = 0;
-        Class.forName("com.mysql.jdbc.Driver");
-        con = DriverManager.getConnection("jdbc:mysql://localhost/Namiki?\" +\n" + "\"user=&password=");
-        pstm = con.prepareStatement("delete from Problema where idUsuario = ? and idProblema = ?");
-        pstm.setInt(1, idUsuario);
-        pstm.setInt(2, idProblema);
-        resultado = pstm.executeUpdate();
-        if (resultado == 1)
-            retorno = true;
-        if (con != null)
-            con.close();
-        return retorno;
+    public void registrarProblema(int idProblema, int idCategoria, int idUsuario, String descripcion, 
+        String titulo, Date fecha, String topico) {
+      
+        ProblemaBD problema = new ProblemaBD(idProblema, idCategoria, idUsuario, descripcion, fecha, titulo, topico);
+        problema.guardar(idProblema, idCategoria, idUsuario, descripcion, fecha, titulo, topico);
+  }
+
+  public void editarProblema(int idProblema, int idCategoria, int idUsuario, String descripcion, 
+        String titulo, Date fecha, String topico) {
         
-    }   
+      ProblemaBD problema = new ProblemaBD(idProblema, idCategoria, idUsuario, descripcion, fecha, titulo, topico);
+      problema.getDatos(idProblema);
+      problema.editar(idProblema, idCategoria, idUsuario, descripcion, fecha, titulo, topico);
+  }
+
+  public void borrarProblema(int idProblema, int idCategoria, int idUsuario, String descripcion, 
+        String titulo, Date fecha, String topico) {
+        
+      ProblemaBD problema = new ProblemaBD(idProblema, idCategoria, idUsuario, descripcion, fecha, titulo, topico);
+      problema.getDatos(idProblema);
+      problema.eliminar(idProblema);
+  }
 }
