@@ -32,7 +32,7 @@ public class BaseDatos {
     try {
         Class.forName("com.mysql.jdbc.Driver");
     } catch (ClassNotFoundException e) {
-        System.out.println("Where is your MySQL JDBC Driver?");
+        System.out.println("Onta el JDBC Driver?");
         return;
     }
     try {
@@ -40,13 +40,13 @@ public class BaseDatos {
         .getConnection("jdbc:mysql://" + url + "/" + nombreBD, usuario, password);
 
     } catch (SQLException e) {
-        System.out.println("Connection Failed! Check output console");
+        System.out.println("Falló la conexión");
         return;
     }
     if (conexion != null) {
-        System.out.println("You made it, take control your database now!");
+        System.out.println("Todo en orden");
     } else {
-        System.out.println("Failed to make connection!");
+        System.out.println("Se murió");
     }
  }
  public void query(String request){
