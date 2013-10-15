@@ -35,17 +35,16 @@ public class UsuarioBD {
       this.base = new BaseDatos();
   }
   
-  public void guardar(int idUsuario, String nombre, String telefono,String usuario,
+  public void guardar(int idUsuario, String nombre, int categoria,String telefono,String usuario,
           String correo,Date fechaNacimiento, String password) {
       try{
           base.conectar();
-          String nuevo = "INSER INTO usario VALUES("+idUsuario+","+nombre+","
+          String nuevo = "INSER INTO usario VALUES("+idUsuario+","+nombre+","+categoria+","
                   +telefono+","+usuario+","+correo+","+fechaNacimiento+","+password+")";
           base.query(nuevo);
       }catch(Exception e){
       }
   }
-
   public void eliminar(int idUsuario) {
       try{
           base.conectar();
@@ -63,5 +62,4 @@ public class UsuarioBD {
        }catch(Exception error){
        } 
   }
- 
 }
