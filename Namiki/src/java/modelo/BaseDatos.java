@@ -3,6 +3,7 @@ package modelo;
 import java.sql.DriverManager;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.sql.Statement;
 
 /**
  *
@@ -13,6 +14,7 @@ public class BaseDatos {
     private String password;
     private String nombreBD;
     private Connection conexion;
+    private Statement declaracion;
     private String url;
  
     private final String USUARIO = "namiki";
@@ -26,6 +28,7 @@ public class BaseDatos {
      nombreBD = NOMBREBD;
      url = URL;
      conexion = null;
+     declaracion = null;
  }
  
  public void conectar(){
@@ -44,12 +47,23 @@ public class BaseDatos {
         return;
     }
     if (conexion != null) {
+        try {
+            declaracion = conexion.createStatement();
+        } catch (SQLException e) {
+            System.out.println("Falló la conexión");
+            return;
+        }
         System.out.println("Todo en orden");
     } else {
         System.out.println("Se murió");
     }
  }
  public void query(String request){
+     try {
+        declaracion.executeQuery(request);
+    } catch (SQLException e) {
+        System.out.println("Falló la conexión");
+    }
      
  }
  public void salir(){
