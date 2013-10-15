@@ -4,8 +4,12 @@
  */
 package controlador;
 
-import java.sql.*;
+import java.sql.Date;
 import java.util.*;
+import modelo.UsuarioBD;
+import modelo.AporteBD;
+import modelo.ProblemaBD;
+import modelo.BaseDatos;
 /**
  *
  * @author Jules 
@@ -17,9 +21,14 @@ public class Usuario {
   private int categoria;
   private String telefono;
   private String correo;
-  private String fecha;
+  private Date fechaNacimiento;
   private String usuario;
   private String password;
+  
+  public Usuario(int idUsuario, String nombre, int categoria, String telefono, 
+          String usuario, String correo, Date fechaNacimiento, String password) {
+      
+  }
   
      public int getidUsuario() {
         return idUsuario;
@@ -33,8 +42,8 @@ public class Usuario {
      public String getTelefono() {
         return telefono;
      }
-     public String getFecha() {
-        return fecha;
+     public Date getFecha() {
+        return fechaNacimiento;
      }
      public String getUsuario() {
         return usuario;
@@ -55,8 +64,8 @@ public class Usuario {
      public void setDTelefono(String telefono) {
         this.telefono = telefono;
      }
-     public void setFecha(String fecha) {
-        this.fecha = fecha;
+     public void setFecha(Date fechaNacimiento) {
+        this.fechaNacimiento = fechaNacimiento;
      }
      public void setUsuario(String usuario) {
         this.usuario = usuario;
@@ -65,57 +74,30 @@ public class Usuario {
          this.password = password;
      }
 
-     public void getProblemas() {
-     }
+    public void getProblemas(int idProblema) {
+         ProblemaBD problema = new ProblemaBD(idProblema, idCategoria, idUsuario, descripcion, titulo, fecha, topico);
+         problema.getDatos(idProblema); //Revisar
+    }
 
-     public void getAportes() {
-     }
+    public void getAportes(int idAporte) {
+         AporteBD aporte = new AporteBD(idAporte, idUsuario, idProblema, solucion, costo, fecha, contacto, elegido);
+         aporte.getDatos(idAporte); //Revisar
+    }
 
-     public String entrarSistema() throws SQLException,ClassNotFoundException {
-        String retorno = "Datos Incorrectos";
-        Connection con = null;
-        PreparedStatement pstm = null;
-        ResultSet rs = null;
-        String query = "select idUsuario from usuario where idUsuario = ? and password = ?";
-        int resultado = 0;
-        Class.forName("com.mysql.jdbc.Driver");
-        con = DriverManager.getConnection("jdbc:mysql://localhost/Namiki?\" +\n" + "\"user=&password=");
-        pstm = con.prepareStatement(query);
-        pstm.setInt(1, idUsuario);
-        rs = pstm.executeQuery();
-        if (rs.next())
-            retorno = "Datos Correctos";
-        else
-            retorno = "Datos Incorrectos";
-            con.close();
-        return retorno;
+    public void entrarSistema(String nom_usuario, String password) {
+         
     }
 
     public void cerrarSistema() {
-        
+        UsuarioBD usuario1 = new UsuarioBD();
+        usuario1.salir();
     }
 
-    public boolean registrarUsuario() throws SQLException,ClassNotFoundException {
-        boolean retorno = false;
-        Connection con = null;
-        PreparedStatement pstm = null;
-        int resultado = 0;
-        Class.forName("com.mysql.jdbc.Driver");
-        con = DriverManager.getConnection("jdbc:mysql://localhost/Namiki?\" +\n" + "\"user=&password=");
-        pstm = con.prepareStatement("insert Into Usuario values(?,?,?,?,?,?)");
-        pstm.setString(1, nombre);
-        pstm.setInt(2, categoria);
-        pstm.setString(3, telefono);
-        pstm.setString(4, correo);
-        pstm.setString(5, fecha);
-        pstm.setString(6, usuario);
-        pstm.setString(7, password);
-        resultado = pstm.executeUpdate();
-        if (resultado == 1)
-            retorno = true;
-        if (con != null)
-            con.close();
-        return retorno;
+    public void registrarUsuario(int idUsuario, String nombre, int categoria, String telefono, String usuario,
+          String correo, Date fechaNacimiento, String password) {
+        
+         UsuarioBD usuario1 = new UsuarioBD(idUsuario, nombre, categoria, telefono, usuario, correo, fechaNacimiento, password);
+         usuario1.guardar(idUsuario, nombre, categoria, telefono, usuario, correo, fechaNacimiento, password);
     }
 
 }
