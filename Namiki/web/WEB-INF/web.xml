@@ -4,9 +4,25 @@
         <servlet-name>Problema_</servlet-name>
         <servlet-class>controlador.Problema</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>Aporte_</servlet-name>
+        <servlet-class>controlador.Aporte</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>Usuario_</servlet-name>
+        <servlet-class>controlador.Usuario_</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Problema_</servlet-name>
         <url-pattern>/Problema_</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Aporte_</servlet-name>
+        <url-pattern>/Aporte_</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Usuario_</servlet-name>
+        <url-pattern>/Usuario_</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
