@@ -17,7 +17,7 @@ import modelo.ProblemaBD;
  *
  * @author Edd
  */
-public class Problema_ extends HttpServlet {
+public class Problema extends HttpServlet {
     
     private int idProblema;
     private int idCategoria;
@@ -27,7 +27,7 @@ public class Problema_ extends HttpServlet {
     private String titulo;
     private String topico;
     
-    public Problema_(int idProblema, int idCategoria, int idUsuario,
+    public Problema(int idProblema, int idCategoria, int idUsuario,
                 String fecha, String titulo, String topico) {
 
         }
