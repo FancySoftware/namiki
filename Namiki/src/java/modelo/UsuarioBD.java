@@ -62,4 +62,7 @@ public class UsuarioBD {
        }catch(Exception error){
        } 
   }
+  public void salir() {
+  
+  }
 }

@@ -1,7 +1,6 @@
 package controlador;
 
 import java.sql.Date;
-import java.util.*;
 import modelo.ProblemaBD;
 /**
  *

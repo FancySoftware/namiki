@@ -6,6 +6,7 @@ import java.sql.Date;
  * @author Administrador
  */
 public class ProblemaBD {
+    
     private int idProblema;
     private int idCategoria;
     private int idUsuario;
@@ -16,6 +17,9 @@ public class ProblemaBD {
     public BaseDatos base;
  
    
+    /**
+     * Constructor por default
+     */
    public ProblemaBD() {
        this.base = new BaseDatos();
    }
@@ -32,47 +36,42 @@ public class ProblemaBD {
        this.base = new BaseDatos();
    }
    
-   public void guardar(int idProblema,int idCategoria, int idUsuario, 
+    public void guardar(int idProblema,int idCategoria, int idUsuario, 
            String descripcion,Date fecha,String titulo, String topico){
-       try{
-           base.conectar();
-           String usuario = "INSERT INTO aporte VALUES("+idProblema+","
-                                    +idCategoria+","+idUsuario+","+descripcion+","
-                                    +fecha+","+titulo+","+topico+")";
-           base.query(usuario);
-       }catch(Exception error){     
+        base.conectar();
+        String usuario = "INSERT INTO problema VALUES("+idProblema+","
+                                +idCategoria+","+idUsuario+","+descripcion+","
+                                +fecha+","+titulo+","+topico+")";
+        base.query(usuario);
     }
-   }
-   public void eliminar(int idProblema){
-       try{
-           base.conectar();
-           String eliminar = "DELETE FROM aporte where idaporte ="+idProblema;
-           base.query(eliminar);
-       }catch(Exception error){
-           
-       }
-   }
+    
+    /**
+     * 
+     * @param idProblema Int
+     */
+    public void eliminar(int idProblema){
+        base.conectar();
+        String eliminar = "DELETE FROM problema WHERE idproblema = "+idProblema;
+        base.query(eliminar);
+    }
 
-   public void getDatos(int idProblema){
-       try{
-           base.conectar();
-           String consulta = "SELECT * FROM aporte where idaporte =" +idProblema;
-           base.query(consulta);
-       }catch(Exception error){
-       } 
-   }
+    /**
+     * 
+     * @param idProblema Int
+     */
+    public void getDatos(int idProblema){
+        base.conectar();
+        String consulta = "SELECT * FROM problema WHERE idproblema = " +idProblema;
+        base.query(consulta); 
+    }
    
-   public void editar(int idProblema,int idCategoria, int idUsuario, 
-           String descripcion,Date fecha,String titulo, String topico){
-       try{
-           base.conectar();
-           String update = "UPDATE usuario SET descripcion "+descripcion+"WHERE idproblema = " +idProblema
-                   + " and idusuario = "+idUsuario+ " and idcategoria = " +idCategoria 
-                   + " and descripcion = "+descripcion+ " and fecha = " 
-                   +fecha+ " and titulo = "+titulo+ "and topico = " +topico;
-           base.query(update);
-       }catch(Exception error){
-       }
-   }
-   
+    public void editar(int idProblema,int idCategoria, int idUsuario, 
+            String descripcion,Date fecha,String titulo, String topico){
+        base.conectar();
+        String update = "UPDATE problema SET descripcion "+descripcion+"WHERE idproblema = " +idProblema
+                + " and idusuario = "+idUsuario+ " and idcategoria = " +idCategoria 
+                + " and descripcion = "+descripcion+ " and fecha = " 
+                +fecha+ " and titulo = "+titulo+ "and topico = " +topico;
+        base.query(update);
+    }
 }

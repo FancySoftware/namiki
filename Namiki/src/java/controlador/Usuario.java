@@ -74,14 +74,14 @@ public class Usuario {
          this.password = password;
      }
 
-    public void getProblemas(int idProblema) {
-         ProblemaBD problema = new ProblemaBD(idProblema, idCategoria, idUsuario, descripcion, titulo, fecha, topico);
-         problema.getDatos(idProblema); //Revisar
+    public void getProblemas(int idUsuario) {
+         ProblemaBD problema = new ProblemaBD();
+         problema.getDatos(idUsuario); //Revisar
     }
 
-    public void getAportes(int idAporte) {
-         AporteBD aporte = new AporteBD(idAporte, idUsuario, idProblema, solucion, costo, fecha, contacto, elegido);
-         aporte.getDatos(idAporte); //Revisar
+    public void getAportes(int idUsuario) {
+         AporteBD aporte = new AporteBD();
+         aporte.getDatos(idUsuario); //Revisar
     }
 
     public void entrarSistema(String nom_usuario, String password) {
