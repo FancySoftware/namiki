@@ -98,7 +98,7 @@ public class Usuario extends HttpServlet {
         usuario1.salir();
     }
 
-    public void registrarUsuario(int idUsuario, String nombre, int categoria, String telefono, String usuario,
+    public void registrarUsuario(String nombre, int categoria, String telefono, String usuario,
           String correo, Date fechaNacimiento, String password) {
         
          UsuarioBD usuario1 = new UsuarioBD(idUsuario, nombre, categoria, telefono, usuario, correo, fechaNacimiento, password);
@@ -133,7 +133,10 @@ public class Usuario extends HttpServlet {
                     String correo = request.getParameter("correo");
                     String telefono = request.getParameter("telefono");
                     int categoria = Integer.parseInt(request.getParameter("categoria"));
-                    
+                    if(usuario != null && nombre != null && password != null
+                            && correo != null && telefono != null && categoria > 0) {
+                        
+                    }
                     break;
                 case 2:
                     break;

@@ -86,6 +86,7 @@ public class Problema extends HttpServlet {
   public void registrarProblema(int idCategoria, int idUsuario, String descripcion, 
         String titulo, Date fecha, String topico) {
         ProblemaBD problema = new ProblemaBD();
+        System.out.println("new ProblemaBD ...");
         problema.guardar(idCategoria, idUsuario, descripcion, obtenerFecha(), titulo, topico);
   }
   
@@ -140,11 +141,12 @@ public class Problema extends HttpServlet {
             String topico = request.getParameter("topico");
             String categoria = request.getParameter("categoria" );
             String descripcion = request.getParameter("descripcion");
-            
+            String answer = "";
             if (titulo!= null && topico!=null && categoria!=null && descripcion!=null){
                 registrarProblema(1,1000,descripcion,titulo, obtenerFecha(),topico);
+                answer = "Success";
             } else {
-                out.println("ERROR AL GUARDAR");
+                answer = "ERROR AL GUARDAR";
             }
          //   registrarProblema();
             /* TODO output your page here. You may use following sample code. */
@@ -155,7 +157,7 @@ public class Problema extends HttpServlet {
             out.println("</head>");
             out.println("<body>");
             out.println("<h1>Servlet Problema_ at " + request.getContextPath() + "</h1>");
-            out.println("Guando problemas");
+            out.println("<p>"+answer+"</p>");
             out.println("</body>");
             out.println("</html>");
         } finally {            
