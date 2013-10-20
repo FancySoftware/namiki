@@ -21,7 +21,7 @@ import modelo.UsuarioBD;
  */
 public class Usuario extends HttpServlet {
     
-    private int idUsuario;
+  private int idUsuario;
   private String nombre;
   private int categoria;
   private String telefono;
@@ -120,13 +120,22 @@ public class Usuario extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
         try {
+            String usuario = request.getParameter("usuario");
+            String password = request.getParameter("password");
+            String answer;
+            if(usuario == null || password == null) {
+                answer = "Usuario o contraseña invalidos";
+            } else {
+                answer = "usuario= " + usuario + ";password= "+password;
+            }
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
             out.println("<title>Servlet NewServlet</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Success at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Response at " + request.getContextPath() + "</h1>");
+            out.println("<p>"+answer+"</p>");
             out.println("</body>");
             out.println("</html>");
         } finally {            
