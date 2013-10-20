@@ -65,8 +65,8 @@
         <input type="text" class="form-control" placeholder="Título del Poblema(Solución)" name="titulo">
         <input type="text" class="form-control" placeholder="Tópico" name="topico"> 
         <select class="form-control" name="categoria">
-            <option value="">Actuaría</option>
-            <option value="">Biología</option>
+            <option value="actuaria">Actuaría</option>
+            <option value="biologia">Biología</option>
         </select>
         <textarea class="form-control" placeholder="Descripción" name="descripcion"></textarea>
         <button class="btn btn-lg btn-primary btn-block" type="submit" style="width: 50%; float: right; margin-top: 20px;">Registrar</button>
