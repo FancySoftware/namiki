@@ -17,7 +17,7 @@ import modelo.UsuarioBD;
 
 /**
  *
- * @author Edd
+ * @author Jules
  */
 public class Usuario extends HttpServlet {
     
