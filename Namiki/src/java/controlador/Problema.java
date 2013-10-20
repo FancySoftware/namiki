@@ -140,24 +140,29 @@ public class Problema extends HttpServlet {
             String topico = request.getParameter("topico");
             String categoria = request.getParameter("categoria" );
             String descripcion = request.getParameter("descripcion");
-            
-            if (titulo!= null && topico!=null && categoria!=null && descripcion!=null){
+            if(titulo.length() ==0 && topico.length() ==0 && descripcion.length() ==0 ){
+            out.println("ERROR EN LOS DATOS");
+            } else if(titulo.length() == 0) {
+                out.println("ERROR TITULO VACIO");
+            } else if(descripcion.length() == 0){
+                out.println("ERROR DESCRIPCION VACIA");
+            } else{
+                out.println("Datos " + titulo + topico + categoria + descripcion);
                 registrarProblema(1,1000,descripcion,titulo, obtenerFecha(),topico);
-            } else {
-                out.println("ERROR AL GUARDAR");
             }
-         //   registrarProblema();
+     
             /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet Problema_</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet Problema_ at " + request.getContextPath() + "</h1>");
-            out.println("Guando problemas");
-            out.println("</body>");
-            out.println("</html>");
+            //out.println("<!DOCTYPE html>");
+          //  out.println("<html>");
+            //out.println("<head>");
+            //out.println("<title>Servlet Problema_</title>");            
+            //out.println("</head>");
+            //out.println("<body>");
+            //out.println("<h1>Servlet Problema_ at " + request.getContextPath() + "</h1>");
+            out.println("\n Guardando problemas");
+            
+            //out.println("</body>");
+           // out.println("</html>");
         } finally {            
             out.close();
         }

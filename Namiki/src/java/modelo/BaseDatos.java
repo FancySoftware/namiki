@@ -31,7 +31,7 @@ public class BaseDatos {
      declaracion = null;
  }
  
- public void conectar(){
+ public void conectar() {
     try {
         Class.forName("com.mysql.jdbc.Driver");
     } catch (ClassNotFoundException e) {
