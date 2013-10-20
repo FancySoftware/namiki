@@ -60,7 +60,7 @@
         </div><!--/.nav-collapse -->
       </div>
 
-      <form class="" style="max-width: 500px; margin: 0px auto;" action="Problema">
+      <form class="" style="max-width: 500px; margin: 0px auto;" action="Problema" method="POST">
         <h2 class="form-heading">Registra tu Problema(Solución)</h2>
         <input type="text" class="form-control" placeholder="Título del Poblema(Solución)" name="titulo">
         <input type="text" class="form-control" placeholder="Tópico" name="topico"> 
