@@ -36,13 +36,15 @@ public class ProblemaBD {
        this.base = new BaseDatos();
    }
    
-    public void guardar(int idProblema,int idCategoria, int idUsuario, 
-           String descripcion,Date fecha,String titulo, String topico){
+    public void guardar(int idCategoria, int idUsuario, 
+                String descripcion,Date fecha,String titulo, String topico){
         base.conectar();
-        String usuario = "INSERT INTO problema VALUES("+idProblema+","
+        String problema= "INSERT INTO problema VALUES("+idProblema+","
                                 +idCategoria+","+idUsuario+","+descripcion+","
                                 +fecha+","+titulo+","+topico+")";
-        base.query(usuario);
+        System.out.println(problema);
+        System.out.println("Guandando datos");
+        base.query(problema);
     }
     
     /**

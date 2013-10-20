@@ -6,7 +6,8 @@ package controlador;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.Date;
+import java.util.Calendar;
+import java.util.Date;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -23,15 +24,11 @@ public class Problema extends HttpServlet {
     private int idCategoria;
     private int idUsuario;
     private String descripcion;
-    private String fecha;
+    private Date fecha;
     private String titulo;
     private String topico;
     
-    public Problema(int idProblema, int idCategoria, int idUsuario,
-                String fecha, String titulo, String topico) {
-
-        }
-    
+     
     public int getidProblema() {
         return idProblema;
     }
@@ -44,7 +41,7 @@ public class Problema extends HttpServlet {
     public String getDescripcion() {
         return descripcion;
     }
-    public String getFecha() {
+    public Date getFecha() {
         return fecha;
     }
     public String getTitulo() {
@@ -66,7 +63,7 @@ public class Problema extends HttpServlet {
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
     }
-    public void setFecha(String fecha) {
+    public void setFecha(Date fecha) {
         this.fecha = fecha;
     }
     public void setTitulo(String titulo) {
@@ -86,25 +83,40 @@ public class Problema extends HttpServlet {
      * @param fecha
      * @param topico 
      */
-  public void registrarProblema(int idProblema, int idCategoria, int idUsuario, String descripcion, 
+  public void registrarProblema(int idCategoria, int idUsuario, String descripcion, 
         String titulo, Date fecha, String topico) {
-      
-        ProblemaBD problema = new ProblemaBD(idProblema, idCategoria, idUsuario, descripcion, fecha, titulo, topico);
-        problema.guardar(idProblema, idCategoria, idUsuario, descripcion, fecha, titulo, topico);
+        ProblemaBD problema = new ProblemaBD();
+        problema.guardar(idCategoria, idUsuario, descripcion, obtenerFecha(), titulo, topico);
   }
+  
+ /*
+  * Metodo auxiliar para obtener un tipo de la clase sql.Date y pasarlo a la base.
+  */
+  private java.sql.Date obtenerFecha(){
+    java.util.Calendar cal = Calendar.getInstance();
+    java.util.Date utilDate = new java.util.Date(); // your util date
+    cal.setTime(utilDate);
+    cal.set(Calendar.HOUR_OF_DAY, 0);
+    cal.set(Calendar.MINUTE, 0);
+    cal.set(Calendar.SECOND, 0);
+    cal.set(Calendar.MILLISECOND, 0);    
+    java.sql.Date sqlDate = new java.sql.Date(cal.getTime().getTime()); // your sql date
+    return sqlDate;
+  }
+  
   
   public void editarProblema(int idProblema, int idCategoria, int idUsuario, String descripcion, 
         String titulo, Date fecha, String topico) {
         
-      ProblemaBD problema = new ProblemaBD(idProblema, idCategoria, idUsuario, descripcion, fecha, titulo, topico);
+      ProblemaBD problema = new ProblemaBD();
       problema.getDatos(idProblema);
-      problema.editar(idProblema, idCategoria, idUsuario, descripcion, fecha, titulo, topico);
+      problema.editar(idProblema, idCategoria, idUsuario, descripcion, obtenerFecha(), titulo, topico);
   }
 
   public void borrarProblema(int idProblema, int idCategoria, int idUsuario, String descripcion, 
         String titulo, Date fecha, String topico) {
         
-      ProblemaBD problema = new ProblemaBD(idProblema, idCategoria, idUsuario, descripcion, fecha, titulo, topico);
+      ProblemaBD problema = new ProblemaBD(idProblema, idCategoria, idUsuario, descripcion, obtenerFecha(), titulo, topico);
       problema.getDatos(idProblema);
       problema.eliminar(idProblema);
   }
@@ -124,6 +136,17 @@ public class Problema extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
         try {
+            String titulo = request.getParameter("titulo");
+            String topico = request.getParameter("topico");
+            String categoria = request.getParameter("categoria" );
+            String descripcion = request.getParameter("descripcion");
+            
+            if (titulo!= null && topico!=null && categoria!=null && descripcion!=null){
+                registrarProblema(1,1000,descripcion,titulo, obtenerFecha(),topico);
+            } else {
+                out.println("ERROR AL GUARDAR");
+            }
+         //   registrarProblema();
             /* TODO output your page here. You may use following sample code. */
             out.println("<!DOCTYPE html>");
             out.println("<html>");
@@ -132,6 +155,7 @@ public class Problema extends HttpServlet {
             out.println("</head>");
             out.println("<body>");
             out.println("<h1>Servlet Problema_ at " + request.getContextPath() + "</h1>");
+            out.println("Guando problemas");
             out.println("</body>");
             out.println("</html>");
         } finally {            
