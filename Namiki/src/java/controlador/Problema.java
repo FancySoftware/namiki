@@ -16,7 +16,7 @@ import modelo.ProblemaBD;
 
 /**
  *
- * @author Edd
+ * @author Jules
  */
 public class Problema extends HttpServlet {
     
@@ -86,6 +86,7 @@ public class Problema extends HttpServlet {
   public void registrarProblema(int idCategoria, int idUsuario, String descripcion, 
         String titulo, Date fecha, String topico) {
         ProblemaBD problema = new ProblemaBD();
+        System.out.println("new ProblemaBD ...");
         problema.guardar(idCategoria, idUsuario, descripcion, obtenerFecha(), titulo, topico);
   }
   
@@ -148,9 +149,10 @@ public class Problema extends HttpServlet {
                 out.println("ERROR DESCRIPCION VACIA");
             } else{
                 out.println("Datos " + titulo + topico + categoria + descripcion);
+
                 registrarProblema(1,1000,descripcion,titulo, obtenerFecha(),topico);
+
             }
-     
             /* TODO output your page here. You may use following sample code. */
             //out.println("<!DOCTYPE html>");
           //  out.println("<html>");
@@ -163,6 +165,7 @@ public class Problema extends HttpServlet {
             
             //out.println("</body>");
            // out.println("</html>");
+            
         } finally {            
             out.close();
         }
