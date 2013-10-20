@@ -1,28 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
     <servlet>
-        <servlet-name>Problema_</servlet-name>
+        <servlet-name>Problema</servlet-name>
         <servlet-class>controlador.Problema</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>Aporte_</servlet-name>
+        <servlet-name>Aporte</servlet-name>
         <servlet-class>controlador.Aporte</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>Usuario_</servlet-name>
-        <servlet-class>controlador.Usuario_</servlet-class>
+        <servlet-name>Usuario</servlet-name>
+        <servlet-class>controlador.Usuario</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>NewServlet</servlet-name>
+        <servlet-class>controlador.NewServlet</servlet-class>
     </servlet>
     <servlet-mapping>
-        <servlet-name>Problema_</servlet-name>
-        <url-pattern>/Problema_</url-pattern>
+        <servlet-name>Problema</servlet-name>
+        <url-pattern>/Problema</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>Aporte_</servlet-name>
-        <url-pattern>/Aporte_</url-pattern>
+        <servlet-name>Aporte</servlet-name>
+        <url-pattern>/Aporte</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>Usuario_</servlet-name>
-        <url-pattern>/Usuario_</url-pattern>
+        <servlet-name>Usuario</servlet-name>
+        <url-pattern>/Usuario</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>NewServlet</servlet-name>
+        <url-pattern>/NewServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

@@ -62,7 +62,7 @@
               </ul>
             </li>
           </ul>
-          <form class="navbar-form navbar-right" action="Usuario">
+            <form class="navbar-form navbar-right" action="Usuario" method="POST">
             <div class="form-group">
               <input type="text" placeholder="Nombre de Usuario" class="form-control" name="usuario">
             </div>
