@@ -120,6 +120,26 @@ public class Usuario extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
         try {
+            int caso = Integer.parseInt(request.getParameter("form_sumbitted"));
+            /*
+             * 1 - Registro
+             * 2 - Inicio Sesión
+             */
+            switch(caso) {
+                case 1:
+                    String usuario = request.getParameter("usuario");
+                    String nombre = request.getParameter("nombre");
+                    String password = request.getParameter("password");
+                    String correo = request.getParameter("correo");
+                    String telefono = request.getParameter("telefono");
+                    int categoria = Integer.parseInt(request.getParameter("categoria"));
+                    
+                    break;
+                case 2:
+                    break;
+                default:
+                    break;
+            }
             String usuario = request.getParameter("usuario");
             String password = request.getParameter("password");
             String answer;
