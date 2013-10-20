@@ -61,6 +61,7 @@ public class BaseDatos {
  public void query(String request){
      try {
         declaracion.executeQuery(request);
+        System.out.println("Operacion exitosa");
     } catch (SQLException e) {
         System.out.println("Falló la conexión");
     }

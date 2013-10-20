@@ -1,9 +1,9 @@
 <%-- 
-    Document   : registro
-    Created on : 20/10/2013, 03:23:56 PM
+    Document   : registro_usuario
+    Created on : 20/10/2013, 03:59:26 PM
     Author     : Edd
 --%>
- 
+
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="es">
@@ -18,12 +18,6 @@
 
     <!-- Custom styles for this template -->
     <link href="css/signin.css" rel="stylesheet">
-
-    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!--[if lt IE 9]>
-      <script src="../../assets/js/html5shiv.js"></script>
-      <script src="../../assets/js/respond.min.js"></script>
-    <![endif]-->
   </head>
 
   <body>
@@ -60,15 +54,23 @@
         </div><!--/.nav-collapse -->
       </div>
 
-      <form class="" style="max-width: 500px; margin: 0px auto;" action="Problema" method="POST">
-        <h2 class="form-heading">Registra tu Problema(Solución)</h2>
-        <input type="text" class="form-control" placeholder="Título del Poblema(Solución)" name="titulo">
-        <input type="text" class="form-control" placeholder="Tópico" name="topico"> 
+      <form class="" style="max-width: 500px; margin: 0px auto;" action="Usuario" method="POST">
+        <h2 class="form-heading">Registrate!</h2>
+        <input type="hidden" name="form_sumbitted" value="registro">
+        <input type="text" class="form-control" placeholder="nombre de usuario" name="usuario">
+        <input type="password" class="form-control" placeholder="password" name="password">
+        <input type="password" class="form-control" plaholder="password again!" name="pass2">
+        <input type="text" class="form-control" placeholder="email" name="correo">
+        <input type="text" class="form-control" placeholder="nombre" name="nombre">
+        <input type="text" class="form-control" placeholder="telefono" name="telefono">
         <select class="form-control" name="categoria">
-            <option value="actuaria">Actuaría</option>
-            <option value="biologia">Biología</option>
+            <option value=""></option>
+            <option value="1">Actuaría</option>
+            <option value="2">Biología</option>
+            <option value="3">Computación</option>
+            <option value="4">Fisica</option>
+            <option value="5">Matemáticas</option>
         </select>
-        <textarea class="form-control" placeholder="Descripción" name="descripcion"></textarea>
         <button class="btn btn-lg btn-primary btn-block" type="submit" style="width: 50%; float: right; margin-top: 20px;">Registrar</button>
       </form>
 
@@ -80,4 +82,3 @@
     <!-- Placed at the end of the document so the pages load faster -->
   </body>
 </html>
-
