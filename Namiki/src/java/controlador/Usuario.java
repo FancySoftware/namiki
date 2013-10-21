@@ -11,6 +11,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import modelo.AporteBD;
 import modelo.ProblemaBD;
 import modelo.UsuarioBD;
@@ -72,30 +73,46 @@ public class Usuario extends HttpServlet {
              */
             switch(caso) {
                 case 1:
-                    String usuario = request.getParameter("usuario");
+                    String usuario_registro = request.getParameter("usuario");
                     String nombre = request.getParameter("nombre");
-                    String password = request.getParameter("password");
+                    String password_registro = request.getParameter("password");
                     String correo = request.getParameter("correo");
                     String telefono = request.getParameter("telefono");
                     int categoria = Integer.parseInt(request.getParameter("categoria"));
-                    if(usuario != null && nombre != null && password != null
-                            && correo != null && telefono != null && categoria > 0) {
+                    if(usuario_registro != null && nombre != null && password_registro != null
+                            && correo != null && telefono != null && categoria > -1 && categoria < 6) {
                         java.sql.Date fecha = new java.sql.Date(new java.util.Date().getTime());
-                        registrarUsuario(usuario, password, categoria, nombre, telefono, correo, fecha);
+                        registrarUsuario(usuario_registro, password_registro, categoria, nombre, telefono, correo, fecha);
+                        HttpSession session = request.getSession();
+                        session.setAttribute("username", usuario_registro);
+                        session.setAttribute("type", new Integer(categoria));
                         answer = "Success";
                     } else {
                         answer = "Failure";
                     }
                     break;
                 case 2:
-//                    String usuario = request.getParameter("usuario");
-//                    String password = request.getParameter("password");
-//                    String answer;
-//                    if(usuario == null || password == null) {
-//                        answer = "Usuario o contraseña invalidos";
-//                    } else {
-//                        answer = "usuario= " + usuario + ";password= "+password;
-//                    }
+                    String usuario = request.getParameter("usuario");
+                    String password = request.getParameter("password");
+                    if(usuario == null || password == null) {
+                        answer = "Usuario o contraseña invalidos";
+                    } else {
+                        UsuarioBD usuariobd = new UsuarioBD();
+                        String[] datos = usuariobd.getDatos(usuario);
+                        if(datos == null) {
+                            answer = "El usuario no existe";
+                        } else {
+                            if(!password.equalsIgnoreCase(datos[2])) {
+                                answer = "Contraseña invalida";
+                            } else {
+                                answer = "usuario= " + usuario + ";password= "+password+";categoria= "+datos[3];
+                                System.err.println(answer);
+                                HttpSession session = request.getSession();
+                                session.setAttribute("username", usuario);
+                                session.setAttribute("type", datos[3]);
+                            }
+                        }
+                    }
                     break;
                 default:
                     break;

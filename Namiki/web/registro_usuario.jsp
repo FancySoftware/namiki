@@ -64,7 +64,8 @@
         <input type="text" class="form-control" placeholder="nombre" name="nombre">
         <input type="text" class="form-control" placeholder="telefono" name="telefono">
         <select class="form-control" name="categoria">
-            <option value=""></option>
+            <option value="">Selecciona tu area</option>
+            <option value="0">Problematico</option>
             <option value="1">Actuaría</option>
             <option value="2">Biología</option>
             <option value="3">Computación</option>

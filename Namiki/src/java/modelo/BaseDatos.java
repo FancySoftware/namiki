@@ -17,100 +17,120 @@ public class BaseDatos {
     private Connection conexion;
     private Statement declaracion;
     private String url;
- 
+    
+    private boolean debug;
+
     private final String USUARIO = "namiki";
     private final String PASSWORD = "namiki1Pass";
     private final String NOMBREBD = "namiki";
     private final String URL = "mysql.3nyder.com"; 
- 
- BaseDatos() {
-     this.usuario = this.USUARIO;
-     this.password = this.PASSWORD;
-     this.nombreBD = this.NOMBREBD;
-     this.url = this.URL;
- }
- 
- BaseDatos(String usuario, String password, String nombreBD, String url) {
-     this.usuario = usuario;
-     this.password = password;
-     this.nombreBD = nombreBD;
-     this.url = url;
- }
- 
- public void conectar() {
+    
+    BaseDatos() {
+       this.usuario = this.USUARIO;
+       this.password = this.PASSWORD;
+       this.nombreBD = this.NOMBREBD;
+       this.url = this.URL;
+       this.debug = false;
+   }
+   
+   BaseDatos(String usuario, String password, String nombreBD, String url) {
+       this.usuario = usuario;
+       this.password = password;
+       this.nombreBD = nombreBD;
+       this.url = url;
+       this.debug = true;
+   }
+   
+   public Connection getConexion() {
+       try {
+           conexion = DriverManager.getConnection(
+            "jdbc:mysql://" + url + "/" + nombreBD, 
+            usuario, 
+            password);
+       } catch(SQLException e) {
+           System.err.println("ERROR en la conexión en getConexion()");
+       }
+       return this.conexion;
+   }
+   
+   public void conectar() {
     try {
         Class.forName("com.mysql.jdbc.Driver");
     } catch (ClassNotFoundException e) {
         System.out.println("Onta el JDBC Driver?");
         return;
     }
- }
- 
- public int query(String request) {
-     try {
-        conexion = DriverManager.getConnection(
-                "jdbc:mysql://" + url + "/" + nombreBD, 
-                usuario, 
-                password);
-        declaracion = conexion.createStatement();
-        System.out.println(request);
-        return declaracion.executeUpdate(request);
-    } catch (SQLException e) {
+}
+
+public int query(String request) {
+   try {
+    conexion = DriverManager.getConnection(
+        "jdbc:mysql://" + url + "/" + nombreBD, 
+        usuario, 
+        password);
+    declaracion = conexion.createStatement();
+    System.out.println(request);
+    return declaracion.executeUpdate(request);
+} catch (SQLException e) {
+    if(debug) {
         printSQLException(e);
-        System.out.println("Falló la operación");
     }
-    return 0;
- }
- 
- public ResultSet queryRS(String request) {
-     try {
-        conexion = DriverManager.getConnection(
-                "jdbc:mysql://" + url + "/" + nombreBD, 
-                usuario, 
-                password);
-        declaracion = conexion.createStatement();
-        System.out.println(request);
-        return declaracion.executeQuery(request);
-    } catch (SQLException e) {
+    System.out.println("Falló la operación");
+}
+return 0;
+}
+
+public ResultSet queryRS(String request) {
+   try {
+    conexion = DriverManager.getConnection(
+        "jdbc:mysql://" + url + "/" + nombreBD, 
+        usuario, 
+        password);
+    declaracion = conexion.createStatement();
+    System.out.println(request);
+    return declaracion.executeQuery(request);
+} catch (SQLException e) {
+    if(debug){
         printSQLException(e);
-        System.out.println("Falló la operación");
     }
-    return null;
- }
- 
- public void salir(){
-     try{
-        conexion.close();
-     } catch(SQLException e) {
-         System.out.println("No existe una conexión a la base de datos");  
-     }
- }
- private static void printSQLException(SQLException ex) {
+    System.out.println("Falló la operación");
+}
+return null;
+}
+
+public void salir(){
+   try{
+    conexion.close();
+} catch(SQLException e) {
+   System.out.println("No existe una conexión a la base de datos");  
+}
+}
+private static void printSQLException(SQLException ex) {
     for (Throwable e : ex) {
         if (e instanceof SQLException) {
             if (ignoreSQLException(
                 ((SQLException)e).
                 getSQLState()) == false) {
                 e.printStackTrace(System.err);
-                System.err.println("SQLState: " +
-                    ((SQLException)e).getSQLState());
+            System.err.println("SQLState: " +
+                ((SQLException)e).getSQLState());
 
-                System.err.println("Error Code: " +
-                    ((SQLException)e).getErrorCode());
+            System.err.println("Error Code: " +
+                ((SQLException)e).getErrorCode());
 
-                System.err.println("Message: " + e.getMessage());
+            System.err.println("Message: " + e.getMessage());
 
-                Throwable t = ex.getCause();
-                while(t != null) {
-                    System.out.println("Cause: " + t);
-                    t = t.getCause();
-                }
+            Throwable t = ex.getCause();
+            while(t != null) {
+                System.out.println("Cause: " + t);
+                t = t.getCause();
             }
         }
     }
- }
- 
- private static boolean ignoreSQLException(String sqlState) {
+}
+}
+
+private static boolean ignoreSQLException(String sqlState) {
 
     if (sqlState == null) {
         System.out.println("The SQL state is not defined!");
@@ -128,4 +148,3 @@ public class BaseDatos {
     return false;
 }
 }
-
