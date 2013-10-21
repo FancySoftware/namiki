@@ -45,23 +45,25 @@ public class BaseDatos {
         return;
     }
  }
- public ResultSet query(String request) {
+ 
+ public int query(String request) {
      try {
-        System.out.println("Antes del Query");
         conexion = DriverManager.getConnection(
                 "jdbc:mysql://" + url + "/" + nombreBD, 
                 usuario, 
                 password);
         declaracion = conexion.createStatement();
-        return declaracion.executeQuery(request);
+        System.out.println(request);
+        return declaracion.executeUpdate(request);
     } catch (SQLException e) {
-        System.out.println("Falló la conexión");
+        printSQLException(e);
+        System.out.println("Falló la operación");
     }
-    return null;
+    return 0;
  }
+ 
  public void querySinRespuesta(String request){
      try {
-        System.out.println("Antes del Query");
         conexion = DriverManager.getConnection(
                 "jdbc:mysql://" + url + "/" + nombreBD, 
                 usuario, 
@@ -73,6 +75,7 @@ public class BaseDatos {
     }
      
  }
+ 
  public void salir(){
      try{
         conexion.close();
@@ -80,4 +83,47 @@ public class BaseDatos {
          System.out.println("No existe una conexión a la base de datos");  
      }
  }
+ private static void printSQLException(SQLException ex) {
+    for (Throwable e : ex) {
+        if (e instanceof SQLException) {
+            if (ignoreSQLException(
+                ((SQLException)e).
+                getSQLState()) == false) {
+                e.printStackTrace(System.err);
+                System.err.println("SQLState: " +
+                    ((SQLException)e).getSQLState());
+
+                System.err.println("Error Code: " +
+                    ((SQLException)e).getErrorCode());
+
+                System.err.println("Message: " + e.getMessage());
+
+                Throwable t = ex.getCause();
+                while(t != null) {
+                    System.out.println("Cause: " + t);
+                    t = t.getCause();
+                }
+            }
+        }
+    }
+ }
+ 
+ private static boolean ignoreSQLException(String sqlState) {
+
+    if (sqlState == null) {
+        System.out.println("The SQL state is not defined!");
+        return false;
+    }
+
+    // X0Y32: Jar file already exists in schema
+    if (sqlState.equalsIgnoreCase("X0Y32"))
+        return true;
+
+    // 42Y55: Table already exists in schema
+    if (sqlState.equalsIgnoreCase("42Y55"))
+        return true;
+
+    return false;
 }
+}
+

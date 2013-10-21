@@ -39,9 +39,9 @@ public class ProblemaBD {
     public void guardar(int idCategoria, int idUsuario, 
                 String descripcion,Date fecha,String titulo, String topico){
         base.conectar();
-        String problema= "INSERT INTO problema VALUES("
-                                +idCategoria+","+idUsuario+","+descripcion+","
-                                +fecha+","+titulo+","+topico+")";
+        String problema= "INSERT INTO problema (idcategoria,idusuario,descripcion,fecha,titulo,topico) VALUES('"
+                                +idCategoria+"','"+idUsuario+"','"+descripcion+"','"
+                                +fecha+"','"+titulo+"','"+topico+"')";
         System.out.println(problema);
         System.out.println("Guandando datos");
         base.query(problema);
