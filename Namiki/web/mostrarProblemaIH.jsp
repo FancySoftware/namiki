@@ -77,7 +77,7 @@
             </th>
           </thead>
           <tbody>
-              <%= Problema.mostrarProblemas() %>
+              <%= Problema.mostrarProblemasUsr("1000") %>
           </tbody>
       </table>
       <!-- Main component for a primary marketing message or call to action -->

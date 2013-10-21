@@ -134,6 +134,20 @@ public class Problema extends HttpServlet {
       }
       return res;
   }
+  
+  public static String mostrarProblemasUsr(String idusuario) {
+      ProblemaBD problema = new ProblemaBD();
+      String[][] problemas = problema.tablaUsr(idusuario);
+      String res = "";
+      for (int i = 0; i < problemas.length; i++) {
+          res += "<tr>";
+            for (int j = 0; j < 7; j++) {
+                res += "<td>" + problemas[i][j] + "</td>";
+            }
+          res += "</tr>";
+      }
+      return res;
+  }
     
     /**
      * Processes requests for both HTTP
