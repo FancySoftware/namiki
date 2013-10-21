@@ -104,12 +104,11 @@ public class Usuario extends HttpServlet {
                             if(!password.equalsIgnoreCase(datos[2])) {
                                 answer = "Contraseña invalida";
                             } else {
-                                Integer type = ("null".equalsIgnoreCase(datos[3])) ? new Integer(0) : new Integer(datos[3]);
                                 answer = "usuario= " + usuario + ";password= "+password+";categoria= "+datos[3];
                                 System.err.println(answer);
                                 HttpSession session = request.getSession();
                                 session.setAttribute("username", usuario);
-                                session.setAttribute("type", type);
+                                session.setAttribute("type", datos[3]);
                             }
                         }
                     }
