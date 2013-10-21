@@ -73,8 +73,8 @@ public class ProblemaBD {
         base.conectar();
         String update = "UPDATE problema SET descripcion "+descripcion+"WHERE idproblema = " +idProblema
                 + " and idusuario = "+idUsuario+ " and idcategoria = " +idCategoria 
-                + " and descripcion = "+descripcion+ " and fecha = " 
-                +fecha+ " and titulo = "+titulo+ "and topico = " +topico;
+                + " and descripcion = '"+descripcion+ "' and fecha = '" 
+                +fecha+ "' and titulo = '"+titulo+ "' and topico = '" +topico+"'";
         base.query(update);
     }
     
