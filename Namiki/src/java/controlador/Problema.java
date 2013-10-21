@@ -17,6 +17,7 @@ import modelo.ProblemaBD;
 /**
  *
  * @author Jules
+ * Clase Problema
  */
 public class Problema extends HttpServlet {
     
@@ -28,7 +29,17 @@ public class Problema extends HttpServlet {
     private String titulo;
     private String topico;
     
-     
+// Contructor de la clase Problema
+public Problema(){
+    
+}
+
+/**
+ * @param null
+ * @return int
+ * @return String
+ * get's de la clase Problema
+ */
     public int getidProblema() {
         return idProblema;
     }
@@ -50,7 +61,13 @@ public class Problema extends HttpServlet {
     public String getTopico() {
         return topico;
     }
-    
+
+/**
+ * @param int
+ * @param String
+ * @retun void
+ * set's de la clase Problema
+ */
     public void setidProblema(int idProblema) {
         this.idProblema = idProblema;
     }
@@ -73,18 +90,21 @@ public class Problema extends HttpServlet {
         this.topico = topico;
     }
     
-    /**
-     * 
-     * @param idProblema
-     * @param idCategoria
-     * @param idUsuario
-     * @param descripcion
-     * @param titulo
-     * @param fecha
-     * @param topico 
-     */
+/**
+ * @param idProblema
+ * @param idCategoria
+ * @param idUsuario
+ * @param descripcion
+ * @param titulo
+ * @param fecha
+ * @param topico
+ * @return void
+ * Metodo registrarProblema que crea un objeto ProblemaBD problema y guarda el 
+ * problema creado por el usuario.
+ */
   public void registrarProblema(int idCategoria, int idUsuario, String descripcion, 
         String titulo, Date fecha, String topico) {
+      
         ProblemaBD problema = new ProblemaBD();
         problema.guardar(idCategoria, idUsuario, descripcion, obtenerFecha(), titulo, topico);
   }
@@ -103,8 +123,18 @@ public class Problema extends HttpServlet {
     java.sql.Date sqlDate = new java.sql.Date(cal.getTime().getTime()); // your sql date
     return sqlDate;
   }
-  
-  
+/**
+ * @param idProblema
+ * @param idCategoria
+ * @param idUsuario
+ * @param descripcion
+ * @param titulo
+ * @param fecha
+ * @param topico
+ * @return void
+ * Metodo editarProblema que crea un objeto ProblemaBD problema, pide los datos del
+ * problema elegido y guarda los cambios.
+ */
   public void editarProblema(int idProblema, int idCategoria, int idUsuario, String descripcion, 
         String titulo, Date fecha, String topico) {
         
@@ -112,7 +142,19 @@ public class Problema extends HttpServlet {
       problema.getDatos(idProblema);
       problema.editar(idProblema, idCategoria, idUsuario, descripcion, obtenerFecha(), titulo, topico);
   }
-
+  
+/**
+ * @param idProblema
+ * @param idCategoria
+ * @param idUsuario
+ * @param descripcion
+ * @param titulo
+ * @param fecha
+ * @param topico 
+ * @return void
+ * Metodo borrarProblema que crea un objeto ProblemaBD problema, pide los datos del
+ * problema elegido y los elimina.
+ */
   public void borrarProblema(int idProblema, int idCategoria, int idUsuario, String descripcion, 
         String titulo, Date fecha, String topico) {
         
@@ -120,7 +162,7 @@ public class Problema extends HttpServlet {
       problema.getDatos(idProblema);
       problema.eliminar(idProblema);
   }
-  
+
   public static String mostrarProblemas() {
       ProblemaBD problema = new ProblemaBD();
       String[][] problemas = problema.tablaCompleta();
@@ -134,7 +176,7 @@ public class Problema extends HttpServlet {
       }
       return res;
   }
-  
+
   public static String mostrarProblemasUsr(String idusuario) {
       ProblemaBD problema = new ProblemaBD();
       String[][] problemas = problema.tablaUsr(idusuario);

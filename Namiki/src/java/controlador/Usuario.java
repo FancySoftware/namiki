@@ -19,6 +19,7 @@ import modelo.UsuarioBD;
 /**
  *
  * @author Jules
+ * Clase Usuario
  */
 public class Usuario extends HttpServlet {
 

@@ -12,29 +12,44 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- *
  * @author Jules
+ * Clase Notificacion
  */
 public class Notificacion extends HttpServlet {
     
     public String mensaje;
-    public Integer idUsuario;
+    public int idUsuario;
+
+//Constructor de la clase Notificacion
+public Notificacion() {
     
-public String getMesnaje() {
+}
+
+/**
+ * @param void
+ * @return int
+ * @return String
+ * get's de la clase Notificacion
+ */
+    public String getMensaje() {
         return mensaje;
-     }
-
-public int getidUsuario() {
+    }
+    public int getidUsuario() {
         return idUsuario;
-     }
+    }
 
-public void setMensaje(String mensaje) {
+/**
+ * @param tipo 
+ * @return int
+ * @return String
+ * set's de la clase Notificacion
+ */
+    public void setMensaje(String mensaje) {
         this.mensaje = mensaje;
-     }
-
-public void setidUsuario(int idUsuario) {
+    }
+    public void setidUsuario(int idUsuario) {
         this.idUsuario = idUsuario;
-     }
+    }
 
 public void desplegarMensaje() {
     
