@@ -121,13 +121,13 @@ public class Problema extends HttpServlet {
       problema.eliminar(idProblema);
   }
   
-  public String mostrarProblemas() {
+  public static String mostrarProblemas() {
       ProblemaBD problema = new ProblemaBD();
       String[][] problemas = problema.tablaCompleta();
       String res = "";
       for (int i = 0; i < problemas.length; i++) {
           res += "<tr>";
-            for (int j = 1; j <= 7; j++) {
+            for (int j = 0; j < 7; j++) {
                 res += "<td>" + problemas[i][j] + "</td>";
             }
           res += "</tr>";

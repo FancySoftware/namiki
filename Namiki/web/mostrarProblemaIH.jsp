@@ -4,7 +4,8 @@
     Author     : Edd
 --%>
 
-<%@page contentType="text/html" pageEncoding="UTF-8"%>p
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ page import="controlador.Problema" %>
 <!DOCTYPE html>
 <html lang="es">
   <head>
@@ -63,7 +64,22 @@
           </ul>
         </div><!--/.nav-collapse -->
       </div>
-
+      <table>
+          <thead>
+            <th>
+                <tr>ID Problema</tr>
+                <tr>ID Categoría</tr>
+                <tr>ID idusuario</tr>
+                <tr>titulo</tr>
+                <tr>topico</tr>
+                <tr>descripcion</tr>
+                <tr>fecha</tr>
+            </th>
+          </thead>
+          <tbody>
+              <%= Problema.mostrarProblemas() %>
+          </tbody>
+      </table>
       <!-- Main component for a primary marketing message or call to action -->
       <div class="jumbotron">
         <h3>Título</h3>

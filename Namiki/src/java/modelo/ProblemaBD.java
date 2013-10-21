@@ -90,19 +90,19 @@ public class ProblemaBD {
                 numRows = 0;
             }
         } catch (SQLException e) {}
-        
-        ResultSet rs = base.queryRS("Select * FROM problema");
+        System.out.println(numRows);
+        ResultSet rs = base.queryRS("SELECT * FROM problema");
         String[][] res = new String[numRows][7];
         int actual = 0;
         try {
-            while(cont.next()){
-                res[actual][1] = rs.getString(1);
-                res[actual][2] = rs.getString(2);
-                res[actual][3] = rs.getString(3);
-                res[actual][4] = rs.getString(4);
-                res[actual][5] = rs.getString(5);
-                res[actual][6] = rs.getString(6);
-                res[actual][7] = rs.getString(7);
+            while(rs.next()){
+                res[actual][0] = rs.getString("idproblema");
+                res[actual][1] = rs.getString("idcategoria");
+                res[actual][2] = rs.getString("idusuario");
+                res[actual][3] = rs.getString("titulo");
+                res[actual][4] = rs.getString("topico");
+                res[actual][5] = rs.getString("descripcion");
+                res[actual][6] = rs.getString("fecha");
                 actual++;
             }
         } catch (SQLException e) {}
