@@ -37,6 +37,18 @@ public class BaseDatos {
      this.url = url;
  }
  
+ public Connection getConexion() {
+     try {
+         conexion = DriverManager.getConnection(
+                "jdbc:mysql://" + url + "/" + nombreBD, 
+                usuario, 
+                password);
+     } catch(SQLException e) {
+         System.err.println("ERROR en la conexión en getConexion()");
+     }
+     return this.conexion;
+ }
+ 
  public void conectar() {
     try {
         Class.forName("com.mysql.jdbc.Driver");

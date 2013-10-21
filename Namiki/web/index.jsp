@@ -63,6 +63,7 @@
             </li>
           </ul>
             <form class="navbar-form navbar-right" action="Usuario" method="POST">
+            <input type="hidden" name="form_sumbitted" value="2">
             <div class="form-group">
               <input type="text" placeholder="Nombre de Usuario" class="form-control" name="usuario">
             </div>

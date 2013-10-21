@@ -79,7 +79,7 @@ public class Usuario extends HttpServlet {
                     String telefono = request.getParameter("telefono");
                     int categoria = Integer.parseInt(request.getParameter("categoria"));
                     if(usuario_registro != null && nombre != null && password_registro != null
-                            && correo != null && telefono != null && categoria > 0) {
+                            && correo != null && telefono != null && categoria > -1 && categoria < 6) {
                         java.sql.Date fecha = new java.sql.Date(new java.util.Date().getTime());
                         registrarUsuario(usuario_registro, password_registro, categoria, nombre, telefono, correo, fecha);
                         HttpSession session = request.getSession();
@@ -96,10 +96,14 @@ public class Usuario extends HttpServlet {
                     if(usuario == null || password == null) {
                         answer = "Usuario o contraseña invalidos";
                     } else {
-                        answer = "usuario= " + usuario + ";password= "+password;
+                        UsuarioBD usuariobd = new UsuarioBD();
+                        String[] datos = usuariobd.getDatos(usuario);
+                        Integer type = ("null".compareToIgnoreCase(datos[3]) == 0) ? new Integer(0) : new Integer(datos[3]);
+                        answer = "usuario= " + usuario + ";password= "+password+";categoria= "+datos[3];
+                        System.err.println(answer);
                         HttpSession session = request.getSession();
                         session.setAttribute("username", usuario);
-                        session.setAttribute("type", new Integer(1));
+                        session.setAttribute("type", type);
                     }
                     break;
                 default:

@@ -1,6 +1,9 @@
 package modelo;
 
 import java.sql.Date;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 /**
  *
@@ -41,11 +44,22 @@ public class UsuarioBD {
           base.conectar();
           String nuevo = "INSERT INTO usuario "
                   + "(usuario,contrasena, idcategoria, nombre, telefono, correo, fecha) "
-                  + "VALUES"
-                  + "('"+usuario+"','"+password+"','"+categoria+"','"+nombre+"','"+telefono+"','"+correo+"','"+fechaNacimiento+"')";
-          base.query(nuevo);
+                  + "VALUES (?,?,?,?,?,?,?)";
+          PreparedStatement pstmt = base.getConexion().prepareStatement(nuevo);
+          pstmt.setString(1, usuario);
+          pstmt.setString(2, password);
+          if(categoria == 0) {
+              pstmt.setNull(3, java.sql.Types.INTEGER);
+          } else {
+              pstmt.setInt(3, categoria);
+          }
+          pstmt.setString(4, nombre);
+          pstmt.setString(5, telefono);
+          pstmt.setString(6, correo);
+          pstmt.setDate(7, fechaNacimiento);
+          pstmt.execute();
       }catch(Exception e){
-          System.err.println("error guardando?? -_-");
+          System.err.println("error guardando?? -_------ -> "+ e.getClass());
       }
   }
   public void eliminar(int idUsuario) {
@@ -57,14 +71,29 @@ public class UsuarioBD {
       }
   }
 
-  public void getDatos(String usuario) {
-         try{
-           base.conectar();
-           String consulta = "SELECT * FROM usuario WHERE usuario LIKE '" + usuario + "'";
-           base.query(consulta);
-       }catch(Exception error){
-       } 
-  }
+    public String[] getDatos(String usuario) {
+        String[] result = new String[8];
+        try{
+            base.conectar();
+            ResultSet resultset = base.queryRS("SELECT * FROM usuario WHERE usuario = '" + usuario + "'");
+            if(!resultset.next()) {
+                return null;
+            } else {
+                result[0] = resultset.getString("idusuario");
+                result[1] = resultset.getString("usuario");
+                result[2] = resultset.getString("contrasena");
+                result[3] = resultset.getString("idcategoria");
+                result[4] = resultset.getString("nombre");
+                result[5] = resultset.getString("telefono");
+                result[6] = resultset.getString("correo");
+                result[7] = resultset.getString("fecha");
+            }
+        } catch(Exception e){
+            System.err.println("ERROR al obtener los datos del usuario " + usuario);
+        }
+        return result;
+    }
+  
   public void salir() {
   
   }
