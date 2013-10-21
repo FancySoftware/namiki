@@ -35,14 +35,17 @@ public class UsuarioBD {
       this.base = new BaseDatos();
   }
   
-  public void guardar(int idUsuario, String nombre, int categoria,String telefono,String usuario,
-          String correo,Date fechaNacimiento, String password) {
+  public void guardar(String usuario, String password, int categoria, String nombre, String telefono, 
+          String correo, Date fechaNacimiento) {
       try{
           base.conectar();
-          String nuevo = "INSER INTO usario VALUES("+idUsuario+","+nombre+","+categoria+","
-                  +telefono+","+usuario+","+correo+","+fechaNacimiento+","+password+")";
+          String nuevo = "INSER INTO usario "
+                  + "(usuario,contasena, idcategoria, nombre, telefono, correo, fecha) "
+                  + "VALUES"
+                  + "("+usuario+","+password+","+categoria+","+nombre+","+telefono+","+correo+","+fechaNacimiento+")";
           base.query(nuevo);
       }catch(Exception e){
+          System.err.println("error guardando?? -_-");
       }
   }
   public void eliminar(int idUsuario) {

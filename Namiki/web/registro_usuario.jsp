@@ -56,7 +56,7 @@
 
       <form class="" style="max-width: 500px; margin: 0px auto;" action="Usuario" method="POST">
         <h2 class="form-heading">Registrate!</h2>
-        <input type="hidden" name="form_sumbitted" value="registro">
+        <input type="hidden" name="form_sumbitted" value="1">
         <input type="text" class="form-control" placeholder="nombre de usuario" name="usuario">
         <input type="password" class="form-control" placeholder="password" name="password">
         <input type="password" class="form-control" plaholder="password again!" name="pass2">
