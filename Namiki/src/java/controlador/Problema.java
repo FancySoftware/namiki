@@ -141,9 +141,17 @@ public class Problema extends HttpServlet {
       String res = "";
       for (int i = 0; i < problemas.length; i++) {
           res += "<tr>";
-            for (int j = 0; j < 7; j++) {
+            for (int j = 1; j < 7; j++) {
                 res += "<td>" + problemas[i][j] + "</td>";
             }
+            res+="<td><div class=\"dropdown\">";
+            res+="<a data-toggle=\"dropdown\" href=\"#\" class=\"btn btn-primary\">Acciones <span class=\"caret\"></span></a>";
+            res+="<ul class=\"dropdown-menu\" role=\"menu\" aria-labelledby=\"dLabel\">";
+            res+="<li><a href=\"FormularioAporteProblema.jsp?idproblema=" 
+                    + problemas[i][0] + "\">Editar</a></li>"; 
+            res+="<li><a href=\"mostrarProblemaIH.jsp?borrar=" 
+                    + problemas[i][0] + "\">Borrar</a></li>";
+            res+="</ul></div></td>";
           res += "</tr>";
       }
       return res;
