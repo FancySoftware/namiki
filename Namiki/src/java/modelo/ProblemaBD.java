@@ -39,7 +39,7 @@ public class ProblemaBD {
     public void guardar(int idCategoria, int idUsuario, 
                 String descripcion,Date fecha,String titulo, String topico){
         base.conectar();
-        String problema= "INSERT INTO problema VALUES("+idProblema+","
+        String problema= "INSERT INTO problema VALUES("
                                 +idCategoria+","+idUsuario+","+descripcion+","
                                 +fecha+","+titulo+","+topico+")";
         System.out.println(problema);
