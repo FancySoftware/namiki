@@ -64,20 +64,21 @@
           </ul>
         </div><!--/.nav-collapse -->
       </div>
-      <table>
+      <table class="table">
           <thead>
-            <th>
-                <tr>ID Problema</tr>
-                <tr>ID Categoría</tr>
-                <tr>ID idusuario</tr>
-                <tr>titulo</tr>
-                <tr>topico</tr>
-                <tr>descripcion</tr>
-                <tr>fecha</tr>
-            </th>
+            <tr>
+                
+                <th>ID Categoría</th>
+                <th>ID idusuario</th>
+                <th>titulo</th>
+                <th>topico</th>
+                <th>descripcion</th>
+                <th>fecha</th>
+                <th>Acciones</th>
+            </tr>
           </thead>
           <tbody>
-              <%= Problema.mostrarProblemasUsr("1000") %>
+              <%= Problema.mostrarProblemasUsr("1") %>
           </tbody>
       </table>
       <!-- Main component for a primary marketing message or call to action -->

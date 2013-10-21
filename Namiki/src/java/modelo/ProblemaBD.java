@@ -91,13 +91,13 @@ public class ProblemaBD {
             }
         } catch (SQLException e) {}
         System.out.println(numRows);
-        ResultSet rs = base.queryRS("SELECT * FROM problema");
+        ResultSet rs = base.queryRS("SELECT * FROM problema P, categoria C WHERE P.idcategoria =C.idcategoria ORDER BY P.fecha DESC" );
         String[][] res = new String[numRows][7];
         int actual = 0;
         try {
             while(rs.next()){
                 res[actual][0] = rs.getString("idproblema");
-                res[actual][1] = rs.getString("idcategoria");
+                res[actual][1] = rs.getString("categoria");
                 res[actual][2] = rs.getString("idusuario");
                 res[actual][3] = rs.getString("titulo");
                 res[actual][4] = rs.getString("topico");
@@ -123,14 +123,14 @@ public class ProblemaBD {
             }
         } catch (SQLException e) {}
         System.out.println(numRows);
-        ResultSet rs = base.queryRS("SELECT * FROM problema "
-                + "WHERE idusuario = '" + idusuario + "'" );
+        ResultSet rs = base.queryRS("SELECT * FROM problema P, categoria C "
+                + "WHERE P.idusuario = '" + idusuario + "' and P.idcategoria = C.idcategoria ORDER BY P.fecha DESC");
         String[][] res = new String[numRows][7];
         int actual = 0;
         try {
             while(rs.next()){
                 res[actual][0] = rs.getString("idproblema");
-                res[actual][1] = rs.getString("idcategoria");
+                res[actual][1] = rs.getString("categoria");
                 res[actual][2] = rs.getString("idusuario");
                 res[actual][3] = rs.getString("titulo");
                 res[actual][4] = rs.getString("topico");

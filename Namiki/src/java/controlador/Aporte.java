@@ -13,11 +13,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import modelo.AporteBD;
-import modelo.ProblemaBD;
 
 /**
  *
  * @author Jules
+ * Clase Aporte
  */
 public class Aporte extends HttpServlet {
     
@@ -30,9 +30,17 @@ public class Aporte extends HttpServlet {
     private Date fecha;
     private String solucion;
     
+// Contructor de la clase Aporte 
 public Aporte(){
     
 }
+
+/**
+ * @param null
+ * @return int
+ * @return String
+ * get's de la clase Aporte
+ */
     public int getidAporte() {
         return idAporte;
     }
@@ -58,6 +66,12 @@ public Aporte(){
         return solucion;
     }
     
+/**
+ * @param int 
+ * @param String
+ * @return void
+ * set's de la clase Aporte
+ */
     public void setidAporte(int idAporte) {
         this.idAporte = idAporte;
     }
@@ -83,6 +97,18 @@ public Aporte(){
         this.solucion = solucion;
     }
     
+/**
+ * @param idUsuario
+ * @param idProblema
+ * @param solucion
+ * @param costo
+ * @param fecha
+ * @param contacto
+ * @param elegido 
+ * @return void
+ * Metodo registrarAporte que crea un objeto AporteBD aporte y guarda el aporte
+ * creado por el usuario.
+ */
   public void registrarAporte(int idUsuario, int idProblema, String solucion, 
         String costo, Date fecha, String contacto, int elegido) {
       
@@ -90,6 +116,19 @@ public Aporte(){
         aporte.guardar(idAporte, idUsuario, idProblema, solucion, costo, fecha, contacto, elegido);
   }
 
+/**
+ * @param idAporte
+ * @param idProblema
+ * @param idUsuario
+ * @param contacto
+ * @param costo
+ * @param elegido
+ * @param fecha
+ * @param solucion 
+ * @return void
+ * Metodo editarAporte que crea un objeto AporteBD aporte, pide los datos del
+ * aporte elegido y guarda los cambios.
+ */
   public void editarAporte(int idAporte, int idProblema, int idUsuario, String contacto, 
         String costo, int elegido, Date fecha, String solucion) {
         
@@ -98,6 +137,19 @@ public Aporte(){
       aporte.editar(idAporte, idUsuario, idProblema, solucion, costo, fecha, contacto, elegido);
   }
 
+/**
+ * @param idAporte
+ * @param idProblema
+ * @param idUsuario
+ * @param contacto
+ * @param costo
+ * @param elegido
+ * @param fecha
+ * @param solucion 
+ * @retun void
+ * Metodo borrarAporte que crea un objeto AporteBD aporte, pide los datos del
+ * aporte elegido y los elimina.
+ */
   public void borrarAporte(int idAporte, int idProblema, int idUsuario, String contacto, 
         String costo, int elegido, Date fecha, String solucion) {
         
@@ -105,7 +157,8 @@ public Aporte(){
       aporte.getDatos(idAporte);
       aporte.eliminar(idAporte);
   }
-  public static String mostrarProblemas() {
+  
+  public static String mostrarAportes() {
       AporteBD aporte = new AporteBD();
       String[][] aportes = aporte.tablaCompleta();
       String res = "";
@@ -119,8 +172,7 @@ public Aporte(){
       return res;
   }
   
-  
-    public static String mostrarProblemas(int idUsuario) {
+  public static String mostrarAportesUsr(int idUsuario) {
       AporteBD aporte = new AporteBD();
       String[][] aportes = aporte.tablaUsr(idUsuario);
       String res = "";
@@ -135,9 +187,9 @@ public Aporte(){
   }
     
     
-     /*
-  * Metodo auxiliar para obtener un tipo de la clase sql.Date y pasarlo a la base.
-  */
+/**
+ * Metodo auxiliar para obtener un tipo de la clase sql.Date y pasarlo a la base.
+ */
   private java.sql.Date obtenerFecha(){
     java.util.Calendar cal = Calendar.getInstance();
     java.util.Date utilDate = new java.util.Date(); // your util date
@@ -149,16 +201,17 @@ public Aporte(){
     java.sql.Date sqlDate = new java.sql.Date(cal.getTime().getTime()); // your sql date
     return sqlDate;
   }
-    /**
-     * Processes requests for both HTTP
-     * <code>GET</code> and
-     * <code>POST</code> methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
+  
+/**
+ * Processes requests for both HTTP
+ * <code>GET</code> and
+ * <code>POST</code> methods.
+ *
+ * @param request servlet request
+ * @param response servlet response
+ * @throws ServletException if a servlet-specific error occurs
+ * @throws IOException if an I/O error occurs
+ */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
