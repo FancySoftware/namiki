@@ -120,6 +120,34 @@ public class Problema extends HttpServlet {
       problema.getDatos(idProblema);
       problema.eliminar(idProblema);
   }
+  
+  public static String mostrarProblemas() {
+      ProblemaBD problema = new ProblemaBD();
+      String[][] problemas = problema.tablaCompleta();
+      String res = "";
+      for (int i = 0; i < problemas.length; i++) {
+          res += "<tr>";
+            for (int j = 0; j < 7; j++) {
+                res += "<td>" + problemas[i][j] + "</td>";
+            }
+          res += "</tr>";
+      }
+      return res;
+  }
+  
+  public static String mostrarProblemasUsr(String idusuario) {
+      ProblemaBD problema = new ProblemaBD();
+      String[][] problemas = problema.tablaUsr(idusuario);
+      String res = "";
+      for (int i = 0; i < problemas.length; i++) {
+          res += "<tr>";
+            for (int j = 0; j < 7; j++) {
+                res += "<td>" + problemas[i][j] + "</td>";
+            }
+          res += "</tr>";
+      }
+      return res;
+  }
     
     /**
      * Processes requests for both HTTP
@@ -136,6 +164,12 @@ public class Problema extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
         try {
+            int caso= Integer.parseInt(request.getParameter("form_sumbitted"));
+            out.println("Caso " +caso );
+            
+            switch(caso){
+                    case 1:
+                        //REGISTRANDO PROBLEMA
             String titulo = request.getParameter("titulo");
             String topico = request.getParameter("topico");
             int categoria = Integer.parseInt(request.getParameter("categoria"));
@@ -148,12 +182,18 @@ public class Problema extends HttpServlet {
                 out.println("ERROR Descripcion Vacia");
             } else if(categoria == 0){
                 out.println("Seleciona una categoria");
-            } else{
+            } else {
                 out.println("\n Guardando problemas");
                 out.println("Datos " + titulo +" "+ topico + " "+ categoria +" "+ descripcion);
             //Prueba con id de usuario y categoria inventada.
                 registrarProblema(1,1000,descripcion,titulo, obtenerFecha(),topico);
             }            
+                        break;
+                    case 2:
+                        //MOSTRAR PROBLEMA
+                        break;
+                    default:
+            }
         } finally {            
             out.close();
         }

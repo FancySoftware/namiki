@@ -1,6 +1,8 @@
 package modelo;
 
 import java.sql.Date;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 /**
  * @author Administrador
@@ -42,7 +44,6 @@ public class ProblemaBD {
         String problema= "INSERT INTO problema (idcategoria,idusuario,descripcion,fecha,titulo,topico) VALUES('"
                                 +idCategoria+"','"+idUsuario+"','"+descripcion+"','"
                                 +fecha+"','"+titulo+"','"+topico+"')";
-        System.out.println(problema);
         System.out.println("Guandando datos");
         base.query(problema);
     }
@@ -72,8 +73,72 @@ public class ProblemaBD {
         base.conectar();
         String update = "UPDATE problema SET descripcion "+descripcion+"WHERE idproblema = " +idProblema
                 + " and idusuario = "+idUsuario+ " and idcategoria = " +idCategoria 
-                + " and descripcion = "+descripcion+ " and fecha = " 
-                +fecha+ " and titulo = "+titulo+ "and topico = " +topico;
+                + " and descripcion = '"+descripcion+ "' and fecha = '" 
+                +fecha+ "' and titulo = '"+titulo+ "' and topico = '" +topico+"'";
         base.query(update);
+    }
+    
+    public String[][] tablaCompleta() {
+        base.conectar();
+        int numRows = 0;
+        ResultSet cont = base.queryRS("SELECT COUNT(*) numRows FROM problema");
+        try {
+            if(cont.next()){
+                numRows = cont.getInt("numRows");
+            } else {
+                System.out.println("Error al contar los registros");
+                numRows = 0;
+            }
+        } catch (SQLException e) {}
+        System.out.println(numRows);
+        ResultSet rs = base.queryRS("SELECT * FROM problema");
+        String[][] res = new String[numRows][7];
+        int actual = 0;
+        try {
+            while(rs.next()){
+                res[actual][0] = rs.getString("idproblema");
+                res[actual][1] = rs.getString("idcategoria");
+                res[actual][2] = rs.getString("idusuario");
+                res[actual][3] = rs.getString("titulo");
+                res[actual][4] = rs.getString("topico");
+                res[actual][5] = rs.getString("descripcion");
+                res[actual][6] = rs.getString("fecha");
+                actual++;
+            }
+        } catch (SQLException e) {}
+        return res;
+    }
+    
+    public String[][] tablaUsr(String idusuario) {
+        base.conectar();
+        int numRows = 0;
+        ResultSet cont = base.queryRS("SELECT COUNT(*) numRows FROM problema "
+                + "WHERE idusuario = '" + idusuario + "'" );
+        try {
+            if(cont.next()){
+                numRows = cont.getInt("numRows");
+            } else {
+                System.out.println("Error al contar los registros");
+                numRows = 0;
+            }
+        } catch (SQLException e) {}
+        System.out.println(numRows);
+        ResultSet rs = base.queryRS("SELECT * FROM problema "
+                + "WHERE idusuario = '" + idusuario + "'" );
+        String[][] res = new String[numRows][7];
+        int actual = 0;
+        try {
+            while(rs.next()){
+                res[actual][0] = rs.getString("idproblema");
+                res[actual][1] = rs.getString("idcategoria");
+                res[actual][2] = rs.getString("idusuario");
+                res[actual][3] = rs.getString("titulo");
+                res[actual][4] = rs.getString("topico");
+                res[actual][5] = rs.getString("descripcion");
+                res[actual][6] = rs.getString("fecha");
+                actual++;
+            }
+        } catch (SQLException e) {}
+        return res;
     }
 }

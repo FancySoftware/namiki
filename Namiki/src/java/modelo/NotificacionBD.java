@@ -31,8 +31,8 @@ public class NotificacionBD {
   public void guardar(int idNotificacion,int idUsuario,int leido,String mensaje) {
       try{
          base.conectar();
-         String notificacion= "INSERT INTO notificacion VALUES("+idNotificacion+","
-                 +idUsuario+","+leido+","+ mensaje+")";
+         String notificacion= "INSERT INTO notificacion (idnotificacion,idusuario,mensaje)VALUES('"+idNotificacion+"','"
+                 +idUsuario+"','"+leido+"','"+ mensaje+"')";
          base.query(notificacion);
       }catch(Exception e){
       }

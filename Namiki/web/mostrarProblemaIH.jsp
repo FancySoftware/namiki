@@ -5,6 +5,7 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ page import="controlador.Problema" %>
 <!DOCTYPE html>
 <html lang="es">
   <head>
@@ -53,6 +54,7 @@
                 <li><a href="#">Perfil</a></li>
                 <li><a href="#">Mis Aportes</a></li>
                 <li><a href="#">Mis Problemas</a></li>
+                
                 <li><a href="#">Notificaciones</a></li>
                 <li class="divider"></li>
 <!--                 <li class="dropdown-header">Nav header</li>
@@ -62,7 +64,22 @@
           </ul>
         </div><!--/.nav-collapse -->
       </div>
-
+      <table>
+          <thead>
+            <th>
+                <tr>ID Problema</tr>
+                <tr>ID Categoría</tr>
+                <tr>ID idusuario</tr>
+                <tr>titulo</tr>
+                <tr>topico</tr>
+                <tr>descripcion</tr>
+                <tr>fecha</tr>
+            </th>
+          </thead>
+          <tbody>
+              <%= Problema.mostrarProblemasUsr("1000") %>
+          </tbody>
+      </table>
       <!-- Main component for a primary marketing message or call to action -->
       <div class="jumbotron">
         <h3>Título</h3>

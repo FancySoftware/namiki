@@ -7,11 +7,13 @@ package controlador;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Date;
+import java.util.Calendar;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import modelo.AporteBD;
+import modelo.ProblemaBD;
 
 /**
  *
@@ -28,8 +30,7 @@ public class Aporte extends HttpServlet {
     private Date fecha;
     private String solucion;
     
-public Aporte(int idAporte, int idProblema, int idUsuario, String contacto, 
-        String costo, int elegido, String fecha, String solucion) {
+public Aporte(){
     
 }
     public int getidAporte() {
@@ -82,7 +83,7 @@ public Aporte(int idAporte, int idProblema, int idUsuario, String contacto,
         this.solucion = solucion;
     }
     
-  public void registrarAporte(int idAporte, int idUsuario, int idProblema, String solucion, 
+  public void registrarAporte(int idUsuario, int idProblema, String solucion, 
         String costo, Date fecha, String contacto, int elegido) {
       
         AporteBD aporte = new AporteBD(idAporte, idUsuario, idProblema, solucion, costo, fecha, contacto, elegido);
@@ -104,7 +105,50 @@ public Aporte(int idAporte, int idProblema, int idUsuario, String contacto,
       aporte.getDatos(idAporte);
       aporte.eliminar(idAporte);
   }
-
+  public static String mostrarProblemas() {
+      AporteBD aporte = new AporteBD();
+      String[][] aportes = aporte.tablaCompleta();
+      String res = "";
+      for (int i = 0; i < aportes.length; i++) {
+          res += "<tr>";
+            for (int j = 0; j < 8; j++) {
+                res += "<td>" + aportes[i][j] + "</td>";
+            }
+          res += "</tr>";
+      }
+      return res;
+  }
+  
+  
+    public static String mostrarProblemas(int idUsuario) {
+      AporteBD aporte = new AporteBD();
+      String[][] aportes = aporte.tablaUsr(idUsuario);
+      String res = "";
+      for (int i = 0; i < aportes.length; i++) {
+          res += "<tr>";
+            for (int j = 0; j < 8; j++) {
+                res += "<td>" + aportes[i][j] + "</td>";
+            }
+          res += "</tr>";
+      }
+      return res;
+  }
+    
+    
+     /*
+  * Metodo auxiliar para obtener un tipo de la clase sql.Date y pasarlo a la base.
+  */
+  private java.sql.Date obtenerFecha(){
+    java.util.Calendar cal = Calendar.getInstance();
+    java.util.Date utilDate = new java.util.Date(); // your util date
+    cal.setTime(utilDate);
+    cal.set(Calendar.HOUR_OF_DAY, 0);
+    cal.set(Calendar.MINUTE, 0);
+    cal.set(Calendar.SECOND, 0);
+    cal.set(Calendar.MILLISECOND, 0);    
+    java.sql.Date sqlDate = new java.sql.Date(cal.getTime().getTime()); // your sql date
+    return sqlDate;
+  }
     /**
      * Processes requests for both HTTP
      * <code>GET</code> and
@@ -120,16 +164,22 @@ public Aporte(int idAporte, int idProblema, int idUsuario, String contacto,
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
         try {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet Aporte_</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet Aporte_ at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
+          String solucion = request.getParameter("solucion");
+            String costo = request.getParameter("costo");
+            String contacto= request.getParameter("contacto");
+            if(solucion.length() ==0 && costo.length() ==0 && contacto.length() ==0){
+            out.println("ERROR EN LOS DATOS");
+            } else if(solucion.length() == 0) {
+                out.println("ERROR titulo obligatorio");
+            } else if(costo.length() == 0){
+                out.println("ERROR Descripcion Vacia");
+            } else if(contacto.length() == 0){
+                out.println("Seleciona una categoria");
+            } else {
+                out.println("\n Guardando aportes");
+            //Prueba con id de usuario y categoria inventada.
+                registrarAporte(1000,1000,solucion,costo, obtenerFecha(),contacto,elegido);
+            }            
         } finally {            
             out.close();
         }
