@@ -71,30 +71,29 @@ public class Usuario extends HttpServlet {
              */
             switch(caso) {
                 case 1:
-                    String usuario = request.getParameter("usuario");
+                    String usuario_registro = request.getParameter("usuario");
                     String nombre = request.getParameter("nombre");
-                    String password = request.getParameter("password");
+                    String password_registro = request.getParameter("password");
                     String correo = request.getParameter("correo");
                     String telefono = request.getParameter("telefono");
                     int categoria = Integer.parseInt(request.getParameter("categoria"));
-                    if(usuario != null && nombre != null && password != null
+                    if(usuario_registro != null && nombre != null && password_registro != null
                             && correo != null && telefono != null && categoria > 0) {
                         java.sql.Date fecha = new java.sql.Date(new java.util.Date().getTime());
-                        registrarUsuario(usuario, password, categoria, nombre, telefono, correo, fecha);
+                        registrarUsuario(usuario_registro, password_registro, categoria, nombre, telefono, correo, fecha);
                         answer = "Success";
                     } else {
                         answer = "Failure";
                     }
                     break;
                 case 2:
-//                    String usuario = request.getParameter("usuario");
-//                    String password = request.getParameter("password");
-//                    String answer;
-//                    if(usuario == null || password == null) {
-//                        answer = "Usuario o contraseña invalidos";
-//                    } else {
-//                        answer = "usuario= " + usuario + ";password= "+password;
-//                    }
+                    String usuario = request.getParameter("usuario");
+                    String password = request.getParameter("password");
+                    if(usuario == null || password == null) {
+                        answer = "Usuario o contraseña invalidos";
+                    } else {
+                        answer = "usuario= " + usuario + ";password= "+password;
+                    }
                     break;
                 default:
                     break;
