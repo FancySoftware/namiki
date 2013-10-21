@@ -7,6 +7,7 @@ package controlador;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Date;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -83,9 +84,12 @@ public class Usuario extends HttpServlet {
                             && correo != null && telefono != null && categoria > -1 && categoria < 6) {
                         java.sql.Date fecha = new java.sql.Date(new java.util.Date().getTime());
                         registrarUsuario(usuario_registro, password_registro, categoria, nombre, telefono, correo, fecha);
-                        HttpSession session = request.getSession();
-                        session.setAttribute("username", usuario_registro);
-                        session.setAttribute("type", new Integer(categoria));
+                        UsuarioBD usuariobd = new UsuarioBD();
+                        String[] datos = usuariobd.getDatos(usuario_registro);
+                        HttpSession sesion = request.getSession();
+                        sesion.setAttribute("username", usuario_registro);
+                        sesion.setAttribute("idusuario", datos[0]);
+                        sesion.setAttribute("type", new Integer(categoria));
                         answer = "Success";
                     } else {
                         answer = "Failure";
@@ -107,9 +111,12 @@ public class Usuario extends HttpServlet {
                             } else {
                                 answer = "usuario= " + usuario + ";password= "+password+";categoria= "+datos[3];
                                 System.err.println(answer);
-                                HttpSession session = request.getSession();
-                                session.setAttribute("username", usuario);
-                                session.setAttribute("type", datos[3]);
+                                HttpSession sesion = request.getSession();
+                                sesion.setAttribute("username", usuario);
+                                sesion.setAttribute("idusuario", datos[0]);
+                                sesion.setAttribute("type", datos[3]);
+                                RequestDispatcher rd = request.getRequestDispatcher("perfil.jsp");
+                                rd.forward(request, response);
                             }
                         }
                     }
