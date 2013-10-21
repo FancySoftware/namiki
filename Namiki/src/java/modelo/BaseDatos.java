@@ -62,18 +62,20 @@ public class BaseDatos {
     return 0;
  }
  
- public void querySinRespuesta(String request){
+ public ResultSet queryRS(String request) {
      try {
         conexion = DriverManager.getConnection(
                 "jdbc:mysql://" + url + "/" + nombreBD, 
                 usuario, 
                 password);
         declaracion = conexion.createStatement();
-        declaracion.executeQuery(request);
+        System.out.println(request);
+        return declaracion.executeQuery(request);
     } catch (SQLException e) {
+        printSQLException(e);
         System.out.println("Falló la operación");
     }
-     
+    return null;
  }
  
  public void salir(){
