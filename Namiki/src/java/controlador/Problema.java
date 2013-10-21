@@ -86,7 +86,6 @@ public class Problema extends HttpServlet {
   public void registrarProblema(int idCategoria, int idUsuario, String descripcion, 
         String titulo, Date fecha, String topico) {
         ProblemaBD problema = new ProblemaBD();
-        System.out.println("new ProblemaBD ...");
         problema.guardar(idCategoria, idUsuario, descripcion, obtenerFecha(), titulo, topico);
   }
   
@@ -139,33 +138,22 @@ public class Problema extends HttpServlet {
         try {
             String titulo = request.getParameter("titulo");
             String topico = request.getParameter("topico");
-            String categoria = request.getParameter("categoria" );
+            int categoria = Integer.parseInt(request.getParameter("categoria"));
             String descripcion = request.getParameter("descripcion");
-            if(titulo.length() ==0 && topico.length() ==0 && descripcion.length() ==0 ){
+            if(titulo.length() ==0 && topico.length() ==0 && descripcion.length() ==0 && categoria==0){
             out.println("ERROR EN LOS DATOS");
             } else if(titulo.length() == 0) {
-                out.println("ERROR TITULO VACIO");
+                out.println("ERROR titulo obligatorio");
             } else if(descripcion.length() == 0){
-                out.println("ERROR DESCRIPCION VACIA");
+                out.println("ERROR Descripcion Vacia");
+            } else if(categoria == 0){
+                out.println("Seleciona una categoria");
             } else{
-                out.println("Datos " + titulo + topico + categoria + descripcion);
-
+                out.println("\n Guardando problemas");
+                out.println("Datos " + titulo +" "+ topico + " "+ categoria +" "+ descripcion);
+            //Prueba con id de usuario y categoria inventada.
                 registrarProblema(1,1000,descripcion,titulo, obtenerFecha(),topico);
-
-            }
-            /* TODO output your page here. You may use following sample code. */
-            //out.println("<!DOCTYPE html>");
-          //  out.println("<html>");
-            //out.println("<head>");
-            //out.println("<title>Servlet Problema_</title>");            
-            //out.println("</head>");
-            //out.println("<body>");
-            //out.println("<h1>Servlet Problema_ at " + request.getContextPath() + "</h1>");
-            out.println("\n Guardando problemas");
-            
-            //out.println("</body>");
-           // out.println("</html>");
-            
+            }            
         } finally {            
             out.close();
         }
