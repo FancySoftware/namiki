@@ -150,6 +150,12 @@ public class Problema extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
         try {
+            int caso= Integer.parseInt(request.getParameter("form_sumbitted"));
+            out.println("Caso " +caso );
+            
+            switch(caso){
+                    case 1:
+                        //REGISTRANDO PROBLEMA
             String titulo = request.getParameter("titulo");
             String topico = request.getParameter("topico");
             int categoria = Integer.parseInt(request.getParameter("categoria"));
@@ -162,12 +168,18 @@ public class Problema extends HttpServlet {
                 out.println("ERROR Descripcion Vacia");
             } else if(categoria == 0){
                 out.println("Seleciona una categoria");
-            } else{
+            } else {
                 out.println("\n Guardando problemas");
                 out.println("Datos " + titulo +" "+ topico + " "+ categoria +" "+ descripcion);
             //Prueba con id de usuario y categoria inventada.
                 registrarProblema(1,1000,descripcion,titulo, obtenerFecha(),topico);
             }            
+                        break;
+                    case 2:
+                        //MOSTRAR PROBLEMA
+                        break;
+                    default:
+            }
         } finally {            
             out.close();
         }

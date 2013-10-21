@@ -44,7 +44,6 @@ public class ProblemaBD {
         String problema= "INSERT INTO problema (idcategoria,idusuario,descripcion,fecha,titulo,topico) VALUES('"
                                 +idCategoria+"','"+idUsuario+"','"+descripcion+"','"
                                 +fecha+"','"+titulo+"','"+topico+"')";
-        System.out.println(problema);
         System.out.println("Guandando datos");
         base.query(problema);
     }
