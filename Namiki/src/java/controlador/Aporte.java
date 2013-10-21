@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import modelo.AporteBD;
+import modelo.ProblemaBD;
 
 /**
  *
@@ -104,7 +105,34 @@ public Aporte(int idAporte, int idProblema, int idUsuario, String contacto,
       aporte.getDatos(idAporte);
       aporte.eliminar(idAporte);
   }
-
+  public static String mostrarProblemas() {
+      AporteBD aporte = new AporteBD();
+      String[][] aportes = aporte.tablaCompleta();
+      String res = "";
+      for (int i = 0; i < aportes.length; i++) {
+          res += "<tr>";
+            for (int j = 0; j < 8; j++) {
+                res += "<td>" + aportes[i][j] + "</td>";
+            }
+          res += "</tr>";
+      }
+      return res;
+  }
+  
+  
+    public static String mostrarProblemas(int idUsuario) {
+      AporteBD aporte = new AporteBD();
+      String[][] aportes = aporte.tablaUsr(idUsuario);
+      String res = "";
+      for (int i = 0; i < aportes.length; i++) {
+          res += "<tr>";
+            for (int j = 0; j < 8; j++) {
+                res += "<td>" + aportes[i][j] + "</td>";
+            }
+          res += "</tr>";
+      }
+      return res;
+  }
     /**
      * Processes requests for both HTTP
      * <code>GET</code> and

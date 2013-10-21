@@ -4,6 +4,7 @@
     Author     : Edd
 --%>
 
+<%@page import="controlador.Aporte"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -17,6 +18,9 @@
         <title>Namiki | Mis aportes</title>
     </head>
     <body>
+             <tbody>
+              <%= Aporte.mostrarProblemas() %>
+          </tbody>
         <div class="container">
 
         <!-- Static navbar -->
