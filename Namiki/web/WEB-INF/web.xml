@@ -16,6 +16,10 @@
         <servlet-name>NewServlet</servlet-name>
         <servlet-class>controlador.NewServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>Notificacion</servlet-name>
+        <servlet-class>controlador.Notificacion</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Problema</servlet-name>
         <url-pattern>/Problema</url-pattern>
@@ -31,6 +35,10 @@
     <servlet-mapping>
         <servlet-name>NewServlet</servlet-name>
         <url-pattern>/NewServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Notificacion</servlet-name>
+        <url-pattern>/Notificacion</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
