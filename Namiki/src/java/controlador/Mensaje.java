@@ -15,21 +15,47 @@ import javax.servlet.http.HttpServletResponse;
 /**
  *
  * @author Jules
+ * Clase Mensaje
  */
 @WebServlet(name = "Mensaje", urlPatterns = {"/Mensaje"})
 public class Mensaje extends HttpServlet {
 
-    public String mensaje;
+    private String mensaje;
+    private int tipo;
     
+//Constructor de la clase Mensaje
+public Mensaje() {
+    
+}
+
+/**
+ * @param void
+ * @return int
+ * @return String
+ * get's de la clase Mensaje
+ */
+    public int getTipo() {
+        return tipo;
+    }
     public String getMensaje() {
         return mensaje;
-     }
-    
+    }
+
+/**
+ * @param tipo 
+ * @return int
+ * @return String
+ * set's de la clase Mensaje
+ */
+    public void setTipo(int tipo) {
+        this.tipo = tipo;
+    }
     public void setMensaje(String mensaje) {
         this.mensaje = mensaje;
-     }
+    }
     
     public void desplegarMensaje() {
+        Mensaje msj = new Mensaje();
         
     }
     
