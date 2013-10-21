@@ -11,6 +11,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import modelo.AporteBD;
 import modelo.ProblemaBD;
 import modelo.UsuarioBD;
@@ -81,6 +82,9 @@ public class Usuario extends HttpServlet {
                             && correo != null && telefono != null && categoria > 0) {
                         java.sql.Date fecha = new java.sql.Date(new java.util.Date().getTime());
                         registrarUsuario(usuario_registro, password_registro, categoria, nombre, telefono, correo, fecha);
+                        HttpSession session = request.getSession();
+                        session.setAttribute("username", usuario_registro);
+                        session.setAttribute("type", new Integer(categoria));
                         answer = "Success";
                     } else {
                         answer = "Failure";
@@ -93,6 +97,9 @@ public class Usuario extends HttpServlet {
                         answer = "Usuario o contraseña invalidos";
                     } else {
                         answer = "usuario= " + usuario + ";password= "+password;
+                        HttpSession session = request.getSession();
+                        session.setAttribute("username", usuario);
+                        session.setAttribute("type", new Integer(1));
                     }
                     break;
                 default:

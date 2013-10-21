@@ -51,16 +51,16 @@ public class UsuarioBD {
   public void eliminar(int idUsuario) {
       try{
           base.conectar();
-          String eliminar = "DELETE FROM aporte WHERE idusuario = " + idUsuario;
+          String eliminar = "DELETE FROM usuario WHERE idusuario = " + idUsuario;
           base.query(eliminar);
       }catch(Exception e){   
       }
   }
 
-  public void getDatos(int idUsuario) {
+  public void getDatos(String usuario) {
          try{
            base.conectar();
-           String consulta = "SELECT * FROM aporte where idaporte =" +idUsuario;
+           String consulta = "SELECT * FROM usuario WHERE usuario LIKE '" + usuario + "'";
            base.query(consulta);
        }catch(Exception error){
        } 
