@@ -1,6 +1,8 @@
 package modelo;
 
 import java.sql.Date;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 /**
  * @author Administrador
@@ -75,5 +77,36 @@ public class ProblemaBD {
                 + " and descripcion = "+descripcion+ " and fecha = " 
                 +fecha+ " and titulo = "+titulo+ "and topico = " +topico;
         base.query(update);
+    }
+    
+    public String[][] tablaCompleta() {
+        base.conectar();
+        int numRows = 0;
+        ResultSet cont = base.queryRS("SELECT COUNT(*) numRows FROM problema");
+        try {
+            if(cont.next()){
+                numRows = cont.getInt("numRows");
+            } else {
+                System.out.println("Error al contar los registros");
+                numRows = 0;
+            }
+        } catch (SQLException e) {}
+        
+        ResultSet rs = base.queryRS("Select * FROM problema");
+        String[][] res = new String[numRows][7];
+        int actual = 0;
+        try {
+            while(cont.next()){
+                res[actual][1] = rs.getString(1);
+                res[actual][2] = rs.getString(2);
+                res[actual][3] = rs.getString(3);
+                res[actual][4] = rs.getString(4);
+                res[actual][5] = rs.getString(5);
+                res[actual][6] = rs.getString(6);
+                res[actual][7] = rs.getString(7);
+                actual++;
+            }
+        } catch (SQLException e) {}
+        return res;
     }
 }
