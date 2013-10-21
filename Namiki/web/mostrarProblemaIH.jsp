@@ -4,7 +4,7 @@
     Author     : Edd
 --%>
 
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>p
 <!DOCTYPE html>
 <html lang="es">
   <head>
@@ -53,6 +53,7 @@
                 <li><a href="#">Perfil</a></li>
                 <li><a href="#">Mis Aportes</a></li>
                 <li><a href="#">Mis Problemas</a></li>
+                
                 <li><a href="#">Notificaciones</a></li>
                 <li class="divider"></li>
 <!--                 <li class="dropdown-header">Nav header</li>
