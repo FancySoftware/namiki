@@ -98,12 +98,20 @@ public class Usuario extends HttpServlet {
                     } else {
                         UsuarioBD usuariobd = new UsuarioBD();
                         String[] datos = usuariobd.getDatos(usuario);
-                        Integer type = ("null".compareToIgnoreCase(datos[3]) == 0) ? new Integer(0) : new Integer(datos[3]);
-                        answer = "usuario= " + usuario + ";password= "+password+";categoria= "+datos[3];
-                        System.err.println(answer);
-                        HttpSession session = request.getSession();
-                        session.setAttribute("username", usuario);
-                        session.setAttribute("type", type);
+                        if(datos == null) {
+                            answer = "El usuario no existe";
+                        } else {
+                            if(!password.equalsIgnoreCase(datos[2])) {
+                                answer = "Contraseña invalida";
+                            } else {
+                                Integer type = ("null".equalsIgnoreCase(datos[3])) ? new Integer(0) : new Integer(datos[3]);
+                                answer = "usuario= " + usuario + ";password= "+password+";categoria= "+datos[3];
+                                System.err.println(answer);
+                                HttpSession session = request.getSession();
+                                session.setAttribute("username", usuario);
+                                session.setAttribute("type", type);
+                            }
+                        }
                     }
                     break;
                 default:
