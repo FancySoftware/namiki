@@ -91,7 +91,8 @@ public class ProblemaBD {
             }
         } catch (SQLException e) {}
         System.out.println(numRows);
-        ResultSet rs = base.queryRS("SELECT * FROM problema P, categoria C WHERE P.idcategoria =C.idcategoria ORDER BY P.fecha DESC" );
+        ResultSet rs = base.queryRS("SELECT * FROM problema P, categoria C "
+                + "WHERE P.idcategoria =C.idcategoria ORDER BY P.fecha DESC" );
         String[][] res = new String[numRows][7];
         int actual = 0;
         try {

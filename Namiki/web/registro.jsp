@@ -59,12 +59,13 @@
           </ul>
         </div><!--/.nav-collapse -->
       </div>
-
+      
       <form class="" style="max-width: 500px; margin: 0px auto;" action="Problema" method="POST">
         <h2 class="form-heading">Registra tu Problema(Solución)</h2>
+        <input type="hidden" name="idProblema" value="<%= request.getParameter("idproblema") == null ? "" : request.getParameter("idproblema") %>">
         <input type="hidden" name="form_sumbitted" value="1">
         <input type="text" class="form-control" placeholder="Título del Poblema(Solución)" name="titulo">
-        <input type="text" class="form-control" placeholder="Tópico" name="topico"> 
+        <input type="text" class="form-control" placeholder="Tópico" name="topico" value="<%= problema.getTopico() %>">
         <select class="form-control" name="categoria">
             <option value="0">Selecciona una categoria</option>
             <option value="1">Actuaría</option>
