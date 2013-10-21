@@ -214,7 +214,7 @@ public Problema(){
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
         try {
-            int caso= Integer.parseInt(request.getParameter("form_sumbitted"));
+            int  caso= Integer.parseInt(request.getParameter("form_sumbitted"));
             out.println("Caso " +caso );
             
             switch(caso){
