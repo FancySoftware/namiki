@@ -186,7 +186,7 @@ public class Problema extends HttpServlet {
                 out.println("\n Guardando problemas");
                 out.println("Datos " + titulo +" "+ topico + " "+ categoria +" "+ descripcion);
             //Prueba con id de usuario y categoria inventada.
-                registrarProblema(1,1000,descripcion,titulo, obtenerFecha(),topico);
+                registrarProblema(1,1,descripcion,titulo, obtenerFecha(),topico);
             }            
                         break;
                     case 2:
