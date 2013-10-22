@@ -39,7 +39,7 @@
         %>
             <div class="col-lg-12">
                 <div class="panel panel-default">
-                    <div class="panel-heading">Mis Problemas</div>
+                    <div class="panel-heading">Mis Problemas<a href="FormularioAporteProblemaIH.jsp?nuevo=1" class="btn btn-success">Agregar</a></div>
                     <div class="panel-body">
                         <table class="table">
                             <thead>
