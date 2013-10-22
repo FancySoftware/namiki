@@ -57,15 +57,37 @@
     <div class="container">
       <!-- Example row of columns -->
       <div class="row">
+        <%
+            if(sesion.getAttribute("type") == null) {//Es problematico
+        %>
         <div class="col-lg-6">
             <div class="panel panel-default">
                 <div class="panel-heading">Mis Problemas</div>
                 <div class="panel-body">
                     <% String id = (String) sesion.getAttribute("idusuario"); %>
-                    <%= Problema.mostrarProblemasUsr(id) %>
+                    <table class="table">
+                        <thead>
+                          <tr>
+
+                              <th>ID Categoría</th>
+                              <th>ID idusuario</th>
+                              <th>titulo</th>
+                              <th>topico</th>
+                              <th>descripcion</th>
+                              <th>fecha</th>
+                              <th>Acciones</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                            <%= Problema.mostrarProblemasUsr(id) %>
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
+        <%
+            }
+        %>        
         <div class="col-lg-6">
           <h2>Creativo</h2>
           <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
