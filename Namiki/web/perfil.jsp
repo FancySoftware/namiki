@@ -18,11 +18,7 @@
 <body>
     <%
     if(sesion.getAttribute("usuario") == null) {
-    %>
-    <jsp:forward page="index.jsp">
-        <jsp:param name="error" value="Es obligatorio identificarse"/>
-    </jsp:forward>
-    <%
+        response.sendRedirect("index.jsp");
     } else {
     %>
         <%@ include file="./inc/navbar.inc.html"%>
@@ -95,17 +91,9 @@
             }
         %>        
         </div>
-
-      <hr>
-
-        <footer>
-          <p>Fac. Ciencas UNAM 2013</p>
-        </footer>
     </div> <!-- /container -->
-    <!-- Bootstrap core JavaScript
-    ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
-    <script type="text/javascript" src="js/jquery-1.10.2.js"></script>
-    <script type="text/javascript" src="js/bootstrap.js"></script>
-  </body>
+    <%@ include file="./inc/footer.inc.html"%>
+
+    <%@ include file="./inc/scripts.inc.html"%>
+</body>
 </html>

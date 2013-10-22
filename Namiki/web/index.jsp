@@ -5,6 +5,8 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ page session="true" %>
+<% HttpSession sesion = request.getSession(); %>
 <% String titulo_pagina = "Namiki"; %>
 <!DOCTYPE html>
 <html lang="es">
@@ -12,7 +14,18 @@
     <%@ include file="./inc/head.inc.html"%>
 </head>
 <body>
-    <%@ include file="./inc/navbar-login.inc.html"%>
+    <%
+    if(sesion.getAttribute("usuario") == null) {
+    %>
+        <%@ include file="./inc/navbar-login.inc.html"%>
+    <%
+    } else {
+    %>
+        <%@ include file="./inc/navbar.inc.html"%>
+    <%
+    }
+    %>
+    
 
     <!-- Main jumbotron for a primary marketing message or call to action -->
     <div class="jumbotron">

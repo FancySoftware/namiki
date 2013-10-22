@@ -5,6 +5,8 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ page session="true" %>
+<% HttpSession sesion = request.getSession(); %>
 <% String titulo_pagina = "Namiki | Registrate"; %>
 <!DOCTYPE html>
 <html lang="es">
@@ -12,7 +14,17 @@
     <%@ include file="./inc/head.inc.html"%>
 </head>
 <body>
-    <%@ include file="./inc/navbar-login.inc.html"%>
+    <%
+    if(sesion.getAttribute("usuario") == null) {
+    %>
+        <%@ include file="./inc/navbar-login.inc.html"%>
+    <%
+    } else {
+    %>
+        <%@ include file="./inc/navbar.inc.html"%>
+    <%
+    }
+    %>
 
     <div class="container">
         <form class="form-horizontal" style="max-width: 500px; margin: 0px auto;" action="Usuario" method="POST">

@@ -165,9 +165,12 @@ public Problema(){
       problema.eliminar(idProblema);
   }
 
-  public static void  getDatos(int idProblem){
+  public static boolean  getDatos(int idProblem){
       ProblemaBD problema = new ProblemaBD();
-      String [][]datos= problema.getDatos(idProblem);
+      String[][] datos= problema.getDatos(idProblem);
+      if(datos == null) {
+          return false;
+      }
       Problema.idProblema = Integer.parseInt(datos[0][0]);
       Problema.idCategoria =Integer.parseInt(datos[0][1]);
       Problema.idUsuario = Integer.parseInt(datos[0][2]);      
@@ -190,7 +193,7 @@ public Problema(){
       res += datos[0][5];
       res += datos[0][6];
       System.out.println("Obteniendo datos");
-      //return res;
+      return true;
   }
   
   public static String mostrarProblemas() {
@@ -221,7 +224,7 @@ public Problema(){
                         "<button type=\"button\" class=\"btn btn-primary dropdown-toggle\" data-toggle=\"dropdown\">\n" +
                             "Acciones <span class=\"caret\"></span>\n" +
                         "</button>\n" +
-                        "<ul class=\"dropdown-menu pull-right\" role=\"menu\" aria-labelledby=\"dropdownMenu\">\n" +
+                        "<ul class=\"dropdown-menu\" role=\"menu\" aria-labelledby=\"dropdownMenu\">\n" +
                             "<li>\n" +
                                 "<a tabindex=\"-1\" href=\"FormularioAporteProblemaIH.jsp?idproblema=" + problemas[i][0] + "\">Editar</a>\n" +
                             "</li>\n" +
