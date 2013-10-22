@@ -4,15 +4,20 @@
  */
 package controlador;
 
+import static controlador.Problema.getDescripcion;
+import static controlador.Problema.getTopico;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import modelo.AporteBD;
+import modelo.ProblemaBD;
 
 /**
  *
@@ -207,6 +212,10 @@ public Aporte(){
     cal.set(Calendar.MILLISECOND, 0);    
     java.sql.Date sqlDate = new java.sql.Date(cal.getTime().getTime()); // your sql date
     return sqlDate;
+  }
+  
+  public static boolean getDatos(int idaporte) {
+      return true;
   }
   
 /**

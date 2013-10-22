@@ -34,6 +34,9 @@
     String titulo = "";
     String topico = "";
     String descripcion = "";
+    String solucion = "";
+    String contacto = "";
+    String costo = "";
     if(request.getParameter("nuevo") == null && request.getParameter("idproblema") == null && request.getParameter("idaporte") == null) {
         System.err.println("NULLLLLL");
         response.sendRedirect("perfil.jsp");
@@ -56,7 +59,7 @@
                 descripcion = Problema.getDescripcion();
             }
         } else if(request.getParameter("idaporte") != null) {
-            tipo_pagina = 4; // Editar problema
+            tipo_pagina = 4; // Editar aporte
             value_form = 2;
         }
         System.err.println(tipo_pagina+" = tipo pagina");
@@ -68,7 +71,11 @@
             <h2 class="form-heading"><%= (tipo_pagina == 1 || tipo_pagina == 2) ? "Nuevo " : "Editar " %><%= (tipo_pagina == 1 || tipo_pagina == 3) ? "Problema" : "Aporte" %></h2>
             <input type="hidden" name="idUsuario" value="<%= sesion.getAttribute("idusuario") %>">
             <input type="hidden" name="idProblema" value="<%= request.getParameter("idproblema") == null ? "" : request.getParameter("idproblema") %>">
+            <input type="hidden" name="idAporte" value="<%= request.getParameter("idaporte") == null ? "" : request.getParameter("idaporte") %>">
             <input type="hidden" name="form_sumbitted" value="<%= value_form %>">
+            <%
+            if(tipo_pagina == 1 || tipo_pagina == 3) {
+            %>
             <div class="form-group control-group">
                 <label for="titulo_form" class="col-lg-3 control-label">Título</label>
                 <div class="col-lg-9 controls">
@@ -103,6 +110,34 @@
                     <p class="help-block"></p>
                 </div>
             </div>
+            <%
+            } else {
+            %>
+            <div class="form-group control-group">
+                <label for="solucion_form" class="col-lg-3 control-label">Solución</label>
+                <div class="col-lg-9 controls">
+                    <textarea class="form-control" id="solucion_form" required="" placeholder="Solución" name="solucion"><%= solucion %></textarea>
+                    <p class="help-block"></p>
+                </div>
+            </div>
+            <div class="form-group control-group">
+                <label for="costo_form" class="col-lg-3 control-label">Costo</label>
+                <div class="col-lg-9 controls">
+                    <input type="text" class="form-control" id="costo_form" required="" placeholder="Costo" name="costo" value="<%= costo %>">
+                    <p class="help-block"></p>
+                </div>
+            </div>
+            <div class="form-group control-group">
+                <label for="contacto_form" class="col-lg-3 control-label">Contacto</label>
+                <div class="col-lg-9 controls">
+                    <textarea class="form-control" id="contacto_form" required="" placeholder="Contacto" name="contacto"><%= contacto %></textarea>
+                    <p class="help-block"></p>
+                </div>
+            </div>        
+            <%    
+            }
+            %>
+            
             <button class="btn btn-lg btn-primary btn-block" type="submit" style="width: 50%; float: right; margin-top: 20px;"><%= (tipo_pagina == 1 || tipo_pagina == 2) ? "Registrar" : "Editar" %></button>
             <div class="clearfix"></div>
         </form>
