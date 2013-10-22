@@ -95,5 +95,17 @@
     <%@ include file="./inc/footer.inc.html"%>
 
     <%@ include file="./inc/scripts.inc.html"%>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $(".borrar").click(function(event){
+                event.preventDefault();
+                if (confirm("Seguro que deseas borrar este problema?")){
+                    window.location=$(this).attr("href");
+                }              
+                
+            });
+        });
+        
+    </script>
 </body>
 </html>

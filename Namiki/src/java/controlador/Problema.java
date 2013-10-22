@@ -157,8 +157,7 @@ public Problema(){
  * Metodo borrarProblema que crea un objeto ProblemaBD problema, pide los datos del
  * problema elegido y los elimina.
  */
-  public void borrarProblema(int idProblema, int idCategoria, int idUsuario, String descripcion, 
-        String titulo, Date fecha, String topico) {
+  public static void borrarProblema(int idProblema) {
         
       ProblemaBD problema = new ProblemaBD();
       problema.getDatos(idProblema);
@@ -229,7 +228,7 @@ public Problema(){
                                 "<a tabindex=\"-1\" href=\"FormularioAporteProblemaIH.jsp?idproblema=" + problemas[i][0] + "\">Editar</a>\n" +
                             "</li>\n" +
                             "<li>\n" +
-                                "<a tabindex=\"-1\" href=\"mostrarProblemaIH.jsp?borrar=" + problemas[i][0] + "\">Borrar</a>\n" +
+                                "<a class=\"borrar\" tabindex=\"-1\" href=\"mostrarProblemaIH.jsp?borrar=" + problemas[i][0] + "\">Borrar</a>\n" +
                             "</li>\n" +
                         "</ul>\n" +
                     "</div>\n" +

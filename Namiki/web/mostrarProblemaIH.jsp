@@ -6,6 +6,11 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ page import="controlador.Problema" %>
+  <% if (request.getParameter("borrar") != null) {
+      Problema.borrarProblema(Integer.parseInt(request.getParameter("borrar")));
+      response.sendRedirect("perfil.jsp");
+  }
+  %>
 <!DOCTYPE html>
 <html lang="es">
   <head>
@@ -29,6 +34,8 @@
     <![endif]-->
   </head>
 
+  
+  
   <body>
 
     <div class="container">

@@ -3,8 +3,12 @@
     Created on : 15/10/2013, 11:44:51 AM
     Author     : Edd
 --%>
-
-<%@page import="controlador.Aporte"%>
+ <%@ page import="controlador.Aporte" %>
+ <% if (request.getParameter("borrar") != null) {
+      Aporte.borrarAporte(Integer.parseInt(request.getParameter("borrar")));
+      response.sendRedirect("perfil.jsp");
+  }
+  %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -19,7 +23,7 @@
     </head>
     <body>
              <tbody>
-              <%= Aporte.mostrarProblemas() %>
+              <%= Aporte.mostrarAportes() %>
           </tbody>
         <div class="container">
 
