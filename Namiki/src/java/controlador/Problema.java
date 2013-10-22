@@ -6,6 +6,8 @@ package controlador;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import javax.servlet.ServletException;
@@ -21,13 +23,13 @@ import modelo.ProblemaBD;
  */
 public class Problema extends HttpServlet {
     
-    private int idProblema;
-    private int idCategoria;
-    private int idUsuario;
-    private String descripcion;
-    private Date fecha;
-    private String titulo;
-    private String topico;
+    private static int idProblema;
+    private static int idCategoria;
+    private static int idUsuario;
+    private static String descripcion;
+    private static Date fecha;
+    private static String titulo;
+    private static String topico;
     
 // Contructor de la clase Problema
 public Problema(){
@@ -40,25 +42,25 @@ public Problema(){
  * @return String
  * get's de la clase Problema
  */
-    public int getidProblema() {
+    public static int getidProblema() {
         return idProblema;
     }
-    public int getidCategoria() {
+    public static int getidCategoria() {
         return idCategoria;
     }
-    public int getidUsuario() {
+    public static int getidUsuario() {
         return idUsuario;
     }
-    public String getDescripcion() {
+    public static String getDescripcion() {
         return descripcion;
     }
-    public Date getFecha() {
+    public static Date getFecha() {
         return fecha;
     }
-    public String getTitulo() {
+    public static String getTitulo() {
         return titulo;
     }
-    public String getTopico() {
+    public static String getTopico() {
         return topico;
     }
 
@@ -139,7 +141,7 @@ public Problema(){
         String titulo, Date fecha, String topico) {
         
       ProblemaBD problema = new ProblemaBD();
-      problema.getDatos(idProblema);
+     // problema.getDatos(idProblema);
       problema.editar(idProblema, idCategoria, idUsuario, descripcion, obtenerFecha(), titulo, topico);
   }
   
@@ -158,11 +160,39 @@ public Problema(){
   public void borrarProblema(int idProblema, int idCategoria, int idUsuario, String descripcion, 
         String titulo, Date fecha, String topico) {
         
-      ProblemaBD problema = new ProblemaBD(idProblema, idCategoria, idUsuario, descripcion, obtenerFecha(), titulo, topico);
+      ProblemaBD problema = new ProblemaBD();
       problema.getDatos(idProblema);
       problema.eliminar(idProblema);
   }
 
+  public static void  getDatos(int idProblem){
+      ProblemaBD problema = new ProblemaBD();
+      String [][]datos= problema.getDatos(idProblem);
+      Problema.idProblema = Integer.parseInt(datos[0][0]);
+      Problema.idCategoria =Integer.parseInt(datos[0][1]);
+      Problema.idUsuario = Integer.parseInt(datos[0][2]);      
+      Problema.titulo = datos[0][3];      
+      Problema.topico = datos[0][4];      
+      System.out.println("TOPICO " + getTopico());
+      Problema.descripcion = datos[0][5];
+      System.out.println("Descripcion " + getDescripcion());
+      try{
+      Problema.fecha = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").parse(datos[0][6]);
+      }catch(ParseException e){
+          System.out.println("Error en la fecha");
+      }
+      String res = "";
+      res += datos[0][0];
+      res += datos[0][1];
+      res += datos[0][2];
+      res += datos[0][3];
+      res += datos[0][4];
+      res += datos[0][5];
+      res += datos[0][6];
+      System.out.println("Obteniendo datos");
+      //return res;
+  }
+  
   public static String mostrarProblemas() {
       ProblemaBD problema = new ProblemaBD();
       String[][] problemas = problema.tablaCompleta();
@@ -189,7 +219,7 @@ public Problema(){
             res+="<td><div class=\"dropdown\">";
             res+="<a data-toggle=\"dropdown\" href=\"#\" class=\"btn btn-primary\">Acciones <span class=\"caret\"></span></a>";
             res+="<ul class=\"dropdown-menu\" role=\"menu\" aria-labelledby=\"dLabel\">";
-            res+="<li><a href=\"FormularioAporteProblema.jsp?idproblema=" 
+            res+="<li><a href=\"FormularioAporteProblemaIH.jsp?idproblema=" 
                     + problemas[i][0] + "\">Editar</a></li>"; 
             res+="<li><a href=\"mostrarProblemaIH.jsp?borrar=" 
                     + problemas[i][0] + "\">Borrar</a></li>";
@@ -220,29 +250,48 @@ public Problema(){
             switch(caso){
                     case 1:
                         //REGISTRANDO PROBLEMA
-            String titulo = request.getParameter("titulo");
-            String topico = request.getParameter("topico");
-            int categoria = Integer.parseInt(request.getParameter("categoria"));
-            String descripcion = request.getParameter("descripcion");
-            if(titulo.length() ==0 && topico.length() ==0 && descripcion.length() ==0 && categoria==0){
-            out.println("ERROR EN LOS DATOS");
-            } else if(titulo.length() == 0) {
-                out.println("ERROR titulo obligatorio");
-            } else if(descripcion.length() == 0){
-                out.println("ERROR Descripcion Vacia");
-            } else if(categoria == 0){
-                out.println("Seleciona una categoria");
-            } else {
-                out.println("\n Guardando problemas");
-                out.println("Datos " + titulo +" "+ topico + " "+ categoria +" "+ descripcion);
-            //Prueba con id de usuario y categoria inventada.
-                registrarProblema(1,1,descripcion,titulo, obtenerFecha(),topico);
-            }            
-                        break;
+                String titulo = request.getParameter("titulo");
+                String topico = request.getParameter("topico");
+                int categoria = Integer.parseInt(request.getParameter("categoria"));
+                String descripcion = request.getParameter("descripcion");
+                if(titulo.length() ==0 && topico.length() ==0 && descripcion.length() ==0 && categoria==0){
+                out.println("ERROR EN LOS DATOS");
+                } else if(titulo.length() == 0) {
+                    out.println("ERROR titulo obligatorio");
+                } else if(descripcion.length() == 0){
+                    out.println("ERROR Descripcion Vacia");
+                } else if(categoria == 0){
+                    out.println("Seleciona una categoria");
+                } else {
+                    out.println("\n Guardando problemas");
+                    out.println("Datos " + titulo +" "+ topico + " "+ categoria +" "+ descripcion);
+                //Prueba con id de usuario y categoria inventada.
+                    registrarProblema(1,1,descripcion,titulo, obtenerFecha(),topico);
+                }            
+                break;
                     case 2:
-                        //MOSTRAR PROBLEMA
-                        break;
-                    default:
+                        //EDITAR PROBLEMA
+                   String idprob =request.getParameter("idProblema");
+                   out.println(idprob);
+                   out.println("Caso de editar");
+                   String titulo_nvo = request.getParameter("titulo");
+                   String topico_nvo = request.getParameter("topico");
+                   int categoria_nvo = Integer.parseInt(request.getParameter("categoria"));
+                   String descripcion_nvo = request.getParameter("descripcion");
+                   if(titulo_nvo.length() == 0 && topico_nvo.length() ==0 && descripcion_nvo.length() ==0 && categoria_nvo==0){
+                       out.println("ERROR EN LOS DATOS");
+                   } else if(titulo_nvo.length() == 0) {
+                       out.println("ERROR titulo obligatorio");
+                   } else if(descripcion_nvo.length() == 0){
+                       out.println("ERROR Descripcion Vacia");
+                   } else if(categoria_nvo == 0){
+                       out.println("Seleciona una categoria");
+                   } else {
+                       out.println("\n Editando problema");                    
+                   editarProblema(idProblema,categoria_nvo,idUsuario,descripcion_nvo,titulo_nvo,obtenerFecha(),topico_nvo);
+                       out.println("SE LOGRO EDITAR");
+                   break;
+                }
             }
         } finally {            
             out.close();

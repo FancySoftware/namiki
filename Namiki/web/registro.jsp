@@ -5,6 +5,7 @@
 --%>
  
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ page import="controlador.Problema" %>
 <!DOCTYPE html>
 <html lang="es">
   <head>
@@ -65,7 +66,7 @@
         <input type="hidden" name="idProblema" value="<%= request.getParameter("idproblema") == null ? "" : request.getParameter("idproblema") %>">
         <input type="hidden" name="form_sumbitted" value="1">
         <input type="text" class="form-control" placeholder="Título del Poblema(Solución)" name="titulo">
-        <input type="text" class="form-control" placeholder="Tópico" name="topico" value="<%= problema.getTopico() %>">
+        <input type="text" class="form-control" placeholder="Tópico" name="topico" value="<%= Problema.getTopico() %>">
         <select class="form-control" name="categoria">
             <option value="0">Selecciona una categoria</option>
             <option value="1">Actuaría</option>
