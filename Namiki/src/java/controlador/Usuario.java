@@ -112,11 +112,12 @@ public class Usuario extends HttpServlet {
                                 answer = "usuario= " + usuario + ";password= "+password+";categoria= "+datos[3];
                                 System.err.println(answer);
                                 HttpSession sesion = request.getSession();
-                                sesion.setAttribute("username", usuario);
+                                sesion.setAttribute("usuario", usuario);
                                 sesion.setAttribute("idusuario", datos[0]);
                                 sesion.setAttribute("type", datos[3]);
-                                RequestDispatcher rd = request.getRequestDispatcher("perfil.jsp");
-                                rd.forward(request, response);
+//                                RequestDispatcher rd = request.getRequestDispatcher("perfil.jsp");
+//                                rd.forward(request, response);
+                                response.sendRedirect("perfil.jsp");
                             }
                         }
                     }

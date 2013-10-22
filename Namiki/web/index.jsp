@@ -5,51 +5,14 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<% String titulo_pagina = "Namiki"; %>
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!--<link rel="shortcut icon" href="../../assets/ico/favicon.png">-->
-
-    <title>Namiki</title>
-
-    <!-- Bootstrap core CSS -->
-    <link href="css/bootstrap.css" rel="stylesheet">
-    <link href="css/theme-blue.css" rel="stylesheet">
-
-    <style type="text/css">
-        body {
-                padding: 50px 0px 20px;
-        }
-    </style>
+    <%@ include file="./inc/head.inc.html"%>
 </head>
 <body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="#">Namiki</a>
-            </div>
-            <div class="navbar-collapse collapse">
-                <form class="navbar-form navbar-right" action="Usuario" method="POST">
-                    <input type="hidden" name="form_sumbitted" value="2">
-                    <div class="form-group">
-                        <input type="text" placeholder="Nombre de Usuario" class="form-control" name="usuario">
-                    </div>
-                    <div class="form-group">
-                        <input type="password" placeholder="Password" class="form-control" name="password">
-                    </div>
-                    <button type="submit" class="btn btn-success">Entrar</button>
-                    <a href="registrar.jsp" class="btn btn-success">Registrate</a>
-                </form>
-            </div><!--/.navbar-collapse -->
-        </div>
-    </div>
+    <%@ include file="./inc/navbar-login.inc.html"%>
 
     <!-- Main jumbotron for a primary marketing message or call to action -->
     <div class="jumbotron">
@@ -80,16 +43,11 @@
         </div>
       </div>
 
-      <hr>
-
-        <footer>
-          <p>Fac. Ciencas UNAM 2013</p>
-        </footer>
+        
     </div> <!-- /container -->
-    <!-- Bootstrap core JavaScript
-    ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
-    <script type="text/javascript" src="js/jquery-1.10.2.js"></script>
-    <script type="text/javascript" scr="js/bootstrap.js"></script>
-  </body>
+    
+    <%@ include file="./inc/footer.inc.html"%>
+    
+    <%@ include file="./inc/scripts.inc.html"%>
+</body>
 </html>

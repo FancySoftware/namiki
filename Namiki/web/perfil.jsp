@@ -9,51 +9,26 @@
 <% HttpSession sesion = request.getSession(); %>
 <%@ page import="controlador.Problema" %>
 <%@ page import="controlador.Aporte" %>
+<% String titulo_pagina = "Namiki | Perfil"; %>
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!--<link rel="shortcut icon" href="../../assets/ico/favicon.png">-->
-
-    <title>Namiki</title>
-
-    <!-- Bootstrap core CSS -->
-    <link href="css/bootstrap.css" rel="stylesheet">
-    <link href="css/theme-blue.css" rel="stylesheet">
-
-    <style type="text/css">
-        body {
-                padding: 50px 0px 20px;
-        }
-    </style>
+    <%@ include file="./inc/head.inc.html"%>
 </head>
 <body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="#">Namiki</a>
-            </div>
-            <div class="navbar-collapse collapse">
-                <form class="navbar-form navbar-right" action="Usuario" method="POST">
-                    <input type="hidden" name="form_sumbitted" value="2">
-                    <div class="form-group">
-                        <input type="text" placeholder="Nombre de Usuario" class="form-control" name="usuario">
-                    </div>
-                    <div class="form-group">
-                        <input type="password" placeholder="Password" class="form-control" name="password">
-                    </div>
-                    <button type="submit" class="btn btn-success">Entrar</button>
-                    <a href="registrar.jsp" class="btn btn-success">Registrate</a>
-                </form>
-            </div><!--/.navbar-collapse -->
-        </div>
-    </div>
+    <%
+    if(sesion.getAttribute("usuario") == null) {
+    %>
+    <jsp:forward page="index.jsp">
+        <jsp:param name="error" value="Es obligatorio identificarse"/>
+    </jsp:forward>
+    <%
+    } else {
+    %>
+        <%@ include file="./inc/navbar.inc.html"%>
+    <%
+    }
+    %>
 
     <div class="container">
         <ul class="breadcrumb">
@@ -131,6 +106,6 @@
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
     <script type="text/javascript" src="js/jquery-1.10.2.js"></script>
-    <script type="text/javascript" scr="js/bootstrap.js"></script>
+    <script type="text/javascript" src="js/bootstrap.js"></script>
   </body>
 </html>
