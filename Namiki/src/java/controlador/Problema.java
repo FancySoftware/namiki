@@ -276,6 +276,7 @@ public Problema(){
                     out.println("Datos " + titulo +" "+ topico + " "+ categoria +" "+ descripcion);
                 //Prueba con id de usuario y categoria inventada.
                     registrarProblema(1,1,descripcion,titulo, obtenerFecha(),topico);
+                    response.sendRedirect("perfil.jsp");
                 }            
                 break;
                     case 2:
@@ -299,6 +300,7 @@ public Problema(){
                        out.println("\n Editando problema");                    
                    editarProblema(idProblema,categoria_nvo,idUsuario,descripcion_nvo,titulo_nvo,obtenerFecha(),topico_nvo);
                        out.println("SE LOGRO EDITAR");
+                       response.sendRedirect("perfil.jsp");
                    break;
                 }
             }
