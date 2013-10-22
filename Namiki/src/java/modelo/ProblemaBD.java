@@ -93,10 +93,13 @@ public class ProblemaBD {
     public void editar(int idProblema,int idCategoria, int idUsuario, 
             String descripcion,Date fecha,String titulo, String topico){
         base.conectar();
-        String update = "UPDATE problema SET descripcion "+descripcion+"WHERE idproblema = " +idProblema
-                + " and idusuario = "+idUsuario+ " and idcategoria = " +idCategoria 
-                + " and descripcion = '"+descripcion+ "' and fecha = '" 
-                +fecha+ "' and titulo = '"+titulo+ "' and topico = '" +topico+"'";
+        String update = "UPDATE problema SET idcategoria ='"+idCategoria
+                        + "', descripcion = '"+descripcion 
+                        + "', fecha = '" + fecha 
+                        + "' , titulo = '" + titulo 
+                        + "', topico = '" + topico 
+                        + "' WHERE idproblema = " +idProblema;
+               
         base.query(update);
     }
     
