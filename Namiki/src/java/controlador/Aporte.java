@@ -150,10 +150,9 @@ public Aporte(){
  * Metodo borrarAporte que crea un objeto AporteBD aporte, pide los datos del
  * aporte elegido y los elimina.
  */
-  public void borrarAporte(int idAporte, int idProblema, int idUsuario, String contacto, 
-        String costo, int elegido, Date fecha, String solucion) {
+  public static void borrarAporte(int idAporte) {
         
-      AporteBD aporte = new AporteBD(idAporte, idUsuario, idProblema, solucion, costo, fecha, contacto, elegido);
+      AporteBD aporte = new AporteBD();
       aporte.getDatos(idAporte);
       aporte.eliminar(idAporte);
   }
