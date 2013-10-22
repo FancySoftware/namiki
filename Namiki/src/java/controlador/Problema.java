@@ -216,14 +216,21 @@ public Problema(){
             for (int j = 1; j < 7; j++) {
                 res += "<td>" + problemas[i][j] + "</td>";
             }
-            res+="<td><div class=\"dropdown\">";
-            res+="<a data-toggle=\"dropdown\" href=\"#\" class=\"btn btn-primary\">Acciones <span class=\"caret\"></span></a>";
-            res+="<ul class=\"dropdown-menu\" role=\"menu\" aria-labelledby=\"dLabel\">";
-            res+="<li><a href=\"FormularioAporteProblemaIH.jsp?idproblema=" 
-                    + problemas[i][0] + "\">Editar</a></li>"; 
-            res+="<li><a href=\"mostrarProblemaIH.jsp?borrar=" 
-                    + problemas[i][0] + "\">Borrar</a></li>";
-            res+="</ul></div></td>";
+            res+="<td>\n"+
+                    "<div class=\"dropdown\">" +
+                        "<button type=\"button\" class=\"btn btn-primary dropdown-toggle\" data-toggle=\"dropdown\">\n" +
+                            "Acciones <span class=\"caret\"></span>\n" +
+                        "</button>\n" +
+                        "<ul class=\"dropdown-menu pull-right\" role=\"menu\" aria-labelledby=\"dropdownMenu\">\n" +
+                            "<li>\n" +
+                                "<a tabindex=\"-1\" href=\"FormularioAporteProblemaIH.jsp?idproblema=" + problemas[i][0] + "\">Editar</a>\n" +
+                            "</li>\n" +
+                            "<li>\n" +
+                                "<a tabindex=\"-1\" href=\"mostrarProblemaIH.jsp?borrar=" + problemas[i][0] + "\">Borrar</a>\n" +
+                            "</li>\n" +
+                        "</ul>\n" +
+                    "</div>\n" +
+                "</td>";
           res += "</tr>";
       }
       return res;

@@ -178,9 +178,17 @@ public Aporte(){
       String res = "";
       for (int i = 0; i < aportes.length; i++) {
           res += "<tr>";
-            for (int j = 0; j < 8; j++) {
+            for (int j = 1; j < 8; j++) {
                 res += "<td>" + aportes[i][j] + "</td>";
             }
+            res+="<td><div class=\"dropdown\">";
+            res+="<a data-toggle=\"dropdown\" href=\"#\" class=\"btn btn-primary\">Acciones <span class=\"caret\"></span></a>";
+            res+="<ul class=\"dropdown-menu\" role=\"menu\" aria-labelledby=\"dLabel\">";
+            res+="<li><a href=\"FormularioAporteProblemaIH.jsp?idaporte=" 
+                    + aportes[i][0] + "\">Editar</a></li>"; 
+            res+="<li><a href=\"mostrarAporteIH.jsp?borrar=" 
+                    + aportes[i][0] + "\">Borrar</a></li>";
+            res+="</ul></div></td>";
           res += "</tr>";
       }
       return res;

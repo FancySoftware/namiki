@@ -8,6 +8,7 @@
 <%@ page session="true" %>
 <% HttpSession sesion = request.getSession(); %>
 <%@ page import="controlador.Problema" %>
+<%@ page import="controlador.Aporte" %>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -55,45 +56,70 @@
     </div>
 
     <div class="container">
-      <!-- Example row of columns -->
-      <div class="row">
+        <ul class="breadcrumb">
+            <li><a href="/index.jsp">Inicio</a></li>
+            <li class="active">Perfil</li>
+        </ul>
+        <!-- Example row of columns -->
+        <div class="row">
         <%
+            String id = (String) sesion.getAttribute("idusuario");
             if(sesion.getAttribute("type") == null) {//Es problematico
         %>
-        <div class="col-lg-6">
-            <div class="panel panel-default">
-                <div class="panel-heading">Mis Problemas</div>
-                <div class="panel-body">
-                    <% String id = (String) sesion.getAttribute("idusuario"); %>
-                    <table class="table">
-                        <thead>
-                          <tr>
-
-                              <th>ID Categoría</th>
-                              <th>ID idusuario</th>
-                              <th>titulo</th>
-                              <th>topico</th>
-                              <th>descripcion</th>
-                              <th>fecha</th>
-                              <th>Acciones</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                            <%= Problema.mostrarProblemasUsr(id) %>
-                        </tbody>
-                    </table>
+            <div class="col-lg-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading">Mis Problemas</div>
+                    <div class="panel-body">
+                        <table class="table">
+                            <thead>
+                              <tr>
+                                  <th>ID Categoría</th>
+                                  <th>ID idusuario</th>
+                                  <th>titulo</th>
+                                  <th>topico</th>
+                                  <th>descripcion</th>
+                                  <th>fecha</th>
+                                  <th>Acciones</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                                <%= Problema.mostrarProblemasUsr(id) %>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
-        </div>
         <%
+            } else { //Creativo
+        %>
+            <div class="col-lg-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading">Mis Aportes</div>
+                    <div class="panel-body">
+                        <table class="table">
+                            <thead>
+                              <tr>
+                                  <th>ID Problema</th>
+                                  <th>ID Usuario</th>
+                                  <th>Solución</th>
+                                  <th>Costo</th>
+                                  <th>Fecha</th>
+                                  <th>Contacto</th>
+                                  <th>Elegido</th>
+                                  <th>Acciones</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                                <%= Aporte.mostrarAportesUsr(new Integer(id)) %>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        <%                
             }
         %>        
-        <div class="col-lg-6">
-          <h2>Creativo</h2>
-          <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-          <p><a class="btn btn-default" href="#">View details &raquo;</a></p>
-       </div>
-      </div>
+        </div>
 
       <hr>
 

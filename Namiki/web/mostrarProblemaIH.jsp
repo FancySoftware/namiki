@@ -79,8 +79,6 @@
           </thead>
           <tbody>
               <%= Problema.mostrarProblemasUsr("1")%>
-              
-            
           </tbody>
       </table>
       <!-- Main component for a primary marketing message or call to action -->
