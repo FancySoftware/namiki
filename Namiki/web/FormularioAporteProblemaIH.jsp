@@ -40,7 +40,7 @@
     if(request.getParameter("nuevo") == null && request.getParameter("idproblema") == null && request.getParameter("idaporte") == null) {
         System.err.println("NULLLLLL");
         response.sendRedirect("perfil.jsp");
-        System.err.println("?????");
+       
     } else {
         if(request.getParameter("nuevo") != null && Integer.parseInt(request.getParameter("nuevo")) == 1) {
             tipo_pagina = 1; //Nuevo problema
@@ -64,7 +64,7 @@
         }
         System.err.println(tipo_pagina+" = tipo pagina");
     }
-    String accion = (tipo_pagina == 1 || tipo_pagina == 3) ? "action=\"Problema\"" : "action=\"Usuario\"";
+    String accion = (tipo_pagina == 1 || tipo_pagina == 3) ? "action=\"Problema\"" : "action=\"Aporte\"";
     %>
     <div class="container">
         <form class="form-horizontal" style="max-width: 500px; margin: 0px auto;" <%= accion %> method="POST">

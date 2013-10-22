@@ -8,7 +8,7 @@ import static controlador.Problema.getDescripcion;
 import static controlador.Problema.getTopico;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.Date;
+import java.util.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -26,14 +26,14 @@ import modelo.ProblemaBD;
  */
 public class Aporte extends HttpServlet {
     
-    private int idAporte;
-    private int idProblema;
-    private int idUsuario;
-    private String contacto;
-    private String costo;
-    private int elegido;
-    private Date fecha;
-    private String solucion;
+    private static int idAporte;
+    private static int idProblema;
+    private static int idUsuario;
+    private static String contacto;
+    private static String costo;
+    private static int elegido;
+    private static Date fecha;
+    private static String solucion;
     
 // Contructor de la clase Aporte 
 public Aporte(){
@@ -117,8 +117,8 @@ public Aporte(){
   public void registrarAporte(int idUsuario, int idProblema, String solucion, 
         String costo, Date fecha, String contacto, int elegido) {
       
-        AporteBD aporte = new AporteBD(idAporte, idUsuario, idProblema, solucion, costo, fecha, contacto, elegido);
-        aporte.guardar(idAporte, idUsuario, idProblema, solucion, costo, fecha, contacto, elegido);
+        AporteBD aporte = new AporteBD();
+        aporte.guardar(idAporte, idUsuario, idProblema, solucion, costo, obtenerFecha(), contacto, elegido);
   }
 
 /**
@@ -134,12 +134,11 @@ public Aporte(){
  * Metodo editarAporte que crea un objeto AporteBD aporte, pide los datos del
  * aporte elegido y guarda los cambios.
  */
-  public void editarAporte(int idAporte, int idProblema, int idUsuario, String contacto, 
-        String costo, int elegido, Date fecha, String solucion) {
+  public void editarAporte(int idAporte,int idUsuario,int idProblema, String solucion, String costo,String contacto,int elegido) {
         
-      AporteBD aporte = new AporteBD(idAporte, idUsuario, idProblema, solucion, costo, fecha, contacto, elegido);
+      AporteBD aporte = new AporteBD();
       aporte.getDatos(idAporte);
-      aporte.editar(idAporte, idUsuario, idProblema, solucion, costo, fecha, contacto, elegido);
+      aporte.editar(idAporte, idUsuario, idProblema, solucion, costo, obtenerFecha(), contacto, elegido);
   }
 
 /**
@@ -215,6 +214,24 @@ public Aporte(){
   }
   
   public static boolean getDatos(int idaporte) {
+      AporteBD problema = new AporteBD();
+      String[][] datos= problema.getDatos(idaporte);
+      if(datos == null) {
+          return false;
+      }
+                    Aporte.idAporte = Integer.parseInt(datos[0][0]);
+                    Aporte.idProblema = Integer.parseInt( datos[0][1]);
+                    Aporte.idUsuario = Integer.parseInt(datos[0][2]);
+                    
+                    Aporte.solucion =  datos[0][3]; 
+                    Aporte.costo = datos[0][4];
+                    try {
+                    Aporte.fecha = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").parse(datos[0][5]);
+                    } catch(ParseException e){
+                        System.out.println("Error en la fecha");
+                    } 
+                    Aporte.costo = datos[0][6];
+                    Aporte.elegido = Integer.parseInt(datos[0][7]);
       return true;
   }
   
@@ -230,10 +247,14 @@ public Aporte(){
  */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+       
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
         try {
-          String solucion = request.getParameter("solucion");
+            int caso = Integer.parseInt(request.getParameter("form_sumbitted"));
+            switch(caso){
+                    case 1:
+            String solucion = request.getParameter("solucion");
             String costo = request.getParameter("costo");
             String contacto= request.getParameter("contacto");
             if(solucion.length() ==0 && costo.length() ==0 && contacto.length() ==0){
@@ -248,7 +269,35 @@ public Aporte(){
                 out.println("\n Guardando aportes");
             //Prueba con id de usuario y categoria inventada.
                 registrarAporte(1000,1000,solucion,costo, obtenerFecha(),contacto,elegido);
-            }            
+ 
+            }
+            break;
+                 case 2: //editar
+                     String idprob =request.getParameter("idProblema");
+                   out.println(idprob);
+                   out.println("Caso de editar");
+                   String solucion_nvo= request.getParameter("solucion");
+                   String costo_nvo = request.getParameter("costo");
+                   String contacto_nvo = request.getParameter("contacto");
+                   
+    ;
+                   if(solucion_nvo.length() == 0 && costo_nvo.length() ==0 && contacto_nvo.length() ==0){
+                       out.println("ERROR EN LOS DATOS");
+                   } else if(solucion_nvo.length() == 0) {
+                       out.println("ERROR solucion obligatorio");
+                   } else if(costo_nvo.length() == 0){
+                       out.println("ERROR costo Vacia");
+                   } else if(contacto_nvo.length() == 0){
+                       out.println("ERROR CONTACTO INVALIDO");
+                   } else {
+                       out.println("\n Editando problema");                    
+                   editarAporte(idAporte,idProblema,idUsuario,solucion_nvo,costo_nvo,contacto_nvo,elegido);
+                       out.println("SE LOGRO EDITAR");
+                       response.sendRedirect("perfil.jsp");
+                   }
+                     
+                 break;
+            } 
         } finally {            
             out.close();
         }

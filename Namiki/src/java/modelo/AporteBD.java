@@ -63,20 +63,24 @@ public class AporteBD {
         String[][] res = new String[1][8];
         String query = "SELECT * FROM aporte WHERE idaporte = " +idAporte;
         ResultSet consulta = base.queryRS(query); 
-           try{
+           try{   
                 while(consulta.next()){
-                    this.idAporte = Integer.parseInt(consulta.getString("idaporte"));
+                    this.idAporte = consulta.getInt("idaporte");
                     res[0][0] = consulta.getString("idaporte");
-                    this.idUsuario = Integer.parseInt(consulta.getString("idusuario"));
-                    res[0][1] = consulta.getString("idUsuario");
-                    
-                    this.idProblema = Integer.parseInt(consulta.getString("id_problema"));
-                    res[0][2] = consulta.getString("idproblema");
-                    this.solucion = solucion;
-                    this.costo = costo;
-                    this.fecha = fecha;
-                    this.contacto = contacto;
-                    this.elegido = elegido;             
+                    this.idProblema = consulta.getInt("idproblema");
+                    res[0][1] = consulta.getString("idproblema");
+                    this.idUsuario = consulta.getInt("idusuario");
+                    res[0][2] = consulta.getString("idusuario");
+                    this.solucion = consulta.getString("solucion");
+                    res[0][3] = consulta.getString("solucion");
+                    this.costo = consulta.getString("costo");
+                    res[0][4] = consulta.getString("costo");
+                    this.fecha = consulta.getDate("fecha");
+                    res[0][5] = consulta.getString("fecha");
+                    this.costo = consulta.getString("contacto");
+                    res[0][6] = consulta.getString("contacto");
+                    this.elegido = consulta.getInt("elegido");
+                    res[0][7] = consulta.getString("elegido");
                 }
            }catch(SQLException e){
                System.out.println("APORTE NO ENCONTRADO");
