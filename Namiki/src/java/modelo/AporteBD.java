@@ -57,14 +57,32 @@ public class AporteBD {
        }
    }
 
-   public void getDatos(int idAporte){
-       try{
-           base.conectar();
-           String consulta = "SELECT * FROM aporte where idaporte =" +idAporte;
-           base.query(consulta);
-       }catch(Exception error){
-       } 
-   }
+
+    public String[][] getDatos(int idAporte){
+        base.conectar();
+        String[][] res = new String[1][8];
+        String query = "SELECT * FROM aporte WHERE idaporte = " +idAporte;
+        ResultSet consulta = base.queryRS(query); 
+           try{
+                while(consulta.next()){
+                    this.idAporte = Integer.parseInt(consulta.getString("idaporte"));
+                    res[0][0] = consulta.getString("idaporte");
+                    this.idUsuario = Integer.parseInt(consulta.getString("idusuario"));
+                    res[0][1] = consulta.getString("idUsuario");
+                    
+                    this.idProblema = Integer.parseInt(consulta.getString("id_problema"));
+                    res[0][2] = consulta.getString("idproblema");
+                    this.solucion = solucion;
+                    this.costo = costo;
+                    this.fecha = fecha;
+                    this.contacto = contacto;
+                    this.elegido = elegido;             
+                }
+           }catch(SQLException e){
+               System.out.println("APORTE NO ENCONTRADO");
+           }       
+           return res;
+    }
    
    public void editar(int idAporte,int idUsuario, int idProblema,String solucion,
            String costo,Date fecha,String contacto,int elegido){
