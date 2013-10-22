@@ -78,7 +78,8 @@
             </tr>
           </thead>
           <tbody>
-              <%= Problema.mostrarProblemasUsr("1") %>
+              <%= Problema.mostrarProblemasUsr("1")%>
+              <%= Problema.getDatos(2)%>
           </tbody>
       </table>
       <!-- Main component for a primary marketing message or call to action -->

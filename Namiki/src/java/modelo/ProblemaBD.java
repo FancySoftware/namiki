@@ -62,10 +62,32 @@ public class ProblemaBD {
      * 
      * @param idProblema Int
      */
-    public void getDatos(int idProblema){
+    public String[][] getDatos(int idProblema){
         base.conectar();
-        String consulta = "SELECT * FROM problema WHERE idproblema = " +idProblema;
-        base.query(consulta); 
+        String[][] res = new String[1][7];
+        String query = "SELECT * FROM problema WHERE idproblema = " +idProblema;
+        ResultSet consulta = base.queryRS(query); 
+           try{
+                while(consulta.next()){
+                    this.idProblema = consulta.getInt("idproblema");
+                    res[0][0] = consulta.getString("idproblema");
+                    this.idCategoria =consulta.getInt("idcategoria");
+                    res[0][1] = consulta.getString("idcategoria");
+                    this.idUsuario = consulta.getInt("idusuario");
+                    res[0][2] = consulta.getString("idusuario");
+                    this.titulo = consulta.getString("titulo");
+                    res[0][3] = consulta.getString("titulo");
+                    this.topico = consulta.getString("topico");  
+                    res[0][4] = consulta.getString("topico");
+                    this.descripcion = consulta.getString("descripcion");
+                    res[0][5] = consulta.getString("descripcion");
+                    this.fecha = consulta.getDate("fecha");
+                    res[0][6] = consulta.getString("fecha");
+                }
+           }catch(SQLException e){
+               System.out.println("PROBLEMA NO ENCONTRADO");
+           }       
+           return res;
     }
    
     public void editar(int idProblema,int idCategoria, int idUsuario, 

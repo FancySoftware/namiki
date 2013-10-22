@@ -6,6 +6,8 @@ package controlador;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import javax.servlet.ServletException;
@@ -21,13 +23,13 @@ import modelo.ProblemaBD;
  */
 public class Problema extends HttpServlet {
     
-    private int idProblema;
-    private int idCategoria;
-    private int idUsuario;
-    private String descripcion;
-    private Date fecha;
-    private String titulo;
-    private String topico;
+    private static int idProblema;
+    private static int idCategoria;
+    private static int idUsuario;
+    private static String descripcion;
+    private static Date fecha;
+    private static String titulo;
+    private static String topico;
     
 // Contructor de la clase Problema
 public Problema(){
@@ -163,6 +165,32 @@ public Problema(){
       problema.eliminar(idProblema);
   }
 
+  public static String getDatos(int idProblem){
+      ProblemaBD problema = new ProblemaBD();
+      String [][]datos= problema.getDatos(idProblem);
+      Problema.idProblema = Integer.parseInt(datos[0][0]);
+      Problema.idCategoria =Integer.parseInt(datos[0][1]);
+      Problema.idUsuario = Integer.parseInt(datos[0][2]);      
+      Problema.titulo = datos[0][3];      
+      Problema.topico = datos[0][4];      
+      Problema.descripcion = datos[0][5];
+      try{
+      Problema.fecha = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").parse(datos[0][6]);
+      }catch(ParseException e){
+          System.out.println("Error en la fecha");
+      }
+      String res = "";
+      res += datos[0][0];
+      res += datos[0][1];
+      res += datos[0][2];
+      res += datos[0][3];
+      res += datos[0][4];
+      res += datos[0][5];
+      res += datos[0][6];
+      System.out.println("Obteniendo datos");
+      return res;
+  }
+  
   public static String mostrarProblemas() {
       ProblemaBD problema = new ProblemaBD();
       String[][] problemas = problema.tablaCompleta();
