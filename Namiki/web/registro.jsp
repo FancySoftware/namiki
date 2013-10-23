@@ -6,6 +6,7 @@
  
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ page import="controlador.Problema" %>
+<%Problema.setidUsuario(Integer.parseInt(request.getParameter("idusuario")));%>
 <!DOCTYPE html>
 <html lang="es">
   <head>
