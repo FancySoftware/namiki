@@ -297,9 +297,9 @@ public Problema(){
                    } else if(categoria_nvo == 0){
                        out.println("Seleciona una categoria");
                    } else {
-                       out.println("\n Editando problema");                    
+                       System.out.println("\n Editando problema");                    
                    editarProblema(idProblema,categoria_nvo,idUsuario,descripcion_nvo,titulo_nvo,obtenerFecha(),topico_nvo);
-                       out.println("SE LOGRO EDITAR");
+                       System.out.println("SE LOGRO EDITAR");
                        response.sendRedirect("perfil.jsp");
                    break;
                 }

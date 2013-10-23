@@ -55,10 +55,10 @@ public Aporte(){
     public int getidUsuario() {
         return idUsuario;
     }
-    public String getContacto() {
+    public static String getContacto() {
         return contacto;
     }
-    public String getCosto() {
+    public static String getCosto() {
         return costo;
     }
     public int getElegido() {
@@ -67,7 +67,7 @@ public Aporte(){
     public Date getFecha() {
         return fecha;
     }
-    public String getSolucion() {
+    public static String getSolucion() {
         return solucion;
     }
     
@@ -290,9 +290,9 @@ public Aporte(){
                    } else if(contacto_nvo.length() == 0){
                        out.println("ERROR CONTACTO INVALIDO");
                    } else {
-                       out.println("\n Editando problema");                    
-                   editarAporte(idAporte,idProblema,idUsuario,solucion_nvo,costo_nvo,contacto_nvo,elegido);
-                       out.println("SE LOGRO EDITAR");
+                       System.out.println("\n Editando problema");                    
+                       editarAporte(idAporte,idProblema,idUsuario,solucion_nvo,costo_nvo,contacto_nvo,elegido);
+                       System.out.println("SE LOGRO EDITAR");
                        response.sendRedirect("perfil.jsp");
                    }
                      

@@ -90,15 +90,15 @@ public class AporteBD {
    
    public void editar(int idAporte,int idUsuario, int idProblema,String solucion,
            String costo,Date fecha,String contacto,int elegido){
-       try{
+
            base.conectar();
-           String update = "UPDATE usuario SET solucion"+ solucion+"WHERE idaporte = "+idAporte
-                   +" and idusuario = "+idUsuario+ " and idProblema = " + idProblema 
-                   + "and solucion = " +solucion +" and costo = " + costo + " and fecha = " 
-                   + fecha + "and contacto = "+  contacto + "and elegido = " +  elegido;
+           String update = "UPDATE aporte SET solucion ='" + solucion 
+                   + "', costo = '" + costo
+                   + "', fecha = '" + fecha
+                   + "', contacto = '" + contacto
+                   + "' WHERE idaporte = "+idAporte;
            base.query(update);
-       }catch(Exception error){
-       }
+   
    }
    public String[][] tablaCompleta() {
         base.conectar();

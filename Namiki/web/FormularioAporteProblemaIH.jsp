@@ -61,6 +61,13 @@
         } else if(request.getParameter("idaporte") != null) {
             tipo_pagina = 4; // Editar aporte
             value_form = 2;
+            if(!Aporte.getDatos(Integer.parseInt(request.getParameter("idaporte")))){
+                response.sendRedirect("index.jsp");
+            } else{
+                solucion = Aporte.getSolucion(); 
+                costo  = Aporte.getCosto();
+                contacto = Aporte.getContacto();
+            }
         }
         System.err.println(tipo_pagina+" = tipo pagina");
     }
@@ -106,7 +113,7 @@
             <div class="form-group control-group">
                 <label for="descripcion_form" class="col-lg-3 control-label">Descripción</label>
                 <div class="col-lg-9 controls">
-                    <textarea class="form-control" id="descripcion_form" required="" placeholder="Descripción" name="descripcion"><%= descripcion %></textarea>
+                    <textarea class="form-control" id="descripcion_form" required="" placeholder="Descripción" name="descripcion" ><%= descripcion %></textarea>
                     <p class="help-block"></p>
                 </div>
             </div>
