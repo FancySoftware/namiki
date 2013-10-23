@@ -86,7 +86,9 @@
             </tr>
           </thead>
           <tbody>
-              <%= Problema.mostrarProblemasUsr("2")%>
+              <%= Problema.mostrarProblemasUsr(request.getParameter("idusuario"))%>
+              
+              
           </tbody>
       </table>
       <!-- Main component for a primary marketing message or call to action -->

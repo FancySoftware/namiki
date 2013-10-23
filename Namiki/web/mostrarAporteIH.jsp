@@ -23,7 +23,7 @@
     </head>
     <body>
              <tbody>
-              <%= Aporte.mostrarAportes() %>
+                 <%= Aporte.mostrarAportesUsr(Integer.parseInt(request.getParameter("idusuario")) %>
           </tbody>
         <div class="container">
 

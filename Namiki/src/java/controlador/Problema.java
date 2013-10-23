@@ -25,7 +25,7 @@ public class Problema extends HttpServlet {
     
     private static int idProblema;
     private static int idCategoria;
-    private static int idUsuario;
+    public static int idUsuario;
     private static String descripcion;
     private static Date fecha;
     private static String titulo;
@@ -76,8 +76,8 @@ public Problema(){
     public void setidCategoria(int idCategoria) {
         this.idCategoria = idCategoria;
     }
-    public void setidUsuario(int idUsuario) {
-        this.idUsuario = idUsuario;
+    public static void setidUsuario(int idUsuario) {
+        Problema.idUsuario = idUsuario;
     }
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
@@ -259,6 +259,7 @@ public Problema(){
             switch(caso){
                     case 1:
                         //REGISTRANDO PROBLEMA
+                
                 String titulo = request.getParameter("titulo");
                 String topico = request.getParameter("topico");
                 int categoria = Integer.parseInt(request.getParameter("categoria"));
@@ -275,12 +276,13 @@ public Problema(){
                     out.println("\n Guardando problemas");
                     out.println("Datos " + titulo +" "+ topico + " "+ categoria +" "+ descripcion);
                 //Prueba con id de usuario y categoria inventada.
-                    registrarProblema(1,1,descripcion,titulo, obtenerFecha(),topico);
+                    registrarProblema(categoria,idUsuario,descripcion,titulo, obtenerFecha(),topico);
                     response.sendRedirect("perfil.jsp");
                 }            
                 break;
                     case 2:
-                        //EDITAR PROBLEMA
+                   //EDITAR PROBLEMA
+                  
                    String idprob =request.getParameter("idProblema");
                    out.println(idprob);
                    out.println("Caso de editar");
