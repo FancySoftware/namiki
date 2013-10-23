@@ -74,7 +74,7 @@
                         <table class="table">
                             <thead>
                               <tr>
-                                  <th>ID Problema</th>
+                                  <!--th>ID Problema</th-->
                                   <th>ID Usuario</th>
                                   <th>Solución</th>
                                   <th>Costo</th>

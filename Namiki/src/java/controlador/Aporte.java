@@ -115,10 +115,10 @@ public Aporte(){
  * creado por el usuario.
  */
   public void registrarAporte(int idUsuario, int idProblema, String solucion, 
-        String costo, Date fecha, String contacto, int elegido) {
+        String costo, Date fecha, String contacto) {
       
         AporteBD aporte = new AporteBD();
-        aporte.guardar(idAporte, idUsuario, idProblema, solucion, costo, obtenerFecha(), contacto, elegido);
+        aporte.guardar(idUsuario, idProblema, solucion, costo, obtenerFecha(), contacto);
   }
 
 /**
@@ -181,7 +181,7 @@ public Aporte(){
       String res = "";
       for (int i = 0; i < aportes.length; i++) {
           res += "<tr>";
-            for (int j = 1; j < 8; j++) {
+            for (int j = 2; j < 8; j++) {
                 res += "<td>" + aportes[i][j] + "</td>";
             }
             res+="<td><div class=\"dropdown\">";
@@ -268,9 +268,9 @@ public Aporte(){
             } else {
                 out.println("\n Guardando aportes");
             //Prueba con id de usuario y categoria inventada.
-                registrarAporte(1000,1000,solucion,costo, obtenerFecha(),contacto,elegido);
- 
-            }
+                registrarAporte(1,2,solucion,costo, obtenerFecha(),contacto);
+                response.sendRedirect("perfil.jsp");
+            }   
             break;
                  case 2: //editar
                      String idprob =request.getParameter("idProblema");

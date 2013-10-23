@@ -30,7 +30,7 @@ public class BaseDatos {
        this.password = this.PASSWORD;
        this.nombreBD = this.NOMBREBD;
        this.url = this.URL;
-       this.debug = false;
+       this.debug = true;
    }
    
    BaseDatos(String usuario, String password, String nombreBD, String url) {

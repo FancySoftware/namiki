@@ -36,13 +36,12 @@ public class AporteBD {
        this.base = new BaseDatos();
    }
    
-   public void guardar(int idAporte,int idUsuario, int idProblema,String solucion,
-           String costo,Date fecha,String contacto,int elegido){
+   public void guardar(int idUsuario, int idProblema,String solucion,
+           String costo,Date fecha,String contacto){
        try{
            base.conectar();
-           String usuario = "INSERT INTO aporte VALUES("+idAporte+","
-                                    + idUsuario+","+idProblema+","+solucion+","
-                                    +costo+","+fecha+","+ contacto+","+ elegido+")";
+           String usuario = "INSERT INTO aporte (idusuario,solucion,costo,fecha,contacto) VALUES(2,'"
+                   +solucion+"','"+costo+"','"+fecha+"','"+ contacto+"')";
            base.query(usuario);
        }catch(Exception error){     
     }
