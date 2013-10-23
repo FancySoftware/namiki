@@ -80,7 +80,9 @@
             <input type="hidden" name="idusuariO" value="<%= sesion.getAttribute("id_usuario") %>">
             <%System.out.println("EL ID ES " + Integer.parseInt((String)sesion.getAttribute("idusuario")));
             Problema.setidUsuario(Integer.parseInt((String)sesion.getAttribute("idusuario")));
-            System.out.println(Problema.idUsuario);%>
+            Aporte.setidUsuario(Integer.parseInt((String)sesion.getAttribute("idusuario")));
+            Aporte.setidProblema(Integer.parseInt(request.getParameter("idproblema")));        ;
+            System.out.println(Aporte.idUsuario);%>
             <input type="hidden" name="idProblema" value="<%= request.getParameter("idproblema") == null ? "" : request.getParameter("idproblema") %>">
             <input type="hidden" name="idAporte" value="<%= request.getParameter("idaporte") == null ? "" : request.getParameter("idaporte") %>">
             <input type="hidden" name="form_sumbitted" value="<%= value_form %>">
