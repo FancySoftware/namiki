@@ -146,7 +146,8 @@ public class AporteBD {
             }
         } catch (SQLException e) {}
         System.out.println(numRows);
-        ResultSet rs = base.queryRS("SELECT * FROM aporte");
+        ResultSet rs = base.queryRS("SELECT * FROM aporte WHERE idusuario = '" + idUsuario +"'");
+        
         String[][] res = new String[numRows][8];
         int actual = 0;
         try {

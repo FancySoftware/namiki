@@ -6,6 +6,7 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ page import="controlador.Problema" %>
+
   <% if (request.getParameter("borrar") != null) {
       Problema.borrarProblema(Integer.parseInt(request.getParameter("borrar")));
       response.sendRedirect("perfil.jsp");
@@ -85,7 +86,7 @@
             </tr>
           </thead>
           <tbody>
-              <%= Problema.mostrarProblemasUsr("1")%>
+              <%= Problema.mostrarProblemasUsr("2")%>
           </tbody>
       </table>
       <!-- Main component for a primary marketing message or call to action -->
