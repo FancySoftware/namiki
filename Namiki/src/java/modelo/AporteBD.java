@@ -87,8 +87,8 @@ public class AporteBD {
            return res;
     }
    
-   public void editar(int idAporte,int idUsuario, int idProblema,String solucion,
-           String costo,Date fecha,String contacto,int elegido){
+   public void editar(int idAporte,String solucion,
+           String costo,Date fecha,String contacto){
 
            base.conectar();
            String update = "UPDATE aporte SET solucion ='" + solucion 

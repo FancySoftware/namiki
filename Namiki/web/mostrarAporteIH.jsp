@@ -1,4 +1,4 @@
-<%-- 
+<%--
     Document   : mostrarAporteIH
     Created on : 15/10/2013, 11:44:51 AM
     Author     : Edd
@@ -23,7 +23,7 @@
     </head>
     <body>
              <tbody>
-                 <%= Aporte.mostrarAportesUsr(Integer.parseInt((String)session.getAttribute("idusuario"))) %>
+                 <%= Aporte.mostrarAportesUsr(Integer.parseInt(request.getParameter("idusuario"))) %>
           </tbody>
         <div class="container">
 

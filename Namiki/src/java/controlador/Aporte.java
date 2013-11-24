@@ -27,8 +27,8 @@ import modelo.ProblemaBD;
 public class Aporte extends HttpServlet {
     
     private static int idAporte;
-    private static int idProblema;
-    private static int idUsuario;
+    public static int idProblema;
+    public static int idUsuario;
     private static String contacto;
     private static String costo;
     private static int elegido;
@@ -52,7 +52,7 @@ public Aporte(){
     public int getidProblema() {
         return idProblema;
     }
-    public int getidUsuario() {
+    public static int getidUsuario() {
         return idUsuario;
     }
     public static String getContacto() {
@@ -80,11 +80,11 @@ public Aporte(){
     public void setidAporte(int idAporte) {
         this.idAporte = idAporte;
     }
-    public void setidProblema(int idProblema) {
-        this.idProblema = idProblema;
+    public static void setidProblema(int idProblema) {
+        Aporte.idProblema = idProblema;
     }
-    public void setidUsuario(int idUsuario) {
-        this.idUsuario = idUsuario;
+    public static void setidUsuario(int idUsuario) {
+        Aporte.idUsuario = idUsuario;
     }
     public void setContacto(String contacto) {
         this.contacto = contacto;
@@ -134,11 +134,11 @@ public Aporte(){
  * Metodo editarAporte que crea un objeto AporteBD aporte, pide los datos del
  * aporte elegido y guarda los cambios.
  */
-  public void editarAporte(int idAporte,int idUsuario,int idProblema, String solucion, String costo,String contacto,int elegido) {
+  public void editarAporte(int idAporte, String solucion, String costo,String contacto) {
         
       AporteBD aporte = new AporteBD();
       aporte.getDatos(idAporte);
-      aporte.editar(idAporte, idUsuario, idProblema, solucion, costo, obtenerFecha(), contacto, elegido);
+      aporte.editar(idAporte,solucion, costo, obtenerFecha(), contacto);
   }
 
 /**
@@ -267,20 +267,20 @@ public Aporte(){
                 out.println("Seleciona una categoria");
             } else {
                 out.println("\n Guardando aportes");
-            //Prueba con id de usuario y categoria inventada.
-                registrarAporte(1,2,solucion,costo, obtenerFecha(),contacto);
+            
+                registrarAporte(getidUsuario(),idProblema,solucion,costo, obtenerFecha(),contacto);
                 response.sendRedirect("perfil.jsp");
             }   
             break;
                  case 2: //editar
-                     String idprob =request.getParameter("idProblema");
-                   out.println(idprob);
-                   out.println("Caso de editar");
+                              
+                   System.out.println("Caso de editar");
+                   System.out.println("idproblema" + idProblema);
                    String solucion_nvo= request.getParameter("solucion");
                    String costo_nvo = request.getParameter("costo");
                    String contacto_nvo = request.getParameter("contacto");
                    
-    ;
+    
                    if(solucion_nvo.length() == 0 && costo_nvo.length() ==0 && contacto_nvo.length() ==0){
                        out.println("ERROR EN LOS DATOS");
                    } else if(solucion_nvo.length() == 0) {
@@ -291,7 +291,7 @@ public Aporte(){
                        out.println("ERROR CONTACTO INVALIDO");
                    } else {
                        System.out.println("\n Editando problema");                    
-                       editarAporte(idAporte,idProblema,idUsuario,solucion_nvo,costo_nvo,contacto_nvo,elegido);
+                       editarAporte(idAporte,solucion_nvo,costo_nvo,contacto_nvo);
                        System.out.println("SE LOGRO EDITAR");
                        response.sendRedirect("perfil.jsp");
                    }
