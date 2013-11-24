@@ -103,7 +103,7 @@ public class ProblemaBD {
         base.query(update);
     }
     
-    public String[][] tablaCompleta() {
+    public String[][] tablaCompleta(String cat) {
         base.conectar();
         int numRows = 0;
         ResultSet cont = base.queryRS("SELECT COUNT(*) numRows FROM problema");
@@ -117,7 +117,7 @@ public class ProblemaBD {
         } catch (SQLException e) {}
         System.out.println(numRows);
         ResultSet rs = base.queryRS("SELECT * FROM problema P, categoria C "
-                + "WHERE P.idcategoria =C.idcategoria ORDER BY P.fecha DESC" );
+                + "WHERE P.idcategoria = C.idcategoria ORDER BY P.fecha DESC" );
         String[][] res = new String[numRows][7];
         int actual = 0;
         try {

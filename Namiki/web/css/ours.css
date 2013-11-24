@@ -1,0 +1,14 @@
+/* 
+    Document   : ours.css
+    Created on : 24/11/2013, 05:10:03 PM
+    Author     : Edd
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+.topicos-wrapper .label-default {
+    margin: 0px 5px;
+}
+.topicos-wrapper .label-default:first-child {
+    margin-left: 0px !important;
+}

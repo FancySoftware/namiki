@@ -195,16 +195,24 @@ public Problema(){
       return true;
   }
   
-  public static String mostrarProblemas() {
+  public static String mostrarProblemas(String cat) {
       ProblemaBD problema = new ProblemaBD();
-      String[][] problemas = problema.tablaCompleta();
+      String[][] problemas = problema.tablaCompleta(cat);
       String res = "";
       for (int i = 0; i < problemas.length; i++) {
-          res += "<tr>";
-            for (int j = 0; j < 7; j++) {
-                res += "<td>" + problemas[i][j] + "</td>";
-            }
-          res += "</tr>";
+          res += "<div class=\"jumbotron\">";
+          res += "<h3>"+ problemas[i][3] +"</h3>";
+          res += "<div class=\"topicos-wrapper\">";
+          String[] topicos_aux = problemas[i][4].split(",");
+          for(int k = 0; k < topicos_aux.length; k++) {
+              res += "<span class=\"label label-default\">"+ topicos_aux[k] +"</span>";
+          }
+          res += "</div>";
+          res += "<span class=\"label label-info\">"+ problemas[i][1] +"</span>";
+          String abstract_text = (problemas[i][5].length() > 20) ? problemas[i][5].substring(0, 21) : problemas[i][5];
+          res += "<p>"+ abstract_text +"...</p>";
+          res += "<p><a class=\"btn btn-primary\" href=\"mostrarProblemaIH.jsp?idp="+ problemas[i][0] +"\">Leer más &raquo;</a></p>";
+          res += "</div>";
       }
       return res;
   }
