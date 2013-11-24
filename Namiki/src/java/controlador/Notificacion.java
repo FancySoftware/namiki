@@ -10,9 +10,10 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import modelo.NotificacionBD;
 
 /**
- * @author Jules
+ * @author Namiki
  * Clase Notificacion
  */
 public class Notificacion extends HttpServlet {
@@ -51,8 +52,9 @@ public Notificacion() {
         this.idUsuario = idUsuario;
     }
 
-public void desplegarMensaje() {
-    
+public void desplegarMensaje(int idUusario) {
+    NotificacionBD notif = new NotificacionBD();
+    notif.getNotificaciones(idUsuario);
   }
 
     /**

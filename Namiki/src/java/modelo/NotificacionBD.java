@@ -41,17 +41,17 @@ public class NotificacionBD {
   public void eliminar(int idNotificacion) {
          try{
           base.conectar();
-          String eliminar = "DELETE FROM aporte WHERE idusuario = " + idNotificacion;
+          String eliminar = "DELETE FROM notificacion WHERE idnotificacion = " + idNotificacion;
           
           base.query(eliminar);
       }catch(Exception e){   
       }
   }
 
-  public void getNotificaciones(int idNotificacion) {
+  public void getNotificaciones(int idUsurio) {
        try{
            base.conectar();
-           String consulta = "SELECT * FROM aporte where idaporte =" +idNotificacion;
+           String consulta = "SELECT mensaje FROM notificacacion where idUsuario =" +idUsuario;
            base.query(consulta);
        }catch(Exception error){
        } 
