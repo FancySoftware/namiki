@@ -220,7 +220,7 @@ public Aporte(){
           return false;
       }
                     Aporte.idAporte = Integer.parseInt(datos[0][0]);
-                    Aporte.idProblema = Integer.parseInt( datos[0][1]);
+                    //Aporte.idProblema = Integer.parseInt( datos[0][1]);
                     Aporte.idUsuario = Integer.parseInt(datos[0][2]);
                     
                     Aporte.solucion =  datos[0][3]; 
@@ -230,7 +230,7 @@ public Aporte(){
                     } catch(ParseException e){
                         System.out.println("Error en la fecha");
                     } 
-                    Aporte.costo = datos[0][6];
+                    Aporte.contacto = datos[0][6];
                     Aporte.elegido = Integer.parseInt(datos[0][7]);
       return true;
   }
