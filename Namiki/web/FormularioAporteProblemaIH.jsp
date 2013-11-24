@@ -77,12 +77,12 @@
     <div class="container">
         <form class="form-horizontal" style="max-width: 500px; margin: 0px auto;" <%= accion %> method="POST">
             <h2 class="form-heading"><%= (tipo_pagina == 1 || tipo_pagina == 2) ? "Nuevo " : "Editar " %><%= (tipo_pagina == 1 || tipo_pagina == 3) ? "Problema" : "Aporte" %></h2>
-            <input type="hidden" name="idusuariO" value="<%= sesion.getAttribute("id_usuario") %>">
+            <input type="hidden" name="idusuario" value="<%= sesion.getAttribute("id_usuario") %>">
             <%System.out.println("EL ID ES " + Integer.parseInt((String)sesion.getAttribute("idusuario")));
             Problema.setidUsuario(Integer.parseInt((String)sesion.getAttribute("idusuario")));
             Aporte.setidUsuario(Integer.parseInt((String)sesion.getAttribute("idusuario")));
-            Aporte.setidProblema(Integer.parseInt(request.getParameter("idproblema")));        ;
-            System.out.println(Aporte.idUsuario);%>
+            System.out.println("EL ID ES " + Aporte.idUsuario);
+            %>
             <input type="hidden" name="idProblema" value="<%= request.getParameter("idproblema") == null ? "" : request.getParameter("idproblema") %>">
             <input type="hidden" name="idAporte" value="<%= request.getParameter("idaporte") == null ? "" : request.getParameter("idaporte") %>">
             <input type="hidden" name="form_sumbitted" value="<%= value_form %>">
