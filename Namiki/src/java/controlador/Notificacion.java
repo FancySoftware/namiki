@@ -6,6 +6,8 @@ package controlador;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.Properties;
 import javax.mail.Message;
 import javax.mail.MessagingException;
@@ -17,6 +19,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import modelo.BaseDatos;
 import modelo.NotificacionBD;
 
 /**
@@ -28,7 +31,7 @@ public class Notificacion extends HttpServlet {
     public String mensaje;
     public int idUsuario;
     private String email;
-    private Properties properties = new Properties();
+    private static Properties properties = new Properties();
     private Session sessionMail;
 
 //Constructor de la clase Notificacion
@@ -48,6 +51,9 @@ public Notificacion() {
     public int getidUsuario() {
         return idUsuario;
     }
+    public String getEmail(){
+        return email;
+    }
 
 /**
  * @param tipo 
@@ -61,18 +67,29 @@ public Notificacion() {
     public void setidUsuario(int idUsuario) {
         this.idUsuario = idUsuario;
     }
-
+    public void setEmail(String email){
+        this.email = email;
+    }
     public void desplegarMensaje(int idUusario) {
     NotificacionBD notif = new NotificacionBD();
     notif.getNotificaciones(idUsuario);
   }
 
-    private void enviarCorreo(){
+    public static String getDatos(String idAporte) throws SQLException{
+        int idaporte = Integer.parseInt(idAporte);
+        BaseDatos base = new BaseDatos();
+        String consulta = "SELECT contacto FROM aporte where idaporte = " + idaporte;
+        ResultSet res = base.queryRS("consulta");
+        String rs = res.getString("contacto");
+        return rs;
+    }
+            
+    public void enviarCorreo(){
         initMail();
         sendEmail();
     }
     
-    private void initMail(){
+    private  void initMail(){
         properties.put("mail.smtp.host", "smtp.gmail.com");
         properties.put("mail.smtp.starttls.enable","true");
         properties.put("mail.smtp.port",587);
@@ -86,18 +103,19 @@ public Notificacion() {
     public void sendEmail(){
         initMail();
         try{
-            MimeMessage message = new MimeMessage(sessionMail);
+        MimeMessage message;
+            message = new MimeMessage(sessionMail);
             message.setFrom(new InternetAddress((String) properties.get("mail.smtp.mail.sender")));
             message.addRecipient(Message.RecipientType.TO,new InternetAddress(email));
             message.setSubject("Namiki");
             message.setText("Notificacion Namiki. Uno de tus aportes fue seleccionado");
          
             Transport t = sessionMail.getTransport("smtp");
-            t.connect((String)properties.get("mail.stmp.user"),"Namiki");
+            t.connect((String)properties.get("mail.stmp.user"),"ingsoftNamiki");
             t.sendMessage(message, message.getAllRecipients());
             t.close(); 
         }catch(MessagingException ex){
-            
+            return;
         }
     }
 

@@ -25,13 +25,6 @@ public class BaseDatos {
     private final String NOMBREBD = "namiki";
     private final String URL = "mysql.3nyder.com"; 
     
-    BaseDatos() {
-       this.usuario = this.USUARIO;
-       this.password = this.PASSWORD;
-       this.nombreBD = this.NOMBREBD;
-       this.url = this.URL;
-       this.debug = true;
-   }
    
    BaseDatos(String usuario, String password, String nombreBD, String url) {
        this.usuario = usuario;
@@ -40,6 +33,14 @@ public class BaseDatos {
        this.url = url;
        this.debug = true;
    }
+
+    public BaseDatos() {
+      this.usuario = this.USUARIO;
+       this.password = this.PASSWORD;
+       this.nombreBD = this.NOMBREBD;
+       this.url = this.URL;
+       this.debug = true;
+    }
    
    public Connection getConexion() {
        try {
