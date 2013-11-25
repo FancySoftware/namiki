@@ -4,8 +4,16 @@
  */
 package controlador;
 
+import com.sun.istack.internal.logging.Logger;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Properties;
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -20,6 +28,9 @@ public class Notificacion extends HttpServlet {
     
     public String mensaje;
     public int idUsuario;
+    private String email;
+    private Properties properties = new Properties();
+    private Session sessionMail;
 
 //Constructor de la clase Notificacion
 public Notificacion() {
@@ -52,10 +63,44 @@ public Notificacion() {
         this.idUsuario = idUsuario;
     }
 
-public void desplegarMensaje(int idUusario) {
+    public void desplegarMensaje(int idUusario) {
     NotificacionBD notif = new NotificacionBD();
     notif.getNotificaciones(idUsuario);
   }
+
+    private void enviarCorreo(){
+        initMail();
+        sendEmail();
+    }
+    
+    private void initMail(){
+        properties.put("mail.smtp.host", "smtp.gmail.com");
+        properties.put("mail.smtp.starttls.enable","true");
+        properties.put("mail.smtp.port",587);
+        properties.put("mail.smtp.mail.sender", "nancyarlette.03@gmail.com");
+        properties.put("mail.smtp.user","nancyarlette.03@gmail.com");
+        properties.put("mail.smtp.auth","true");
+        
+        sessionMail = Session.getDefaultInstance(properties);
+        sessionMail.setDebug(true);
+    }
+    public void sendEmail(){
+        initMail();
+        try{
+            MimeMessage message = new MimeMessage(sessionMail);
+            message.setFrom(new InternetAddress((String) properties.get("mail.smtp.mail.sender")));
+            message.addRecipient(Message.RecipientType.TO,new InternetAddress(email));
+            message.setSubject("Namiki");
+            message.setText("Notificacion Namiki. Uno de tus aportes fue seleccionado");
+         
+            Transport t = sessionMail.getTransport("smtp");
+            t.connect((String)properties.get("mail.stmp.user"),"Namiki");
+            t.sendMessage(message, message.getAllRecipients());
+            t.close(); 
+        }catch(MessagingException ex){
+            
+        }
+    }
 
     /**
      * Processes requests for both HTTP
