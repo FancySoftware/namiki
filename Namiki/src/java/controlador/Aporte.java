@@ -234,7 +234,10 @@ public Aporte(){
                     Aporte.elegido = Integer.parseInt(datos[0][7]);
       return true;
   }
-  
+  public static void setSolucion(String idProblema, String idAporte) {
+      AporteBD aporte = new AporteBD();
+      aporte.setSolucion(idProblema, idAporte);
+  }
 /**
  * Processes requests for both HTTP
  * <code>GET</code> and
@@ -254,6 +257,7 @@ public Aporte(){
             int caso = Integer.parseInt(request.getParameter("form_sumbitted"));
             switch(caso){
                     case 1:
+            int idProblema = Integer.parseInt(request.getParameter("idProblema"));
             String solucion = request.getParameter("solucion");
             String costo = request.getParameter("costo");
             String contacto= request.getParameter("contacto");
@@ -273,9 +277,9 @@ public Aporte(){
             }   
             break;
                  case 2: //editar
-                              
+                    int idProblema_nvo = Integer.parseInt(request.getParameter("idProblema"));          
                    System.out.println("Caso de editar");
-                   System.out.println("idproblema" + idProblema);
+                   System.out.println("idproblema" + idProblema_nvo);
                    String solucion_nvo= request.getParameter("solucion");
                    String costo_nvo = request.getParameter("costo");
                    String contacto_nvo = request.getParameter("contacto");

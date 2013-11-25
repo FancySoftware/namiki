@@ -68,7 +68,7 @@
             <div class="col-lg-12">
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        <p>Mis Aportes<a href="FormularioAporteProblemaIH.jsp?nuevo=2" class="btn btn-success pull-right">Agregar</a></p>
+                        <p>Mis Aportes</p>
                     </div>
                     <div class="panel-body">
                         <table class="table">

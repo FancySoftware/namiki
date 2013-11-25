@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import modelo.ProblemaBD;
+import modelo.AporteBD;
 
 /**
  *
@@ -211,7 +212,7 @@ public Problema(){
           res += "<span class=\"label label-info\">"+ problemas[i][1] +"</span>";
           String abstract_text = (problemas[i][5].length() > 20) ? problemas[i][5].substring(0, 21) : problemas[i][5];
           res += "<p>"+ abstract_text +"...</p>";
-          res += "<p><a class=\"btn btn-primary\" href=\"mostrarProblemaIH.jsp?idp="+ problemas[i][0] +"\">Leer más &raquo;</a></p>";
+          res += "<p><a class=\"btn btn-primary\" href=\"mostrarProblemaIH.jsp?idproblema="+ problemas[i][0] +"\">Leer más &raquo;</a></p>";
           res += "</div>";
       }
       return res;
@@ -243,6 +244,30 @@ public Problema(){
                 "</td>";
           res += "</tr>";
       }
+      return res;
+  }
+  
+  public static String mostrarAportes(String idProblema, int idUsuario) {
+      AporteBD aporte = new AporteBD();
+      String[][] aportes = aporte.tablaProblemas(idProblema);
+      String res = "<table class=\"table\">";
+      for (int i = 0; i < aportes.length; i++) {
+          res += Integer.parseInt(aportes[i][7]) == 1 ? "<tr class=\"active\">" : "<tr>";
+            for (int j = 1; j < 7; j++) {
+                res += "<td>" + aportes[i][j] + "</td>";
+            }
+            if(getidUsuario() == idUsuario && Integer.parseInt(aportes[i][7]) == 0) {
+                res+="<td>\n"+
+                "<a href=\"seleccionarSolucion.jsp?idproblema=" + aportes[i][1] + "&idaporte=" + aportes[i][0] + "\">Elegir Solucion</a>\n" +
+                "</td>";
+            } else if(Integer.parseInt(aportes[i][7]) == 1) {
+                res += "<td><b>Solución Elegida</b></td>";
+            } else {
+                res += "<td></td>";
+            }
+          res += "</tr>";
+      }
+      res += "</table>";
       return res;
   }
     

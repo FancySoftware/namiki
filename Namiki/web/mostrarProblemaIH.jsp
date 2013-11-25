@@ -50,17 +50,20 @@
                         %>
                         <%
                         } else {
-                            //obtener los datos del problema para agregar aportes
+                            Problema.getDatos(Integer.parseInt(request.getParameter("idproblema")));
                         %>
                             <div class="jumbotron">
-                            <h3>Título</h3>
-                            <span class="label label-default">Tópico</span>
-                            <span class="label label-info">Categorías</span>
-                            <p>Intro descripción. Fulano Godínez ha seleccionado tu propuesta, y quiere ponerse en contacto contigo.</p>
+                            <h3><%= Problema.getTitulo() %></h3>
+                            <span class="label label-default"><%= Problema.getTopico() %></span>
+                            <span class="label label-info"><%= Problema.getidCategoria() %></span>
+                            <p><%= Problema.getDescripcion() %></p>
                             <p>
-                            <a class="btn btn-primary" href="../../components/#navbar">Leer más &raquo;</a>
+                            <a class="btn btn-primary" href="FormularioAporteProblemaIH.jsp?nuevo=2&idproblema=<%= Problema.getidProblema() %>">Relizar un aporte &raquo;</a>
                             </p>
                             </div>
+                            <div class="jumbotron">
+                            <h3>Aportes</h3>
+                            <%= Problema.mostrarAportes(request.getParameter("idproblema"),Integer.parseInt((String)sesion.getAttribute("idusuario"))) %>                            </div>
                         <% }%>
                         </div>
                     </div>
