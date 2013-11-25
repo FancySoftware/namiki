@@ -43,25 +43,27 @@
                         </div>
                         <div class="panel-body">
                         <%
-                        if(request.getParameter("idproblema") == null) { 
+                        if(request.getParameter("idp") == null) { 
                         %>
                         <%= Problema.mostrarProblemas(request.getParameter("cat")) %>
                         <%
                         %>
                         <%
                         } else {
-                            //obtener los datos del problema para agregar aportes
+                            if(Problema.getDatos(Integer.parseInt(request.getParameter("idp")))) {
                         %>
                             <div class="jumbotron">
-                            <h3>Título</h3>
+                                <h3><%= Problema.getTitulo() %></h3>
                             <span class="label label-default">Tópico</span>
-                            <span class="label label-info">Categorías</span>
-                            <p>Intro descripción. Fulano Godínez ha seleccionado tu propuesta, y quiere ponerse en contacto contigo.</p>
+                            <span class="label label-info"><%= Problema.getCategoria() %></span>
+                            <p><%= Problema.getDescripcion() %></p>
                             <p>
-                            <a class="btn btn-primary" href="../../components/#navbar">Leer más &raquo;</a>
+                            <a class="btn btn-primary" href="#">Aportar</a>
                             </p>
                             </div>
-                        <% }%>
+                        <%
+                            }
+                        }%>
                         </div>
                     </div>
                 </div>
