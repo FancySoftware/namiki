@@ -41,7 +41,7 @@ public class AporteBD {
        try{
            base.conectar();
            String usuario = "INSERT INTO aporte (idusuario,solucion,costo,fecha,contacto) VALUES(2,'"
-                   +solucion+"','"+costo+"','"+fecha+"','"+ contacto+"')";
+                   +solucion+"','"+costo+"',NOW(),'"+ contacto+"')";
            base.query(usuario);
        }catch(Exception error){     
     }
@@ -93,8 +93,8 @@ public class AporteBD {
            base.conectar();
            String update = "UPDATE aporte SET solucion ='" + solucion 
                    + "', costo = '" + costo
-                   + "', fecha = '" + fecha
-                   + "', contacto = '" + contacto
+                   + "', fecha = NOW()"
+                   + ", contacto = '" + contacto
                    + "' WHERE idaporte = "+idAporte;
            base.query(update);
    

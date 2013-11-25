@@ -26,7 +26,7 @@
         %>
         <div class="container">
             <ul class="breadcrumb">
-                <li><a href="/index.jsp">Inicio</a></li>
+                <li><a href="index.jsp">Inicio</a></li>
                 <li class="active">Problemas</li>
             </ul>
              <div class="col-lg-12">

@@ -42,8 +42,7 @@ public class ProblemaBD {
                 String descripcion,Date fecha,String titulo, String topico){
         base.conectar();
         String problema= "INSERT INTO problema (idcategoria,idusuario,descripcion,fecha,titulo,topico) VALUES('"
-                                +idCategoria+"','"+idUsuario+"','"+descripcion+"','"
-                                +fecha+"','"+titulo+"','"+topico+"')";
+                                +idCategoria+"','"+idUsuario+"','"+descripcion+"',NOW(),'"+titulo+"','"+topico+"')";
         System.out.println("Guandando datos");
         base.query(problema);
     }
@@ -95,8 +94,8 @@ public class ProblemaBD {
         base.conectar();
         String update = "UPDATE problema SET idcategoria ='"+idCategoria
                         + "', descripcion = '"+descripcion 
-                        + "', fecha = '" + fecha 
-                        + "' , titulo = '" + titulo 
+                        + "', fecha = NOW()" 
+                        + ", titulo = '" + titulo 
                         + "', topico = '" + topico 
                         + "' WHERE idproblema = " +idProblema;
                
