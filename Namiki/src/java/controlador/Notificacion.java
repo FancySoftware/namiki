@@ -4,7 +4,6 @@
  */
 package controlador;
 
-import com.sun.istack.internal.logging.Logger;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Properties;
@@ -22,7 +21,7 @@ import modelo.NotificacionBD;
 
 /**
  * @author Namiki
- * Clase Notificacion
+ * 
  */
 public class Notificacion extends HttpServlet {
     

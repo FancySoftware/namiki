@@ -21,7 +21,7 @@
         response.sendRedirect("index.jsp");
     } else {
     %>
-        <%@ include file="./inc/navbar.inc.html"%>
+        <%@ include file="./inc/navbar.inc.jsp"%>
     <%
     }
     %>

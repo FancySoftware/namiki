@@ -26,7 +26,7 @@
             response.sendRedirect("index.jsp");
         } else {
         %>
-            <%@ include file="./inc/navbar.inc.html"%>
+            <%@ include file="./inc/navbar.inc.jsp"%>
         <%
         }
         %>
@@ -44,8 +44,9 @@
                         <div class="panel-body">
                         <%
                         if(request.getParameter("idproblema") == null) { 
-                            
-                            Problema.mostrarProblemas(request.getParameter("cat"));
+                        %>
+                        <%= Problema.mostrarProblemas(request.getParameter("cat")) %>
+                        <%
                         %>
                         <%
                         } else {
