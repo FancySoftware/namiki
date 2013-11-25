@@ -4,6 +4,9 @@
  */
 package modelo;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
 /**
  *
  * @author Administrador
@@ -48,12 +51,16 @@ public class NotificacionBD {
       }
   }
 
-  public void getNotificaciones(int idUsurio) {
+  public String getNotificaciones(int idUsurio) {
        try{
            base.conectar();
-           String consulta = "SELECT mensaje FROM notificacacion where idUsuario =" +idUsuario;
-           base.query(consulta);
-       }catch(Exception error){
+           String query = "SELECT mensaje FROM notificacacion where idUsuario =" + idUsuario;
+           ResultSet consulta = base.queryRS(query); 
+           while(consulta.next()) {
+               
+           }
+       }catch(SQLException e){
        } 
+       return "";
   }
 }
