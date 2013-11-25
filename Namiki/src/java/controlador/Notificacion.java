@@ -63,20 +63,11 @@ public Notificacion() {
         this.idUsuario = idUsuario;
     }
 
-    public String desplegarMensaje(int idUusario) {    //FALTA
+    public void desplegarMensaje(int idUusario) {
     NotificacionBD notif = new NotificacionBD();
-    String notificacion = "";
-    String[][] notificaciones =  notif.tablaCompleta(idUsuario);
-    String res = "";
-    for (int i= 0; i< notificaciones.length; i++){
-    res += "<div class=\"jumbotron\">";
-    res += "<h3>"+ notificaciones[i][0] +"</h3>"; 
-    
-    }
-    return notificacion;
-    }    
-     
-    
+    notif.getNotificaciones(idUsuario);
+  }
+
     private void enviarCorreo(){
         initMail();
         sendEmail();
