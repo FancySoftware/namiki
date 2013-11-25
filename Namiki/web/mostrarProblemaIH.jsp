@@ -43,7 +43,7 @@
                         </div>
                         <div class="panel-body">
                         <%
-                        if(request.getParameter("idproblema") == null) { 
+                        if(request.getParameter("idp") == null) { 
                         %>
                         <%= Problema.mostrarProblemas(request.getParameter("cat")) %>
                         <%

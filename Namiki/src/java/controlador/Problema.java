@@ -49,6 +49,11 @@ public Problema(){
     public static int getidCategoria() {
         return idCategoria;
     }
+    public static String getCategoria() {
+        String[] arreglo = {"Actuaría","Biología","Computación","Física","Matématicas"};
+        String categoria = (idCategoria > 1 && idCategoria < 6) ? arreglo[idCategoria-1] : "Desconocido";
+        return categoria;
+    }
     public static int getidUsuario() {
         return idUsuario;
     }
