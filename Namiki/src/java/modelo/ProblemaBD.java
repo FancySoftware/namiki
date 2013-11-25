@@ -106,7 +106,8 @@ public class ProblemaBD {
     public String[][] tablaCompleta(String cat) {
         base.conectar();
         int numRows = 0;
-        ResultSet cont = base.queryRS("SELECT COUNT(*) numRows FROM problema");
+        ResultSet cont = base.queryRS("SELECT COUNT(*) numRows FROM problema "
+                + "WHERE idcategoria = "+cat);
         try {
             if(cont.next()){
                 numRows = cont.getInt("numRows");
@@ -116,14 +117,14 @@ public class ProblemaBD {
             }
         } catch (SQLException e) {}
         System.out.println(numRows);
-        ResultSet rs = base.queryRS("SELECT * FROM problema P, categoria C "
-                + "WHERE P.idcategoria = C.idcategoria ORDER BY P.fecha DESC" );
+        ResultSet rs = base.queryRS("SELECT * FROM problema "
+                + "WHERE idcategoria = "+cat+" ORDER BY fecha DESC" );
         String[][] res = new String[numRows][7];
         int actual = 0;
         try {
             while(rs.next()){
                 res[actual][0] = rs.getString("idproblema");
-                res[actual][1] = rs.getString("categoria");
+                res[actual][1] = rs.getString("idcategoria");
                 res[actual][2] = rs.getString("idusuario");
                 res[actual][3] = rs.getString("titulo");
                 res[actual][4] = rs.getString("topico");
@@ -131,7 +132,9 @@ public class ProblemaBD {
                 res[actual][6] = rs.getString("fecha");
                 actual++;
             }
-        } catch (SQLException e) {}
+        } catch (SQLException e) {
+            System.err.println("THE FUCK IS GOING ON?!?!!");
+        }
         return res;
     }
     
