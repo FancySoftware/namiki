@@ -44,11 +44,9 @@
                         <div class="panel-body">
                         <%
                         if(request.getParameter("idproblema") == null) { 
-                            String cat = (request.getParameter("cat") == null) ? "0" : request.getParameter("cat");
-                            request.getParameter("idproblema");
-                            Problema.mostrarProblemas(cat);
+                            
+                            Problema.mostrarProblemas(request.getParameter("cat"));
                         %>
-                            <%= Problema.mostrarProblemas(cat) %>
                         <%
                         } else {
                             //obtener los datos del problema para agregar aportes
