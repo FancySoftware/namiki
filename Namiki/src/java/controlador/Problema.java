@@ -258,7 +258,7 @@ public Problema(){
       String res = "<table class=\"table\">";
       for (int i = 0; i < aportes.length; i++) {
           res += Integer.parseInt(aportes[i][7]) == 1 ? "<tr class=\"active\">" : "<tr>";
-            for (int j = 1; j < 7; j++) {
+            for (int j = 3; j < 7; j++) {
                 res += "<td>" + aportes[i][j] + "</td>";
             }
             if(getidUsuario() == idUsuario && Integer.parseInt(aportes[i][7]) == 0) {
