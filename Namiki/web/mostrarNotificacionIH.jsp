@@ -1,4 +1,4 @@
-<%-- 
+<%--
     Document   : mostrarNotificacionesIH
     Created on : 24/11/2013, 02:55:37 PM
     Author     : Edd
@@ -20,7 +20,7 @@
             response.sendRedirect("index.jsp");
         } else {
         %>
-            <%@ include file="./inc/navbar.inc.html"%>
+            <%@ include file="./inc/navbar.inc.jsp"%>
         <%
         }
         %>
