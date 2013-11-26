@@ -70,7 +70,7 @@ public Notificacion() {
     public void setEmail(String email){
         this.email = email;
     }
-    public String[] desplegarMensaje(int idUusario) {
+    public String[] desplegarMensaje(String idUsuario) {
         System.out.println("usuario:"+idUsuario);
     NotificacionBD notif = new NotificacionBD();
     String[] res = notif.getNotificaciones(idUsuario);

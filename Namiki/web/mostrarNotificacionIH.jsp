@@ -32,13 +32,13 @@
              <div class="col-lg-12">
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                            <h1>Problemas</h1>
+                            <h1>Notificaciones</h1>
                         </div>
                         <div class="panel-body">
                             <% 
                             Notificacion notificacion = new Notificacion(); 
-                            System.out.println("????");
-                            String[] mensajes = notificacion.desplegarMensaje((Integer)request.getAttribute("idusuario"));
+                            System.out.println("????"+sesion.getAttribute("idusuario").toString());
+                            String[] mensajes = notificacion.desplegarMensaje(sesion.getAttribute("idusuario").toString());
                             System.out.println(mensajes == null);
                             for(int i = 0; i < mensajes.length; i++) {
                             %>

@@ -52,10 +52,10 @@ public class NotificacionBD {
   }
 
   
- public String[] getNotificaciones(int idUsuario){
-   base.conectar();
+ public String[] getNotificaciones(String idUsuario){
+    base.conectar();
         int numRows = 0;
-        ResultSet cont = base.queryRS("SELECT COUNT(*) numRows FROM notificacion"
+        ResultSet cont = base.queryRS("SELECT COUNT(*) numRows FROM notificacion "
                 + "WHERE idUsuario = " + idUsuario);
         try {
             if(cont.next()){
@@ -68,7 +68,7 @@ public class NotificacionBD {
             System.err.println("notificacionDB");
         }
         System.out.println(numRows);
-        ResultSet rs = base.queryRS("SELECT * FROM notificacion"
+        ResultSet rs = base.queryRS("SELECT mensaje FROM notificacion "
                 + "WHERE idusuario = "+ idUsuario);
         String[] res = new String[numRows];
         int actual = 0;
