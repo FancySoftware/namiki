@@ -199,7 +199,23 @@ public Aporte(){
       }
       return res;
   }
-    
+  
+  public static String mostrarAportesProblematico(String idProblematico) {
+      AporteBD aporte = new AporteBD();
+      String[][] aportes = aporte.tablaProblematico(idProblematico);
+      String res = "";
+      if(aportes.length == 0) {
+          res += "<td>El sistema no tienen ningún aporte</td>";
+      }
+      for (int i = 0; i < aportes.length; i++) {
+          res += Integer.parseInt(aportes[i][7]) == 1 ? "<tr class=\"active\">" : "<tr>";
+            for (int j = 0; j < 7; j++) {
+                res += "<td>" + aportes[i][j] + "</td>";
+            }
+          res += "</tr>";
+      }
+      return res;
+  }
     
 /**
  * Metodo auxiliar para obtener un tipo de la clase sql.Date y pasarlo a la base.
