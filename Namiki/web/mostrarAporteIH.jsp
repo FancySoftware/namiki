@@ -42,8 +42,19 @@
                         </div>
                         <div class="panel-body">
                             <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Título</th>
+                                        <th>Tópico</th>
+                                        <th>Fecha del problema</th>
+                                        <th>Solución</th>
+                                        <th>Costo</th>
+                                        <th>Fecha del aporte</th>
+                                        <th>Contacto</th>
+                                    </tr>
+                                </thead>
                                 <tbody>
-                                <%= Aporte.mostrarAportes() %>
+                                    <%= Aporte.mostrarAportesProblematico((String)sesion.getAttribute("idusuario")) %>
                                 </tbody>
                             </table>
                        

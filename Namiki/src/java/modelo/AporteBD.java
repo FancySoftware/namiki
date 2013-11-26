@@ -164,6 +164,42 @@ public class AporteBD {
         } catch (SQLException e) {}
         return res;
     }
+   
+   public String[][] tablaProblematico(String idUsuario) {
+        base.conectar();
+        int numRows = 0;
+            ResultSet cont = base.queryRS("SELECT COUNT(*) numRows FROM aporte a, problema p "
+                + "WHERE a.idproblema = p.idproblema AND p.idusuario = '" + idUsuario + "'" );
+        try {
+            if(cont.next()){
+                numRows = cont.getInt("numRows");
+            } else {
+                System.out.println("Error al contar los registros");
+                numRows = 0;
+            }
+        } catch (SQLException e) {}
+        System.out.println(numRows);
+        ResultSet rs = base.queryRS("SELECT * FROM aporte a, problema p "
+                + "WHERE a.idproblema = p.idproblema AND p.idusuario = '" + idUsuario + "'");
+        
+        String[][] res = new String[numRows][8];
+        int actual = 0;
+        try {
+            while(rs.next()){
+                res[actual][0] = rs.getString("titulo");
+                res[actual][1] = rs.getString("topico");
+                res[actual][2] = rs.getString("fecha");
+                res[actual][3] = rs.getString("solucion");
+                res[actual][4] = rs.getString("costo");
+                res[actual][5] = rs.getString("p.fecha");
+                res[actual][6] = rs.getString("contacto");
+                res[actual][7] = rs.getString("elegido");
+                actual++;
+            }
+        } catch (SQLException e) {}
+        return res;
+    }
+   
    public void setSolucion(String idProblema, String idAporte) {
        base.conectar();
        base.query("UPDATE aporte SET elegido = 0 WHERE idproblema = '"+idProblema+"'");
