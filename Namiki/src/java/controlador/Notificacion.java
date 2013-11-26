@@ -78,8 +78,9 @@ public Notificacion() {
     public static String getDatos(String idAporte) throws SQLException{
         int idaporte = Integer.parseInt(idAporte);
         BaseDatos base = new BaseDatos();
-        String consulta = "SELECT * FROM usuario u, aporte a, WHERE u.idusuario = a.idusuario AND idaporte = " + idaporte;
+        String consulta = "SELECT * FROM usuario u, aporte a WHERE u.idusuario = a.idusuario AND idaporte = " + idaporte;
         ResultSet res = base.queryRS(consulta);
+        res.next();
         String rs = res.getString("correo");
         return rs;
     }
