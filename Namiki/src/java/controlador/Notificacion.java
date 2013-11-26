@@ -83,7 +83,7 @@ public Notificacion() {
         String consulta = "SELECT * FROM usuario u, aporte a WHERE u.idusuario = a.idusuario AND idaporte = " + idaporte;
         ResultSet res = base.queryRS(consulta);
         res.next();
-        String rs = res.getString("correo");
+        String rs = res.getString("contacto");
         return rs;
     }
             
