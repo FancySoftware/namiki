@@ -179,6 +179,9 @@ public Aporte(){
       AporteBD aporte = new AporteBD();
       String[][] aportes = aporte.tablaUsr(idUsuario);
       String res = "";
+      if(aportes.length == 0) {
+          res += "<td>El sistema no tienen ningún aporte</td>";
+      }
       for (int i = 0; i < aportes.length; i++) {
           res += "<tr>";
             for (int j = 2; j < 8; j++) {
