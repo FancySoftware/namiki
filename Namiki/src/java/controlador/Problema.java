@@ -239,6 +239,9 @@ public Problema(){
                         "</button>\n" +
                         "<ul class=\"dropdown-menu\" role=\"menu\" aria-labelledby=\"dropdownMenu\">\n" +
                             "<li>\n" +
+                                "<a tabindex=\"-1\" href=\"mostrarProblemaIH.jsp?idproblema=" + problemas[i][0] + "\">Ver Aportes</a>\n" +
+                            "</li>\n" +
+                            "<li>\n" +
                                 "<a tabindex=\"-1\" href=\"FormularioAporteProblemaIH.jsp?idproblema=" + problemas[i][0] + "\">Editar</a>\n" +
                             "</li>\n" +
                             "<li>\n" +
