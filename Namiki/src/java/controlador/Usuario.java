@@ -64,7 +64,7 @@ public class Usuario extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        PrintWriter out = response.getWriter();
+//        PrintWriter out = response.getWriter();
         try {
             String answer = "";
             int caso = Integer.parseInt(request.getParameter("form_sumbitted"));
@@ -79,7 +79,7 @@ public class Usuario extends HttpServlet {
                     String password_registro = request.getParameter("password");
                     String correo = request.getParameter("correo");
                     String telefono = request.getParameter("telefono");
-                    int categoria = Integer.parseInt(request.getParameter("categoria"));
+                    int categoria = (request.getParameter("categoria").equalsIgnoreCase("") || request.getParameter("categoria") == null) ? -1 : Integer.parseInt(request.getParameter("categoria"));
                     if(usuario_registro != null && nombre != null && password_registro != null
                             && correo != null && telefono != null && categoria > -1 && categoria < 6) {
                         java.sql.Date fecha = new java.sql.Date(new java.util.Date().getTime());
@@ -90,9 +90,28 @@ public class Usuario extends HttpServlet {
                         sesion.setAttribute("username", usuario_registro);
                         sesion.setAttribute("idusuario", datos[0]);
                         sesion.setAttribute("type", new Integer(categoria));
-                        answer = "Success";
+                        response.sendRedirect("perfil.jsp");
                     } else {
-                        answer = "Failure";
+                        if(usuario_registro == null || usuario_registro.length() < 6) {
+                            answer += "Usuario inválido, almenos 6 caracteres<br />";
+                        }
+                        if(nombre == null || nombre.length() < 6) {
+                            answer += "Nombre inválido, almenos 6 caracteres<br />";
+                        }
+                        if(password_registro == null || password_registro.length() < 4) {
+                            answer += "Password inválido, almenos 4 caracteres<br />";
+                        }
+                        if(correo == null || correo.length() < 7 || correo.indexOf("@") == -1) {
+                            answer += "Correo inválido<br />";
+                        }
+                        if(telefono == null || telefono.length() < 8) {
+                            answer += "Telefono inválido, almenos 8 números<br />";
+                        }
+                        if(categoria < 0 || categoria > 6) {
+                            answer += "Categoría inválida, Seleccione una opción<br />";
+                        }
+                        request.setAttribute("errorMessage", answer);
+                        request.getRequestDispatcher("/registrar.jsp").forward(request, response);
                     }
                     break;
                 case 2:
@@ -109,7 +128,7 @@ public class Usuario extends HttpServlet {
                             if(!password.equalsIgnoreCase(datos[2])) {
                                 answer = "Contraseña invalida";
                             } else {
-                                answer = "usuario= " + usuario + ";password= "+password+";categoria= "+datos[3];
+//                                answer = "usuario= " + usuario + ";password= "+password+";categoria= "+datos[3];
                                 System.err.println(answer);
                                 HttpSession sesion = request.getSession();
                                 sesion.setAttribute("usuario", usuario);
@@ -118,26 +137,18 @@ public class Usuario extends HttpServlet {
 //                                RequestDispatcher rd = request.getRequestDispatcher("perfil.jsp");
 //                                rd.forward(request, response);
                                 response.sendRedirect("perfil.jsp");
+                                return;
                             }
                         }
                     }
+                    request.setAttribute("errorMessage", answer);
+                    request.getRequestDispatcher("/index.jsp").forward(request, response);
                     break;
                 default:
                     break;
             }
-
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet NewServlet</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Response at " + request.getContextPath() + "</h1>");
-            out.println("<p>"+answer+"</p>");
-            out.println("</body>");
-            out.println("</html>");
         } finally {            
-            out.close();
+            
         }
     }
 

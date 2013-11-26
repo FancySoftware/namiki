@@ -12,3 +12,6 @@
 .topicos-wrapper .label-default:first-child {
     margin-left: 0px !important;
 }
+.form-group.alert.alert-danger {
+    padding: 6px !important;
+}

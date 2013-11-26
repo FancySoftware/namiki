@@ -17,11 +17,11 @@
     <%
     if(sesion.getAttribute("usuario") == null) {
     %>
-        <%@ include file="./inc/navbar-login.inc.html"%>
+        <%@ include file="./inc/navbar-login.inc.jsp"%>
     <%
     } else {
     %>
-        <%@ include file="./inc/navbar.inc.html"%>
+        <%@ include file="./inc/navbar.inc.jsp"%>
     <%
     }
     %>

@@ -29,6 +29,15 @@
     <div class="container">
         <form class="form-horizontal" style="max-width: 500px; margin: 0px auto;" action="Usuario" method="POST">
             <h2 class="form-heading">Registrate!</h2>
+            <%
+            if(request.getAttribute("errorMessage") != null) {
+            %>
+            <div class="form-group control-group alert alert-danger"> 
+                ${errorMessage}
+            </div>
+            <%
+            }
+            %>
             <input type="hidden" name="form_sumbitted" value="1">
             <div class="form-group control-group">
                 <label for="usuario_registro" class="col-lg-3 control-label">Usuario</label>
