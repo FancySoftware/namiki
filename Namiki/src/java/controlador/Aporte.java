@@ -191,7 +191,7 @@ public Aporte(){
             res+="<a data-toggle=\"dropdown\" href=\"#\" class=\"btn btn-primary\">Acciones <span class=\"caret\"></span></a>";
             res+="<ul class=\"dropdown-menu\" role=\"menu\" aria-labelledby=\"dLabel\">";
             res+="<li><a href=\"FormularioAporteProblemaIH.jsp?idaporte=" 
-                    + aportes[i][0] + "\">Editar</a></li>"; 
+                    + aportes[i][0] + "&idproblema="+ aportes[i][1] +"\">Editar</a></li>"; 
             res+="<li><a href=\"mostrarAporteIH.jsp?borrar=" 
                     + aportes[i][0] + "\">Borrar</a></li>";
             res+="</ul></div></td>";

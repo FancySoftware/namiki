@@ -48,7 +48,7 @@
         } else if(request.getParameter("nuevo") != null && Integer.parseInt(request.getParameter("nuevo")) == 2) {
             tipo_pagina = 2; // Nuevo aporte
             value_form = 1;
-        } else if(request.getParameter("idproblema") != null) {
+        } else if(request.getParameter("idproblema") != null && request.getParameter("idaporte") == null) {
             tipo_pagina = 3; // Editar problema
             value_form = 2;
             if(!Problema.getDatos(Integer.parseInt(request.getParameter("idproblema")))) {
@@ -59,7 +59,7 @@
                 descripcion = Problema.getDescripcion();
                 
             }
-        } else if(request.getParameter("idaporte") != null) {
+        } else if(request.getParameter("idaporte") != null && request.getParameter("idproblema") != null) {
             tipo_pagina = 4; // Editar aporte
             value_form = 2;
             if(!Aporte.getDatos(Integer.parseInt(request.getParameter("idaporte")))){
