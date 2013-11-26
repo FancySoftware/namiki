@@ -31,13 +31,14 @@ public class NotificacionBD {
       this.mensaje = mensaje;
       this.base = new BaseDatos();
   }
-  public void guardar(int idNotificacion,int idUsuario,int leido,String mensaje) {
+  public void guardar(int idUsuario,String mensaje) {
       try{
          base.conectar();
-         String notificacion= "INSERT INTO notificacion (idnotificacion,idusuario,mensaje)VALUES('"+idNotificacion+"','"
-                 +idUsuario+"','"+leido+"','"+ mensaje+"')";
+         String notificacion= "INSERT INTO notificacion (idusuario,mensaje)VALUES('"
+                 +idUsuario+"','"+ mensaje+"')";
          base.query(notificacion);
       }catch(Exception e){
+          System.err.println("Insert notificacion FAIL!!!!");
       }
   }
 

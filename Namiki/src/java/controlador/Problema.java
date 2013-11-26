@@ -301,10 +301,10 @@ public Problema(){
             String topico = request.getParameter("topico");
             int categoria = (request.getParameter("categoria").equalsIgnoreCase("")) ? -1 : Integer.parseInt(request.getParameter("categoria"));
             String descripcion = request.getParameter("descripcion");
-            if(titulo.length() !=0 && topico.length() !=0 && descripcion.length() !=0 && categoria>-1 && categoria < 6) {
+            if(titulo.length() != 0 && topico.length() !=0 && descripcion.length() > 10 && categoria>-1 && categoria < 6) {
                 if(caso == 1) {
                     System.out.println("Guardando problema");
-                    registrarProblema(categoria,idUsuario,descripcion,titulo, obtenerFecha(),topico);
+                    registrarProblema(categoria,Integer.parseInt(request.getParameter("idusuario")),descripcion,titulo, obtenerFecha(),topico);
                     successMessage = "Problema agregado!";
                     request.setAttribute("successMessage", successMessage);
                     request.getRequestDispatcher("/perfil.jsp").forward(request, response);
@@ -312,7 +312,7 @@ public Problema(){
                 } else if(caso == 2) {
 
                     System.out.println("Editando problema");
-                    editarProblema(idProblema,categoria,idUsuario,descripcion,titulo,obtenerFecha(),topico);
+                    editarProblema(Integer.parseInt(request.getParameter("idProblema")),categoria,Integer.parseInt(request.getParameter("idusuario")),descripcion,titulo,obtenerFecha(),topico);
                     successMessage = "Problema editado!";
                     request.setAttribute("successMessage", successMessage);
                     request.getRequestDispatcher("/perfil.jsp").forward(request, response);
@@ -322,7 +322,7 @@ public Problema(){
                 if(titulo.length() == 0) {
                     errorMessage += "Título inválido<br />";
                 }
-                if(descripcion.length() == 0) {
+                if(descripcion.length() <= 10) {
                     errorMessage += "Descripción inválida<br />";
                 }
                 if(categoria < 1 || categoria > 5) {
@@ -334,7 +334,7 @@ public Problema(){
                     return;
                 } else if(caso == 2) {
                     request.setAttribute("errorMessage", errorMessage);
-                    request.getRequestDispatcher("/FormularioAporteProblemaIH.jsp?idproblema="+idProblema).forward(request, response);
+                    request.getRequestDispatcher("/FormularioAporteProblemaIH.jsp?idproblema="+Integer.parseInt(request.getParameter("idProblema"))).forward(request, response);
                     return;
                 }
             }                          

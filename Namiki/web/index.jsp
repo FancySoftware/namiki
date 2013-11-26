@@ -41,18 +41,18 @@
       <div class="row">
         <div class="col-lg-4">
           <h2>Problemático</h2>
-          <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-          <p><a class="btn btn-default" href="#">View details &raquo;</a></p>
+          <p>Empresa o persona que tiene un problema o proyecto y busca a quién tenga la mejor solución a través de un sistema web </p>
+         <!-- <p><a class="btn btn-default" href="#">View details &raquo;</a></p> -->
         </div>
         <div class="col-lg-4">
           <h2>Creativo</h2>
-          <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-          <p><a class="btn btn-default" href="#">View details &raquo;</a></p>
+          <p>Personal de la facultad de ciencias, esto es: académicos, alumnos o ex-alumnos los cuales revisan los problemas y proponen una solución. </p>
+         <!--  <p><a class="btn btn-default" href="#">View details &raquo;</a></p> -->
        </div>
         <div class="col-lg-4">
           <h2>Soluciones</h2>
-          <p>Donec sed odio dui. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Vestibulum id ligula porta felis euismod semper. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
-          <p><a class="btn btn-default" href="#">View details &raquo;</a></p>
+          <p>Aporte elegido por el problemático.</p>
+         <!-- <p><a class="btn btn-default" href="#">View details &raquo;</a></p> -->
         </div>
       </div>
 

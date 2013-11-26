@@ -279,7 +279,7 @@ public Aporte(){
             String solucion = (request.getParameter("solucion") == null) ? "" : request.getParameter("solucion");
             String costo = (request.getParameter("costo") == null) ? "" : request.getParameter("costo");
             String contacto= (request.getParameter("contacto") == null) ? "" : request.getParameter("contacto");
-            if(solucion.length() != 0 && costo.length() !=0 && contacto.length() !=0 && idProblema != -1){ //todo bien
+            if(solucion.length() > 10 && costo.length() !=0 && contacto.length() !=0 && idProblema != -1){ //todo bien
                 if(caso == 1) {//agregar aporte
                     System.out.println("Agregando porte");      
                     registrarAporte(getidUsuario(),idProblema,solucion,costo, obtenerFecha(),contacto);
@@ -289,7 +289,7 @@ public Aporte(){
                     return;
                 } else if(caso == 2) {//editar aporte
                     System.out.println("Editando aporte");                    
-                    editarAporte(idAporte,solucion,costo,contacto);
+                    editarAporte(Integer.parseInt(request.getParameter("idAporte")),solucion,costo,contacto);
                     successMessage = "Aporte aditado!";
                     request.setAttribute("successMessage", successMessage);
                     request.getRequestDispatcher("/perfil.jsp").forward(request, response);
@@ -297,7 +297,7 @@ public Aporte(){
                 }
 
             } else { //catch errores
-                if(solucion.length() == 0) {
+                if(solucion.length() <=  10) {
                     errorMessage += "Solucion obligatoria<br />";
                 }
                 if(costo.length() == 0){
@@ -312,7 +312,7 @@ public Aporte(){
                     return;
                 } else if(caso == 2) {//error editando aporte
                     request.setAttribute("errorMessage", errorMessage);
-                    request.getRequestDispatcher("/FormularioAporteProblemaIH.jsp?idaporte="+idAporte+"&idproblema"+idProblema).forward(request, response);
+                    request.getRequestDispatcher("/FormularioAporteProblemaIH.jsp?idaporte="+Integer.parseInt(request.getParameter("idAporte"))+"&idproblema"+idProblema).forward(request, response);
                     return;
                 }
 

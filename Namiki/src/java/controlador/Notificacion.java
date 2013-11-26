@@ -77,13 +77,19 @@ public Notificacion() {
     return res;
   }
 
-    public static String getDatos(String idAporte) throws SQLException{
+    public void guardar(int idusuario, String mensaje) {
+        NotificacionBD notif = new NotificacionBD();
+        notif.guardar(idusuario, mensaje);
+    }
+    public static String[] getDatos(String idAporte) throws SQLException{
         int idaporte = Integer.parseInt(idAporte);
         BaseDatos base = new BaseDatos();
         String consulta = "SELECT * FROM usuario u, aporte a WHERE u.idusuario = a.idusuario AND idaporte = " + idaporte;
         ResultSet res = base.queryRS(consulta);
         res.next();
-        String rs = res.getString("correo");
+        String[] rs = new String[2];
+        rs[0]=res.getString("correo");
+        rs[1]=res.getString("idusuario");
         return rs;
     }
             

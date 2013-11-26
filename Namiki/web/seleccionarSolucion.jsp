@@ -18,9 +18,9 @@
     <%
     // ENVIANDO CORREO
     Notificacion notificacion = new Notificacion();
-    String correo = Notificacion.getDatos(request.getParameter("idaporte"));
-    notificacion.setEmail(correo);
+    String[] datos = Notificacion.getDatos(request.getParameter("idaporte"));
+    notificacion.setEmail(datos[0]);
     notificacion.enviarCorreo();
-    
+    notificacion.guardar(Integer.parseInt(datos[1]),"Uno de tus aportes fue elegido");
     response.sendRedirect("mostrarProblemaIH.jsp?idproblema="+request.getParameter("idproblema"));
 %>

@@ -85,12 +85,12 @@
                 <label for="categoria_registro" class="col-lg-3 control-label">Carrera</label>
                 <div class="col-lg-9 controls">
                     <select class="form-control" name="categoria" id="categoria_registro">
-                        <option value="">Selecciona tu carrera</option>
+                        <option value="">Selecciona tu carrera (Ninguna para problematico)</option>
                         <option value="0">Ninguna</option>
                         <option value="1">Actuaría</option>
                         <option value="2">Biología</option>
                         <option value="3">Computación</option>
-                        <option value="4">Fisica</option>
+                        <option value="4">Física</option>
                         <option value="5">Matemáticas</option>
                     </select>
                 </div>
