@@ -27,7 +27,7 @@
         <div class="container">
             <ul class="breadcrumb">
                 <li><a href="index.jsp">Inicio</a></li>
-                <li class="active">Problemas</li>
+                <li class="active">Notificaciones</li>
             </ul>
              <div class="col-lg-12">
                     <div class="panel panel-default">
@@ -35,7 +35,19 @@
                             <h1>Problemas</h1>
                         </div>
                         <div class="panel-body">
-                            
+                            <% 
+                            Notificacion notificacion = new Notificacion(); 
+                            System.out.println("????");
+                            String[] mensajes = notificacion.desplegarMensaje((Integer)request.getAttribute("idusuario"));
+                            System.out.println(mensajes == null);
+                            for(int i = 0; i < mensajes.length; i++) {
+                            %>
+                            <div class="jumbotron">
+                                <p><%= mensajes[i] %></p>
+                            </div>
+                            <%
+                            }
+                            %>
                         </div>
                     </div>
              </div>
