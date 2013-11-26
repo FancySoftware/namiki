@@ -157,7 +157,7 @@ public Aporte(){
   public static void borrarAporte(int idAporte) {
         
       AporteBD aporte = new AporteBD();
-      aporte.getDatos(idAporte);
+//      aporte.getDatos(idAporte);
       aporte.eliminar(idAporte);
   }
   
@@ -271,58 +271,53 @@ public Aporte(){
             throws ServletException, IOException {
        
         response.setContentType("text/html;charset=UTF-8");
-        PrintWriter out = response.getWriter();
+        String errorMessage = "";
+        String successMessage = "";
         try {
             int caso = Integer.parseInt(request.getParameter("form_sumbitted"));
-            switch(caso){
-                    case 1:
-            int idProblema = Integer.parseInt(request.getParameter("idProblema"));
-            String solucion = request.getParameter("solucion");
-            String costo = request.getParameter("costo");
-            String contacto= request.getParameter("contacto");
-            if(solucion.length() ==0 && costo.length() ==0 && contacto.length() ==0){
-            out.println("ERROR EN LOS DATOS");
-            } else if(solucion.length() == 0) {
-                out.println("ERROR titulo obligatorio");
-            } else if(costo.length() == 0){
-                out.println("ERROR Descripcion Vacia");
-            } else if(contacto.length() == 0){
-                out.println("Seleciona una categoria");
-            } else {
-                out.println("\n Guardando aportes");
-            
-                registrarAporte(getidUsuario(),idProblema,solucion,costo, obtenerFecha(),contacto);
-                response.sendRedirect("perfil.jsp");
-            }   
-            break;
-                 case 2: //editar
-                    int idProblema_nvo = Integer.parseInt(request.getParameter("idProblema"));          
-                   System.out.println("Caso de editar");
-                   System.out.println("idproblema" + idProblema_nvo);
-                   String solucion_nvo= request.getParameter("solucion");
-                   String costo_nvo = request.getParameter("costo");
-                   String contacto_nvo = request.getParameter("contacto");
-                   
-    
-                   if(solucion_nvo.length() == 0 && costo_nvo.length() ==0 && contacto_nvo.length() ==0){
-                       out.println("ERROR EN LOS DATOS");
-                   } else if(solucion_nvo.length() == 0) {
-                       out.println("ERROR solucion obligatorio");
-                   } else if(costo_nvo.length() == 0){
-                       out.println("ERROR costo Vacia");
-                   } else if(contacto_nvo.length() == 0){
-                       out.println("ERROR CONTACTO INVALIDO");
-                   } else {
-                       System.out.println("\n Editando problema");                    
-                       editarAporte(idAporte,solucion_nvo,costo_nvo,contacto_nvo);
-                       System.out.println("SE LOGRO EDITAR");
-                       response.sendRedirect("perfil.jsp");
-                   }
-                     
-                 break;
-            } 
+            int idProblema = (request.getParameter("idProblema") == null) ? -1 : Integer.parseInt(request.getParameter("idProblema"));
+            String solucion = (request.getParameter("solucion") == null) ? "" : request.getParameter("solucion");
+            String costo = (request.getParameter("costo") == null) ? "" : request.getParameter("costo");
+            String contacto= (request.getParameter("contacto") == null) ? "" : request.getParameter("contacto");
+            if(solucion.length() != 0 && costo.length() !=0 && contacto.length() !=0 && idProblema != -1){ //todo bien
+                if(caso == 1) {//agregar aporte
+                    System.out.println("Agregando porte");      
+                    registrarAporte(getidUsuario(),idProblema,solucion,costo, obtenerFecha(),contacto);
+                    successMessage = "Aporte agregado!";
+                    request.setAttribute("successMessage", successMessage);
+                    request.getRequestDispatcher("/mostrarProblemaIH.jsp").forward(request, response);
+                    return;
+                } else if(caso == 2) {//editar aporte
+                    System.out.println("Editando aporte");                    
+                    editarAporte(idAporte,solucion,costo,contacto);
+                    successMessage = "Aporte aditado!";
+                    request.setAttribute("successMessage", successMessage);
+                    request.getRequestDispatcher("/perfil.jsp").forward(request, response);
+                    return;
+                }
+
+            } else { //catch errores
+                if(solucion.length() == 0) {
+                    errorMessage += "Solucion obligatoria<br />";
+                }
+                if(costo.length() == 0){
+                    errorMessage += "Costo obligatorio(monetario)<br />";
+                }
+                if(contacto.length() == 0){
+                    errorMessage += "Forma de contacto obligatoria (Teléfono / Correo)<br />";
+                }
+                if(caso == 1) {//error agregando aporte
+                    request.setAttribute("errorMessage", errorMessage);
+                    request.getRequestDispatcher("/FormularioAporteProblemaIH.jsp?nuevo=2&idproblema="+idProblema).forward(request, response);
+                    return;
+                } else if(caso == 2) {//error editando aporte
+                    request.setAttribute("errorMessage", errorMessage);
+                    request.getRequestDispatcher("/FormularioAporteProblemaIH.jsp?idaporte="+idAporte+"&idproblema"+idProblema).forward(request, response);
+                    return;
+                }
+
+            }    
         } finally {            
-            out.close();
         }
     }
 

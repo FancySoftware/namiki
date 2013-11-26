@@ -197,7 +197,7 @@ public Problema(){
       res += datos[0][4];
       res += datos[0][5];
       res += datos[0][6];
-      System.out.println("Obteniendo datos");
+      System.out.println("Obteniendo datos: "+res);
       return true;
   }
   
@@ -292,63 +292,53 @@ public Problema(){
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        PrintWriter out = response.getWriter();
+        String successMessage = "";
+        String errorMessage = "";
         try {
             int  caso= Integer.parseInt(request.getParameter("form_sumbitted"));
-            out.println("Caso " +caso );
-            
-            switch(caso){
-                    case 1:
-                        //REGISTRANDO PROBLEMA
                 
-                String titulo = request.getParameter("titulo");
-                String topico = request.getParameter("topico");
-                int categoria = Integer.parseInt(request.getParameter("categoria"));
-                String descripcion = request.getParameter("descripcion");
-                if(titulo.length() ==0 && topico.length() ==0 && descripcion.length() ==0 && categoria==0){
-                out.println("ERROR EN LOS DATOS");
-                } else if(titulo.length() == 0) {
-                    out.println("ERROR titulo obligatorio");
-                } else if(descripcion.length() == 0){
-                    out.println("ERROR Descripcion Vacia");
-                } else if(categoria == 0){
-                    out.println("Seleciona una categoria");
-                } else {
-                    out.println("\n Guardando problemas");
-                    out.println("Datos " + titulo +" "+ topico + " "+ categoria +" "+ descripcion);
-                //Prueba con id de usuario y categoria inventada.
+            String titulo = request.getParameter("titulo");
+            String topico = request.getParameter("topico");
+            int categoria = (request.getParameter("categoria").equalsIgnoreCase("")) ? -1 : Integer.parseInt(request.getParameter("categoria"));
+            String descripcion = request.getParameter("descripcion");
+            if(titulo.length() !=0 && topico.length() !=0 && descripcion.length() !=0 && categoria>-1 && categoria < 6) {
+                if(caso == 1) {
+                    System.out.println("Guardando problema");
                     registrarProblema(categoria,idUsuario,descripcion,titulo, obtenerFecha(),topico);
-                    response.sendRedirect("perfil.jsp");
-                }            
-                break;
-                    case 2:
-                   //EDITAR PROBLEMA
-                  
-                   String idprob =request.getParameter("idProblema");
-                   out.println(idprob);
-                   out.println("Caso de editar");
-                   String titulo_nvo = request.getParameter("titulo");
-                   String topico_nvo = request.getParameter("topico");
-                   int categoria_nvo = Integer.parseInt(request.getParameter("categoria"));
-                   String descripcion_nvo = request.getParameter("descripcion");
-                   if(titulo_nvo.length() == 0 && topico_nvo.length() ==0 && descripcion_nvo.length() ==0 && categoria_nvo==0){
-                       out.println("ERROR EN LOS DATOS");
-                   } else if(titulo_nvo.length() == 0) {
-                       out.println("ERROR titulo obligatorio");
-                   } else if(descripcion_nvo.length() == 0){
-                       out.println("ERROR Descripcion Vacia");
-                   } else if(categoria_nvo == 0){
-                       out.println("Seleciona una categoria");
-                   } else {
-                       System.out.println("\n Editando problema");                    
-                   editarProblema(idProblema,categoria_nvo,idUsuario,descripcion_nvo,titulo_nvo,obtenerFecha(),topico_nvo);
-                       System.out.println("SE LOGRO EDITAR");
-                       response.sendRedirect("perfil.jsp");
-                   break;
+                    successMessage = "Problema agregado!";
+                    request.setAttribute("successMessage", successMessage);
+                    request.getRequestDispatcher("/perfil.jsp").forward(request, response);
+                    return;
+                } else if(caso == 2) {
+
+                    System.out.println("Editando problema");
+                    editarProblema(idProblema,categoria,idUsuario,descripcion,titulo,obtenerFecha(),topico);
+                    successMessage = "Problema editado!";
+                    request.setAttribute("successMessage", successMessage);
+                    request.getRequestDispatcher("/perfil.jsp").forward(request, response);
+                    return;
                 }
-            }
+            } else {
+                if(titulo.length() == 0) {
+                    errorMessage += "Título inválido<br />";
+                }
+                if(descripcion.length() == 0) {
+                    errorMessage += "Descripción inválida<br />";
+                }
+                if(categoria < 1 || categoria > 5) {
+                    errorMessage += "Categoría inválida<br />";
+                }
+                if(caso == 1) {
+                    request.setAttribute("errorMessage", errorMessage);
+                    request.getRequestDispatcher("/FormularioAporteProblemaIH.jsp?nuevo=1").forward(request, response);
+                    return;
+                } else if(caso == 2) {
+                    request.setAttribute("errorMessage", errorMessage);
+                    request.getRequestDispatcher("/FormularioAporteProblemaIH.jsp?idproblema="+idProblema).forward(request, response);
+                    return;
+                }
+            }                          
         } finally {            
-            out.close();
         }
     }
 

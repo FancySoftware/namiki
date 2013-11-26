@@ -11,7 +11,8 @@
 <%@ page import="controlador.Aporte" %>
  <% if (request.getParameter("borrar") != null) {
       Aporte.borrarAporte(Integer.parseInt(request.getParameter("borrar")));
-      response.sendRedirect("perfil.jsp");
+      request.setAttribute("successMessage", "Aporte borrado!");
+      request.getRequestDispatcher("/perfil.jsp").forward(request, response);
   }
   %>
 <!DOCTYPE html>
