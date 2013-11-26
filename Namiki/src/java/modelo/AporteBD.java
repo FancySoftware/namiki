@@ -43,7 +43,8 @@ public class AporteBD {
            String usuario = "INSERT INTO aporte (idusuario,idproblema,solucion,costo,fecha,contacto) VALUES("
                    +idUsuario+",'"+idProblema+"','"+solucion+"','"+costo+"',NOW(),'"+ contacto+"')";
            base.query(usuario);
-       }catch(Exception error){     
+       }catch(Exception error){    
+           System.err.println("Fallo el Insert aporte");
     }
    }
    public void eliminar(int idAporte){
@@ -52,7 +53,7 @@ public class AporteBD {
            String eliminar = "DELETE FROM aporte where idaporte ="+idAporte;
            base.query(eliminar);
        }catch(Exception error){
-           
+          System.err.println("imposible borrar aporte con id = "+idAporte);
        }
    }
 

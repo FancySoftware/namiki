@@ -38,6 +38,13 @@
             if(sesion.getAttribute("type") == null) {//Es problematico
         %>
             <div class="col-lg-12">
+                <%
+                if(request.getAttribute("successMessage") != null) {
+                %>
+                <div class="alert alert-success">${successMessage}</div>
+                <%
+                }
+                %>
                 <div class="panel panel-default">
                     <div class="panel-heading">
                         <p>Mis Problemas<a href="FormularioAporteProblemaIH.jsp?nuevo=1" class="btn btn-success pull-right">Agregar</a></p>
@@ -66,6 +73,13 @@
             } else { //Creativo
         %>
             <div class="col-lg-12">
+                <%
+                if(request.getAttribute("successMessage") != null) {
+                %>
+                <div class="alert alert-success">${successMessage}</div>
+                <%
+                }
+                %>
                 <div class="panel panel-default">
                     <div class="panel-heading">
                         <p>Mis Aportes</p>

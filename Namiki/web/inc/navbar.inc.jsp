@@ -21,7 +21,7 @@
                                 <%
                                 } else {
                                 %>
-                                    <li id="navbar-mostrar-problema"><a <%= "href=\"mostrarProblemaIH.jsp?cat="+sesion.getAttribute("type")+"\"" %>>Problemas</a></li>
+                                    <li id="navbar-mostrar-problema"><a href="mostrarProblemaIH.jsp">Problemas</a></li>
                                 <%
                                 }
                                 %>

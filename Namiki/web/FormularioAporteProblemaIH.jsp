@@ -24,7 +24,7 @@
         response.sendRedirect("index.jsp");
     } else {
     %>
-        <%@ include file="./inc/navbar.inc.html"%>
+        <%@ include file="./inc/navbar.inc.jsp"%>
     <%
     }
     %>
@@ -70,17 +70,28 @@
                 contacto = Aporte.getContacto();
             }
         }
-        System.err.println(tipo_pagina+" = tipo pagina");
+        System.out.println(tipo_pagina+" = tipo pagina");
     }
     String accion = (tipo_pagina == 1 || tipo_pagina == 3) ? "action=\"Problema\"" : "action=\"Aporte\"";
     %>
     <div class="container">
         <form class="form-horizontal" style="max-width: 500px; margin: 0px auto;" <%= accion %> method="POST">
             <h2 class="form-heading"><%= (tipo_pagina == 1 || tipo_pagina == 2) ? "Nuevo " : "Editar " %><%= (tipo_pagina == 1 || tipo_pagina == 3) ? "Problema" : "Aporte" %></h2>
-            <input type="hidden" name="idusuario" value="<%= sesion.getAttribute("id_usuario") %>">
-            <%System.out.println("EL ID ES " + Integer.parseInt((String)sesion.getAttribute("idusuario")));
-            Problema.setidUsuario(Integer.parseInt((String)sesion.getAttribute("idusuario")));
-            Aporte.setidUsuario(Integer.parseInt((String)sesion.getAttribute("idusuario")));
+            <%
+            if(request.getAttribute("errorMessage") != null) {
+            %>
+            <div class="form-group control-group alert alert-danger">
+                ${errorMessage}
+            </div>
+            <%
+            }
+            %>
+            
+            <input type="hidden" name="idusuario" value="<%= sesion.getAttribute("idusuario") %>">
+            <%
+            System.out.println(sesion.getAttribute("idusuario")==null);
+
+            Aporte.setidUsuario(Integer.parseInt(sesion.getAttribute("idusuario").toString()));
             System.out.println("EL ID ES " + Aporte.idUsuario);
             %>
             <input type="hidden" name="idProblema" value="<%= request.getParameter("idproblema") == null ? "" : request.getParameter("idproblema") %>">

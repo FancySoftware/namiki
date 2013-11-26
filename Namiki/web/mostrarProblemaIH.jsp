@@ -12,7 +12,8 @@
 
   <% if (request.getParameter("borrar") != null) {
       Problema.borrarProblema(Integer.parseInt(request.getParameter("borrar")));
-      response.sendRedirect("perfil.jsp");
+      request.setAttribute("successMessage", "Problema borrado!");
+      request.getRequestDispatcher("/perfil.jsp").forward(request, response);
   }
   %>
 <!DOCTYPE html>
@@ -44,10 +45,15 @@
                         <div class="panel-body">
                         <%
                         if(request.getParameter("idproblema") == null) { 
+                            if(request.getAttribute("successMessage") != null) {
                         %>
-                        <%= Problema.mostrarProblemas(request.getParameter("cat")) %>
+                            <div class="alert alert-success">${successMessage}</div>
                         <%
+                            } else {
+                                System.err.println("request.getA(succesmessage) == null:-");
+                            }
                         %>
+                        <%= Problema.mostrarProblemas(session.getAttribute("type").toString()) %>
                         <%
                         } else {
                             Problema.getDatos(Integer.parseInt(request.getParameter("idproblema")));
@@ -57,9 +63,15 @@
                             <span class="label label-default"><%= Problema.getTopico() %></span>
                             <span class="label label-info"><%= Problema.getidCategoria() %></span>
                             <p><%= Problema.getDescripcion() %></p>
+                            <%
+                            if(session.getAttribute("type")!=null) {
+                            %>
                             <p>
                             <a class="btn btn-primary" href="FormularioAporteProblemaIH.jsp?nuevo=2&idproblema=<%= Problema.getidProblema() %>">Relizar un aporte &raquo;</a>
                             </p>
+                            <%
+                            }
+                            %>
                             </div>
                             <div class="jumbotron">
                             <h3>Aportes</h3>
