@@ -52,10 +52,11 @@ public class NotificacionBD {
   }
 
   
- public String[][] tablaNotificaciones(int idUsuario){
+ public String[] getNotificaciones(int idUsuario){
    base.conectar();
         int numRows = 0;
-        ResultSet cont = base.queryRS("SELECT COUNT(*) numRows FROM notificacion");
+        ResultSet cont = base.queryRS("SELECT COUNT(*) numRows FROM notificacion"
+                + "WHERE idUsuario = " + idUsuario);
         try {
             if(cont.next()){
                 numRows = cont.getInt("numRows");
@@ -63,33 +64,22 @@ public class NotificacionBD {
                 System.out.println("Error al contar los registros");
                 numRows = 0;
             }
-        } catch (SQLException e) {}
+        } catch (SQLException e) {
+            System.err.println("notificacionDB");
+        }
         System.out.println(numRows);
         ResultSet rs = base.queryRS("SELECT * FROM notificacion"
                 + "WHERE idusuario = "+ idUsuario);
-        String[][] res = new String[numRows][3];
+        String[] res = new String[numRows];
         int actual = 0;
         try {
             while(rs.next()){
-                res[actual][0] = rs.getString("idnotificacion");
-                res[actual][1] = rs.getString("idusuario");
-                res[actual][2] = rs.getString("mensaje");
+                res[actual] = rs.getString("mensaje");
                 actual++;
             }
-        } catch (SQLException e) {}
+        } catch (SQLException e) {
+            System.err.println("mensajesDB");
+        }
         return res;
 }
-
-  public String getNotificaciones(int idUsurio) {
-       try{
-           base.conectar();
-           String query = "SELECT mensaje FROM notificacacion where idUsuario =" + idUsuario;
-           ResultSet consulta = base.queryRS(query); 
-           while(consulta.next()) {
-               
-           }
-       }catch(SQLException e){
-       } 
-       return "";
-  }
 }

@@ -70,9 +70,11 @@ public Notificacion() {
     public void setEmail(String email){
         this.email = email;
     }
-    public void desplegarMensaje(int idUusario) {
+    public String[] desplegarMensaje(int idUusario) {
+        System.out.println("usuario:"+idUsuario);
     NotificacionBD notif = new NotificacionBD();
-    notif.getNotificaciones(idUsuario);
+    String[] res = notif.getNotificaciones(idUsuario);
+    return res;
   }
 
     public static String getDatos(String idAporte) throws SQLException{
